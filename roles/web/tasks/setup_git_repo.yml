@@ -1,0 +1,6 @@
+---
+
+- name: Setup the Git repo
+  git: repo={{ git_repo }} dest={{ project_path }} accept_hostkey=yes
+  when: setup_git_repo
+  tags: git

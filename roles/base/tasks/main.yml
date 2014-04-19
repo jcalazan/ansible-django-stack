@@ -1,0 +1,31 @@
+---
+
+- name: Ensure OpenSSl and libssl are the latest versions
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
+  with_items:
+    - openssl
+    - libssl-dev
+    - libssl-doc
+  tags: packages
+
+
+- name: Install base packages
+  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  with_items:
+    - build-essential
+    - git
+    - python-dev
+    - python-pip
+    - python-pycurl
+    - supervisor
+  tags: packages
+
+
+- name: Install newrelic
+  pip: name=newrelic
+  tags: packages
+
+
+- name: Install virtualenv
+  pip: name=virtualenv
+  tags: packages

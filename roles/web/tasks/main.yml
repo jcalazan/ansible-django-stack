@@ -1,0 +1,15 @@
+---
+
+- include: create_users_and_groups.yml
+
+- include: setup_virtualenv.yml
+
+- include: setup_git_repo.yml
+
+- include: setup_supervisor.yml
+
+- include: setup_django_app.yml
+
+- include: set_file_permissions.yml
+
+- include: setup_nginx.yml

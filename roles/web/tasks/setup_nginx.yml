@@ -1,0 +1,37 @@
+---
+
+- name: Install Nginx
+  apt: name=nginx update_cache={{ update_apt_cache }} state=installed
+  tags: packages
+
+- name: Enure that the Nginx service is stopped
+  service: name=nginx state=stopped
+
+- name: Copy the SSL cert and key to the remote server
+  copy: src={{ ssl_src_dir }}/ dest={{ ssl_dest_dir }}
+
+- name: Decrypt the SSL key
+  command: openssl aes-256-cbc -salt -a -d -in {{ ssl_dest_dir }}/nginx.key
+           -out {{ ssl_dest_dir }}/decrypted.key -k {{ ssl_key_password }}
+           creates={{ ssl_dest_dir }}/decrypted.key
+
+- name: Rename the decrypted SSL key
+  command: mv {{ ssl_dest_dir }}/decrypted.key {{ ssl_dest_dir }}/nginx.key
+           removes={{ ssl_dest_dir }}/decrypted.key
+
+- name: Create the Nginx configuration file
+  template: src=nginx_site_config.j2
+            dest=/etc/nginx/sites-available/{{ application_name }}
+            backup=yes
+
+- name: Ensure that the default site is disabled
+  command: rm /etc/nginx/sites-enabled/default
+           removes=/etc/nginx/sites-enabled/default
+
+- name: Ensure that the application site is enabled
+  command: ln -s /etc/nginx/sites-available/{{ application_name }}
+           /etc/nginx/sites-enabled/{{ application_name }}
+           creates=/etc/nginx/sites-enabled/{{ application_name }}
+
+- name: Ensure Nginx service is started
+  service: name=nginx state=started enabled=yes
