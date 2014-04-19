@@ -1,0 +1,20 @@
+---
+
+- name: Create a {{ application_name }} virtual machine via vagrant
+  hosts: all
+  sudo: yes
+  sudo_user: root
+  remote_user: vagrant
+  vars:
+    - setup_git_repo: yes
+    - update_apt_cache: yes
+  vars_files:
+    - env_vars/local
+    - group_vars/all
+    - group_vars/dbservers
+    - group_vars/webservers
+
+  roles:
+    - base
+    - db
+    - web

@@ -1,0 +1,12 @@
+---
+
+- name: Create a base server
+  hosts: all
+  sudo: yes
+  sudo_user: root
+  remote_user: root
+  vars:
+    - update_apt_cache: yes
+
+  roles:
+    - base
