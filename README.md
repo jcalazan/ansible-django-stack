@@ -5,8 +5,5 @@ Ansible Playbook designed for environments running a Django app.  It installs an
 - Nginx
 - Gunicorn
 - PostgreSQL
-- Memcached
-- Celery
-- RabbitMQ
 - Supervisor
 - Virtualenv
