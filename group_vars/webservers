@@ -1,9 +1,8 @@
 ---
 
 # Application settings.
-application_name: glucosetracker
 virtualenv_path: "/webapps/{{ application_name }}"
-project_path: "{{ virtualenv_path }}/glucose-tracker"
+project_path: "{{ virtualenv_path }}/{{ project_name }}"
 application_path: "{{ project_path }}/{{ application_name }}"
 application_log_dir: "{{ virtualenv_path }}/logs"
 application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
