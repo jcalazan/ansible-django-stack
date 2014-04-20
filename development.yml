@@ -1,6 +1,6 @@
 ---
 
-- name: Create a {{ application_name }} virtual machine via vagrant
+- name: Provision a {{ application_name }} server
   hosts: all
   sudo: yes
   sudo_user: root

@@ -9,6 +9,10 @@ Ansible Playbook designed for environments running a Django app.  It installs an
 - Virtualenv
 - Memcached
 
+**Tested with OS:** Ubuntu 12.04.4 LTS x64
+
+**Tested with Cloud Providers:** Amazon, Rackspace, Digital Ocean
+
 ## Getting Started
 A quick way to get started is with Vagrant and VirtualBox.
 
@@ -53,7 +57,7 @@ vagrant halt
 Create a Playbook for that environment and specify the user accounts to use. See **development.yml** for an example.
 
 If you only have 1 server, you can skip the other steps below and simply run the Playbook with this command:
-```ansible-playbook -i 162.243.85.40, -v base.yml --ask-sudo-pass```
+```ansible-playbook -i 175.23.44.109, -v development.yml --ask-sudo-pass```
 
 If you have multiple servers, create an inventory file in the **inventory/** folder for your environment and add your servers' hostnames or IP addresses there.
 
@@ -73,3 +77,9 @@ Run the Playbook:
 ```
 ansible-playbook -i inventory/development -v development.yml --ask-sudo-pass
 ```
+
+## Useful Links
+- [Ansible - Getting Started](http://docs.ansible.com/intro_getting_started.html)
+- [Ansible - Best Practices](http://docs.ansible.com/playbooks_best_practices.html)
+- [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL](http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/)
+- [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL](http://www.calazan.com/how-to-deploy-encrypted-copies-of-your-ssl-keys-and-other-files-with-ansible-and-openssl/)
