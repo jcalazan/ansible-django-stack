@@ -11,32 +11,42 @@ Ansible Playbook designed for environments running a Django app.  It installs an
 ## Getting Started
 A quick way to get started is with Vagrant and VirtualBox.
 
-**Requirements**
-- Ansible
-- Vagrant
-- VirtualBox
+### Requirements
+- [Ansible](http://docs.ansible.com/intro_installation.html)
+- [Vagrant](http://www.vagrantup.com/downloads.html)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-The main settings to change here is in the **env_vars/base** file, where you can configure the location of your Git project, the project name, and application name which will be use throughout the Ansible configuration.
+The main settings to change here is in the **env_vars/base** file, where you can configure the location of your Git project, the project name, and application name which will be used throughout the Ansible configuration.
 
-I set some default values here for my open-source app, GlucoseTracker, so all you really have to do is type in this one command in the project root:
-```vagrant up```
+I set some default values here using my open-source app, [GlucoseTracker](https://github.com/jcalazan/glucose-tracker), so all you really have to do is type in this one command in the project root:
+```
+vagrant up
+```
 
 Wait a few minutes for the magic to happen.  Access the app by going to this URL: http://192.168.33.15
 
-Yup, that's all you had to do.  You just provisioned an entire server with one command.
+Yup, exactly, you just provisioned a completely new server and deployed an entire Django stack in 5 minutes with _two words_ :).
 
 ### Additional vagrant commands
 **SSH to the box**
-```vagrant ssh```
+```
+vagrant ssh
+```
 
 **Re-provision to apply the changes you made to the Ansible configuration**
-```vagrant provision```
+```
+vagrant provision
+```
 
 **Reboot the box**
-```vagrant reload```
+```
+vagrant reload
+```
 
 **Shutdown the box**
-```vagrant halt```
+```
+vagrant halt
+```
 
 ## Running the Ansible Playbook on existing servers
 Create a Playbook for that environment and specify the user accounts to use. See **development.yml** for an example.
@@ -58,7 +68,7 @@ webserver2.example.com
 dbserver1.example.com
 ```
 
-Run the **ansible-playbook** command:
+Run the Playbook:
 ```
 ansible-playbook -i inventory/development -v development.yml --ask-sudo-pass
 ```
