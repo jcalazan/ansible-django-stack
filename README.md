@@ -33,7 +33,7 @@ Yup, exactly, you just provisioned a completely new server and deployed an entir
 vagrant ssh
 ```
 
-**Re-provision to apply the changes you made to the Ansible configuration**
+**Re-provision the box to apply the changes you made to the Ansible configuration**
 ```
 vagrant provision
 ```
