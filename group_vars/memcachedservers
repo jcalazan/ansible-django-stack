@@ -1,0 +1,7 @@
+---
+
+memcached_listen: 127.0.0.1
+memcached_port: 11211
+memcached_user: nobody
+memcached_max_memory_mb: 64
+memcached_max_connections: 1024

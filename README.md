@@ -7,6 +7,7 @@ Ansible Playbook designed for environments running a Django app.  It installs an
 - PostgreSQL
 - Supervisor
 - Virtualenv
+- Memcached
 
 ## Getting Started
 A quick way to get started is with Vagrant and VirtualBox.

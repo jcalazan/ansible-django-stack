@@ -13,8 +13,10 @@
     - env_vars/local
     - group_vars/dbservers
     - group_vars/webservers
+    - group_vars/memcachedservers
 
   roles:
     - base
     - db
     - web
+    - memcached
