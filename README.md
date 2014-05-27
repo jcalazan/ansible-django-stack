@@ -75,7 +75,7 @@ dbserver1.example.com
 
 Run the Playbook:
 ```
-ansible-playbook -i inventory/development -v development.yml --ask-sudo-pass
+ansible-playbook -i development -v development.yml --ask-sudo-pass
 ```
 
 ## Useful Links

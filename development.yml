@@ -11,9 +11,6 @@
   vars_files:
     - env_vars/base
     - env_vars/dev
-    - group_vars/dbservers
-    - group_vars/webservers
-    - group_vars/memcachedservers
 
   roles:
     - base
