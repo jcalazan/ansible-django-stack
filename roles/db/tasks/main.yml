@@ -16,13 +16,14 @@
   sudo_user: postgres
   postgresql_db: db={{ db_name }} state=present
 
-- name: Ensure user has access to the database
+- name: Ensure database is created
   sudo_user: postgres
-  postgresql_user: db={{ db_name }}
-                   name={{ db_user }}
-                   password={{ db_password }}
-                   priv=ALL
-                   state=present
+  postgresql_db: name={{ db_name }}
+                 encoding='UTF-8'
+                 lc_collate='en_US.UTF-8'
+                 lc_ctype='en_US.UTF-8'
+                 template='template0'
+                 state=present
 
 - name: Ensure user does not have unnecessary privileges
   sudo_user: postgres
