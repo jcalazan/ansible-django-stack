@@ -13,11 +13,11 @@ server {
 }
 
 server {
-    listen  443;
-    server_name {{ nginx_server_name }};
+    listen              443;
+    server_name         {{ nginx_server_name }};
 	ssl on;
-	ssl_certificate /etc/ssl/nginx.crt;
-	ssl_certificate_key /etc/ssl/nginx.key;
+	ssl_certificate     {{ ssl_dest_dir }}/{{ application_name }}.crt;
+	ssl_certificate_key {{ ssl_dest_dir }}/{{ application_name }}.key;
 
     client_max_body_size 4G;
 

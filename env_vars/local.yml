@@ -18,9 +18,6 @@ gunicorn_max_requests: 1
 
 # Nginx settings.
 nginx_server_name: 192.168.33.15
-ssl_src_dir: ssl_self_signed
-ssl_dest_dir: /etc/ssl
-ssl_key_password: password
 
 
 # SMTP settings.

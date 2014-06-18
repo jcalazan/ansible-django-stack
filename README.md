@@ -59,11 +59,11 @@ Create a Playbook for that environment and specify the user accounts to use. See
 If you only have 1 server, you can skip the other steps below and simply run the Playbook with this command:
 ```ansible-playbook -i 175.23.44.109, -v development.yml --ask-sudo-pass```
 
-If you have multiple servers, create an inventory file in the **inventory/** folder for your environment and add your servers' hostnames or IP addresses there.
+If you have multiple servers, create an inventory file in the root folder for your environment and add your servers' hostnames or IP addresses there.
 
 For example:
 ```
-# inventory/development
+# development
 
 [webservers]
 webserver1.example.com
