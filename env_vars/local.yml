@@ -20,6 +20,22 @@ gunicorn_max_requests: 1
 nginx_server_name: 192.168.33.15
 
 
+# RabbitMQ settings.
+rabbitmq_server_name: "{{ inventory_hostname }}"
+
+rabbitmq_admin_user: admin
+rabbitmq_admin_password: password
+
+rabbitmq_application_vhost: "{{ application_name }}"
+rabbitmq_application_user: "{{ application_name }}"
+rabbitmq_application_password: password
+
+
+# Celery settings.
+celery_num_workers: 2
+celery_application_settings_file: settings.local
+
+
 # SMTP settings.
 smtp_host: smtp.gmail.com
 smtp_user: admin@example.com

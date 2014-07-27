@@ -1,0 +1,7 @@
+---
+
+- name: restart {{ celery_application_name }}
+  supervisorctl: name={{ celery_application_name }} state=restarted
+
+- name: restart {{ celerycam_application_name }}
+  supervisorctl: name={{ celerycam_application_name }} state=restarted

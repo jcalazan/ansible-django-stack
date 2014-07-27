@@ -3,11 +3,15 @@ ansible-django-stack
 
 Ansible Playbook designed for environments running a Django app.  It installs and configures these applications that are commonly used in production Django deployments:
 - Nginx
-- Gunicorn
+- Gunicorn (v18.0 only, v19.0 no longer supports running with manage.py)
 - PostgreSQL
 - Supervisor
 - Virtualenv
 - Memcached
+- Celery
+- RabbitMQ
+
+Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
 **Tested with OS:** Ubuntu 12.04.4 LTS x64
 

@@ -1,0 +1,67 @@
+---
+
+- name: Install Supervisor
+  apt: name=supervisor update_cache={{ update_apt_cache }} state=installed
+  tags:
+    - celery
+    - celerycam
+
+- name: Ensure supervisor service is started
+  service: name=supervisor state=started enabled=yes
+  tags:
+    - celery
+    - celerycam
+
+- name: Create the Supervisor config file for {{ celery_application_name }}
+  template: src=supervisor_{{ celery_application_name }}.conf.j2
+            dest=/etc/supervisor/conf.d/{{ celery_application_name }}.conf
+  tags:
+    - celery
+
+- name: Create the Supervisor config file for {{ celerycam_application_name }}
+  template: src=supervisor_{{ celerycam_application_name }}.conf.j2
+            dest=/etc/supervisor/conf.d/{{ celerycam_application_name }}.conf
+  when: setup_camera
+  tags:
+    - celerycam
+
+- name: Create the celery log folder
+  file: path=/var/log/celery
+        owner={{ celery_user }}
+        group={{ celery_group }}
+        mode=0774
+        state=directory
+  tags:
+    - celery
+    - celerycam
+
+- name: Create the {{ celery_application_name }} log file
+  file: path=/var/log/celery/{{ celery_application_name }}.log
+        owner={{ celery_user }}
+        group={{ celery_group }}
+        mode=0774
+        state=touch
+  tags:
+    - celery
+
+- name: Create the {{ celerycam_application_name }} log file
+  file: path=/var/log/celery/{{ celerycam_application_name }}.log
+        owner={{ celery_user }}
+        group={{ celery_group }}
+        mode=0774
+        state=touch
+  when: setup_camera
+  tags:
+    - celerycam
+
+- name: Re-read the Supervisor config files
+  command: supervisorctl reread
+  tags:
+    - celery
+    - celerycam
+
+- name: Update Supervisor to add the app in the process group
+  command: supervisorctl update
+  tags:
+    - celery
+    - celerycam

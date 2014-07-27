@@ -1,0 +1,16 @@
+---
+
+server_root_dir: /webapps
+setup_camera: yes
+
+application_path: "{{ server_root_dir }}/myapp/project_dir/app_dir"
+virtualenv_path: "{{ server_root_dir }}/myapp"
+
+celery_user: "{{ application_name }}"
+celery_group: webapps
+
+celery_application_name: celery
+celerycam_application_name: celerycam
+celery_scripts_dir: "{{ virtualenv_path }}/scripts/celery"
+celery_template_file: "{{ celery_application_name }}_start.j2"
+celerycam_template_file: "{{ celerycam_application_name }}_start.j2"
