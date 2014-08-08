@@ -12,6 +12,7 @@
   apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
   with_items:
     - build-essential
+    - ntp
     - htop
     - git
     - python-dev
