@@ -4,26 +4,32 @@
   pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
 
 - name: Run the Django syncdb command
-  shell: . {{ virtualenv_path }}/bin/activate
-         && . {{ virtualenv_path }}/bin/postactivate
-         && cd {{ application_path }}
-         && python manage.py syncdb --noinput --settings={{ django_settings_file }}
+  django_manage:
+    command: syncdb
+    app_path: '{{ application_path }}'
+    virtualenv: '{{ virtualenv_path }}'
+    settings: '{{ django_settings_file }}'
+  environment: django_environment
   when: run_django_syncdb
   tags: django
 
 - name: Run Django South migrations
-  shell: . {{ virtualenv_path }}/bin/activate
-         && . {{ virtualenv_path }}/bin/postactivate
-         && cd {{ application_path }}
-         && python manage.py migrate --noinput --settings={{ django_settings_file }}
+  django_manage:
+    command: migrate
+    app_path: '{{ application_path }}'
+    virtualenv: '{{ virtualenv_path }}'
+    settings: '{{ django_settings_file }}'
+  environment: django_environment
   when: run_django_south_migration
   tags: django
 
 - name: Run Django collectstatic
-  shell: . {{ virtualenv_path }}/bin/activate
-         && . {{ virtualenv_path }}/bin/postactivate
-         && cd {{ application_path }}
-         && python manage.py collectstatic --noinput --settings={{ django_settings_file }}
+  django_manage:
+    command: collectstatic
+    app_path: '{{ application_path }}'
+    virtualenv: '{{ virtualenv_path }}'
+    settings: '{{ django_settings_file }}'
+  environment: django_environment
   when: run_django_collectstatic
   tags: django
 

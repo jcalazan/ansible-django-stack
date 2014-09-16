@@ -21,3 +21,13 @@ nginx_access_log_file: "{{ application_log_dir }}/nginx_access.log"
 nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
 nginx_static_dir: "{{ virtualenv_path }}/static/"
 nginx_media_dir: "{{ virtualenv_path }}/media/"
+
+# Django Environment variables
+django_environment:
+  DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
+  DJANGO_SECRET_KEY: "{{ django_secret_key }}"
+  EMAIL_HOST: "{{ smtp_host }}"
+  EMAIL_HOST_USER: "{{ smtp_user }}"
+  EMAIL_HOST_PASSWORD: "{{ smtp_password }}"
+  DATABASE_USER: "{{ db_user }}"
+  DATABASE_PASSWORD: "{{ db_password }}"

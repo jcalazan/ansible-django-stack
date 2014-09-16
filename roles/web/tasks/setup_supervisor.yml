@@ -6,7 +6,7 @@
             backup=yes
 
 - name: Re-read the Supervisor config files
-  command: supervisorctl reread
+  supervisorctl: name={{ application_name }} state=present
 
-- name: Update Supervisor to add the app in the process group
-  command: supervisorctl update
+- name: Start Supervisor
+  supervisorctl: name={{ application_name }} state=started
