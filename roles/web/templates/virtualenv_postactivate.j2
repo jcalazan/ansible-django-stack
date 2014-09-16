@@ -1,6 +1,5 @@
 #!/bin/sh
 
 {% for variable_name, value in django_environment.iteritems() %}
-:
 export {{ variable_name }}="{{ value }}"
 {% endfor %}
