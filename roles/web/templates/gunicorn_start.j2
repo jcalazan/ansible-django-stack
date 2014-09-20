@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 NAME="{{ application_name }}"
 DJANGODIR={{ application_path }}
@@ -16,10 +16,10 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment.
 cd $DJANGODIR
-source ../../bin/activate
+. ../../bin/activate
 
 # Set additional environment variables.
-source ../../bin/postactivate
+. ../../bin/postactivate
 
 # Create the run directory if it doesn't exist.
 RUNDIR=$(dirname $SOCKFILE)
@@ -27,11 +27,11 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
-exec python manage.py run_gunicorn \
-		--settings={{ django_settings_file }} \
- 		--name $NAME \
-  		--workers $NUM_WORKERS \
-  		--max-requests $MAX_REQUESTS \
-  		--user=$USER --group=$GROUP \
-  		--log-level=debug \
-  		--bind=unix:$SOCKFILE
+exec gunicorn \
+        --name $NAME \
+        --workers $NUM_WORKERS \
+        --max-requests $MAX_REQUESTS \
+        --user $USER --group $GROUP \
+        --log-level debug \
+        --bind unix:$SOCKFILE \
+        {{ application_name }}.wsgi
