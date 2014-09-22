@@ -8,5 +8,5 @@
 - name: Re-read the Supervisor config files
   supervisorctl: name={{ application_name }} state=present
 
-- name: Start Supervisor
-  supervisorctl: name={{ application_name }} state=started
+- name: Restart Supervisor
+  supervisorctl: name={{ application_name }} state=restarted

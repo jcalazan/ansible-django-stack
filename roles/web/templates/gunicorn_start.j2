@@ -28,10 +28,10 @@ test -d $RUNDIR || mkdir -p $RUNDIR
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
 exec gunicorn \
-        --name $NAME \
-        --workers $NUM_WORKERS \
-        --max-requests $MAX_REQUESTS \
-        --user $USER --group $GROUP \
-        --log-level debug \
-        --bind unix:$SOCKFILE \
-        {{ application_name }}.wsgi
+    --name $NAME \
+    --workers $NUM_WORKERS \
+    --max-requests $MAX_REQUESTS \
+    --user $USER --group $GROUP \
+    --log-level debug \
+    --bind unix:$SOCKFILE \
+    {{ application_name }}.wsgi
