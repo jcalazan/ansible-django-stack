@@ -3,7 +3,7 @@ ansible-django-stack
 
 Ansible Playbook designed for environments running a Django app.  It installs and configures these applications that are commonly used in production Django deployments:
 - Nginx
-- Gunicorn (v18.0 only, v19.0 no longer supports running with manage.py)
+- Gunicorn
 - PostgreSQL
 - Supervisor
 - Virtualenv
