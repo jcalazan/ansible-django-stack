@@ -1,8 +1,9 @@
 ---
 
-- name: Ensure OpenSSl and libssl are the latest versions
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
   with_items:
+    - bash
     - openssl
     - libssl-dev
     - libssl-doc
