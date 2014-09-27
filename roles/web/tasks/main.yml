@@ -6,9 +6,9 @@
 
 - include: setup_git_repo.yml
 
-- include: setup_supervisor.yml
-
 - include: setup_django_app.yml
+
+- include: setup_supervisor.yml
 
 - include: set_file_permissions.yml
 
