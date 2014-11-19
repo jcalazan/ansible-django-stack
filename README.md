@@ -61,7 +61,9 @@ vagrant halt
 Create a Playbook for that environment and specify the user accounts to use. See **development.yml** for an example.
 
 If you only have 1 server, you can skip the other steps below and simply run the Playbook with this command:
-```ansible-playbook -i 175.23.44.109, -v development.yml --ask-sudo-pass```
+```
+ansible-playbook -i server_ip_address_or_hostname, -v playbook.yml --ask-sudo-pass
+```
 
 If you have multiple servers, create an inventory file in the root folder for your environment and add your servers' hostnames or IP addresses there.
 
