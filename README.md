@@ -61,6 +61,7 @@ vagrant halt
 Create a Playbook for that environment and specify the user accounts to use. See **development.yml** for an example.
 
 If you only have 1 server, you can skip the other steps below and simply run the Playbook with this command:
+
 ```
 ansible-playbook -i server_ip_address_or_hostname, -v playbook.yml --ask-sudo-pass
 ```
@@ -68,6 +69,7 @@ ansible-playbook -i server_ip_address_or_hostname, -v playbook.yml --ask-sudo-pa
 If you have multiple servers, create an inventory file in the root folder for your environment and add your servers' hostnames or IP addresses there.
 
 For example:
+
 ```
 # development
 
@@ -80,8 +82,15 @@ dbserver1.example.com
 ```
 
 Run the Playbook:
+
 ```
 ansible-playbook -i development -v development.yml --ask-sudo-pass
+```
+
+If you're testing with vagrant, you can use this command:
+
+```
+ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key -v vagrant.yml
 ```
 
 ## Useful Links

@@ -6,32 +6,38 @@
 - name: Run the Django syncdb command
   django_manage:
     command: syncdb
-    app_path: '{{ application_path }}'
-    virtualenv: '{{ virtualenv_path }}'
-    settings: '{{ django_settings_file }}'
+    app_path: "{{ application_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_syncdb
-  tags: django
+  tags:
+    - django
+    - django_syncdb
 
 - name: Run Django South migrations
   django_manage:
     command: migrate
-    app_path: '{{ application_path }}'
-    virtualenv: '{{ virtualenv_path }}'
-    settings: '{{ django_settings_file }}'
+    app_path: "{{ application_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_south_migration
-  tags: django
+  tags:
+    - django
+    - django_migrate
 
 - name: Run Django collectstatic
   django_manage:
     command: collectstatic
-    app_path: '{{ application_path }}'
-    virtualenv: '{{ virtualenv_path }}'
-    settings: '{{ django_settings_file }}'
+    app_path: "{{ application_path }}"
+    virtualenv: "{{ virtualenv_path }}"
+    settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_collectstatic
-  tags: django
+  tags:
+    - django
+    - django_collectstatic
 
 
 
