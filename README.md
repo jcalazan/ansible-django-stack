@@ -21,7 +21,7 @@ Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment
 A quick way to get started is with Vagrant and VirtualBox.
 
 ### Requirements
-- [Ansible (use v1.7.1 as there's currently a bug in v1.7.2, see issues, you can do ```sudo pip install ansible==1.7.1``` if you're using pip)](http://docs.ansible.com/intro_installation.html)
+- [Ansible](http://docs.ansible.com/intro_installation.html)
 - [Vagrant](http://www.vagrantup.com/downloads.html)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
