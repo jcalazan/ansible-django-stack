@@ -11,9 +11,7 @@
     settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_syncdb
-  tags:
-    - django
-    - django_syncdb
+  tags: django.syncdb
 
 - name: Run Django South migrations
   django_manage:
@@ -23,9 +21,7 @@
     settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_south_migration
-  tags:
-    - django
-    - django_migrate
+  tags: django.migrate
 
 - name: Run Django collectstatic
   django_manage:
@@ -35,9 +31,7 @@
     settings: "{{ django_settings_file }}"
   environment: django_environment
   when: run_django_collectstatic
-  tags:
-    - django
-    - django_collectstatic
+  tags: django.collectstatic
 
 
 
