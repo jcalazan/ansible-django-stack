@@ -93,6 +93,38 @@ If you're testing with vagrant, you can use this command:
 ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key -v vagrant.yml
 ```
 
+## Advanced Options
+
+### Creating a swap file
+
+By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in `roles/base/vars/main.yml`. 
+
+You can also override these values in the main playbook, for example:
+
+```
+---
+
+- name: Create a {{ application_name }} virtual machine via vagrant
+  hosts: all
+  sudo: yes
+  sudo_user: root
+  remote_user: vagrant
+  vars:
+    - setup_git_repo: yes
+    - update_apt_cache: yes
+  vars_files:
+    - env_vars/base.yml
+    - env_vars/local.yml
+
+  roles:
+    - { role: base, create_swap_file: yes, swap_file_size_kb: 1024 }
+    - db
+    - web
+    - memcached
+```
+
+This will create and mount a 1GB swap.  Note that block size is 1024, so the size of the swap file will be 1024 x `swap_file_size_kb`.
+
 ## Useful Links
 - [Ansible - Getting Started](http://docs.ansible.com/intro_getting_started.html)
 - [Ansible - Best Practices](http://docs.ansible.com/playbooks_best_practices.html)
