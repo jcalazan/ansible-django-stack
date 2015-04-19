@@ -1,7 +1,7 @@
 ---
 
-- name: Provision a {{ application_name }} server
-  hosts: all
+- name: Provision a {{ application_name }} web server
+  hosts: webservers
   sudo: yes
   sudo_user: root
   remote_user: root
@@ -10,10 +10,8 @@
     - update_apt_cache: yes
   vars_files:
     - env_vars/base.yml
-    - env_vars/dev.yml
+    - env_vars/{{ env }}.yml
 
   roles:
     - base
-    - db
     - web
-    - memcached

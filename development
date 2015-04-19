@@ -1,0 +1,9 @@
+[all:vars]
+env=dev
+
+[webservers]
+webserver1.example.com
+webserver2.example.com
+
+[dbservers]
+dbserver1.example.com

@@ -6,5 +6,5 @@ autorestart=true
 
 user={{ celery_user }}
 
-stdout_logfile=/var/log/celery/{{ celery_application_name }}.log
+stdout_logfile={{ celery_log_file }}
 redirect_stderr = true

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME="{{ application_name }}"
-DJANGODIR={{ application_path }}
+DJANGODIR="{{ project_path }}"
 SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
 USER={{ gunicorn_user }}
 GROUP={{ gunicorn_group }}
@@ -16,10 +16,10 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment.
 cd $DJANGODIR
-. ../../bin/activate
+. {{ virtualenv_path }}/bin/activate
 
 # Set additional environment variables.
-. ../../bin/postactivate
+. {{ virtualenv_path }}/bin/postactivate
 
 # Create the run directory if it doesn't exist.
 RUNDIR=$(dirname $SOCKFILE)

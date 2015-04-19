@@ -3,13 +3,19 @@
 - include: create_users_and_groups.yml
 
 - include: setup_virtualenv.yml
+  tags: virtualenv
 
 - include: setup_git_repo.yml
+  tags: deploy
 
 - include: setup_django_app.yml
+  tags: deploy
 
 - include: setup_supervisor.yml
+  tags: supervisor
 
 - include: set_file_permissions.yml
+  tags: deploy
 
 - include: setup_nginx.yml
+  tags: nginx

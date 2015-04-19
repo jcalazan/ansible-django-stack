@@ -5,7 +5,6 @@
   with_items:
     - postgresql
     - postgresql-contrib
-    - libpq-dev
     - python-psycopg2
   tags: packages
 

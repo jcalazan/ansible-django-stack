@@ -13,9 +13,9 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
-**Tested with OS:** Ubuntu 12.04.4 LTS x64
+**Tested with OS:** Ubuntu 12.04 LTS x64, Ubuntu 14.04 LTS x64
 
-**Tested with Cloud Providers:** Amazon, Rackspace, Digital Ocean
+**Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
 
 ## Getting Started
 A quick way to get started is with Vagrant and VirtualBox.
@@ -73,6 +73,9 @@ For example:
 ```
 # development
 
+[all:vars]
+env=dev
+
 [webservers]
 webserver1.example.com
 webserver2.example.com
@@ -114,13 +117,14 @@ You can also override these values in the main playbook, for example:
     - update_apt_cache: yes
   vars_files:
     - env_vars/base.yml
-    - env_vars/local.yml
+    - env_vars/vagrant.yml
 
   roles:
     - { role: base, create_swap_file: yes, swap_file_size_kb: 1024 }
     - db
+    - rabbitmq
     - web
-    - memcached
+    - celery
 ```
 
 This will create and mount a 1GB swap.  Note that block size is 1024, so the size of the swap file will be 1024 x `swap_file_size_kb`.
