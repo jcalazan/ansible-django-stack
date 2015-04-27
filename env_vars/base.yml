@@ -1,9 +1,9 @@
 ---
 
-git_repo: https://github.com/jcalazan/glucose-tracker.git
+git_repo: https://github.com/jcalazan/youtube-audio-dl.git
 
-project_name: glucose-tracker
-application_name: glucosetracker
+project_name: youtube-audio-dl
+application_name: youtubeadl
 
 ssl_dest_dir: /etc/ssl
 

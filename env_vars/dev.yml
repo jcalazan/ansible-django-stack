@@ -1,6 +1,7 @@
 ---
 
 # Git settings.
+setup_git_repo: yes
 git_branch: dev
 
 
@@ -12,32 +13,42 @@ db_password: password
 
 # Gunicorn settings. For the number of workers, a good rule to follow is
 # 2 x number of CPUs + 1
-gunicorn_num_workers: 2
+gunicorn_num_workers: 3
 
 # Setting this to 1 will restart the Gunicorn process each time
 # you make a request, basically reloading the code. Very handy
 # when developing. Set to 0 for unlimited requests (default).
-gunicorn_max_requests: 1
+gunicorn_max_requests: 0
 
 
 # Nginx settings.
-nginx_server_name: 192.168.33.15
+nginx_server_name: "{{ inventory_hostname }}"
+ssl_src_dir: ssl_self_signed
+ssl_dest_dir: /etc/ssl
+ssl_key_password: password
+
+
+# RabbitMQ settings.
+rabbitmq_server_name: "{{ inventory_hostname }}"
+
+rabbitmq_admin_user: admin
+rabbitmq_admin_password: password
+
+rabbitmq_application_vhost: "{{ application_name }}"
+rabbitmq_application_user: "{{ application_name }}"
+rabbitmq_application_password: password
 
 
 # Celery settings.
 celery_num_workers: 2
-
-
-# Email settings.
-email_host: smtp.gmail.com
-email_host_user: admin@example.com
-email_host_password: mypassword
+flower_admin_password: password
 
 
 # Application settings.
 django_settings_file: "{{ application_name }}.settings.local"
-django_secret_key: akr2icmg1n8%z^3fe3c+)5d0(t^cy-2_25rrl35a7@!scna^1#
+django_secret_key: "akr2icmg1n8%z^3fe3c+)5d0(t^cy-2_25rrl35a7@!scna^1#"
 
-run_django_syncdb: no
+broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_password }}@localhost/{{ rabbitmq_application_vhost }}"
+
 run_django_db_migrations: yes
 run_django_collectstatic: yes

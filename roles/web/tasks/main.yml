@@ -1,5 +1,8 @@
 ---
 
+- include: install_additional_packages.yml
+  tags: packages
+
 - include: create_users_and_groups.yml
 
 - include: setup_virtualenv.yml

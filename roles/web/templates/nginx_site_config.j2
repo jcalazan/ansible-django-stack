@@ -53,7 +53,7 @@ server {
     # Error pages
     error_page 500 502 504 /500.html;
     location = /500.html {
-        root {{ application_path }}/templates/;
+        root {{ project_path }}/{{ application_name }}/templates/;
     }
 
     error_page 503 /maintenance_on.html;

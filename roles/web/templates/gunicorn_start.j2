@@ -31,6 +31,7 @@ exec gunicorn \
     --name $NAME \
     --workers $NUM_WORKERS \
     --max-requests $MAX_REQUESTS \
+    --timeout {{ gunicorn_timeout_seconds|default(30) }} \
     --user $USER --group $GROUP \
     --log-level debug \
     --bind unix:$SOCKFILE \
