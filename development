@@ -1,5 +1,5 @@
 [all:vars]
-env=dev
+env=development
 
 [webservers]
 webserver1.example.com

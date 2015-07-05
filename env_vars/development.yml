@@ -2,7 +2,7 @@
 
 # Git settings.
 setup_git_repo: yes
-git_branch: dev
+git_branch: devlopment
 
 
 # Database settings.
@@ -45,7 +45,7 @@ flower_admin_password: password
 
 
 # Application settings.
-django_settings_file: "{{ application_name }}.settings.local"
+django_settings_file: "{{ application_name }}.settings.development"
 django_secret_key: "akr2icmg1n8%z^3fe3c+)5d0(t^cy-2_25rrl35a7@!scna^1#"
 
 broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_password }}@localhost/{{ rabbitmq_application_vhost }}"
