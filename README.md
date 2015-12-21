@@ -35,7 +35,7 @@ Note that the default values in the playbooks assume that your project structure
 ```
 myproject
 ├── manage.py
-├── myproject
+├── myapp
 │   ├── apps
 │   │   └── __init__.py
 │   ├── __init__.py
@@ -144,6 +144,18 @@ If you're testing with vagrant, you can use this command:
 ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key vagrant.yml
 ```
 
+## Using Ansible for Django Deployments
+
+When doing deployments, you can simply use the `--tags` option to only run those tasks with these tags.
+
+For example, you can add the tag `deploy` to certain tasks that you want to execute as part of your deployment process and then run this command:
+
+```
+ansible-playbook -i stage webserbers.yml --tags="deploy"
+```
+
+This repo already has `deploy` tags specified for tasks that are likely needed to run during deployment in most Django environments.
+
 ## Advanced Options
 
 ### Creating a swap file
@@ -151,7 +163,6 @@ ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d
 By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in `roles/base/vars/main.yml`. 
 
 You can also override these values in the main playbook, for example:
-
 
 ```
 ---
