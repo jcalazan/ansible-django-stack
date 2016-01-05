@@ -4,7 +4,7 @@
   when: create_swap_file
   tags: swap
 
-- name: Ensure bash, OpenSSl, and libssl are the latest versions
+- name: Ensure bash, OpenSSL, and libssl are the latest versions
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
   with_items:
     - bash
