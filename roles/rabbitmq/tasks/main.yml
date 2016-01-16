@@ -1,5 +1,7 @@
 ---
 
+- include: erlang.yml
+
 - name: Add the RabbitMQ public GPG key to the apt repo
   apt_key: url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
            state=present
