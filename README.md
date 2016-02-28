@@ -14,7 +14,7 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
-**Tested with OS:** Ubuntu 12.04 LTS x64, Ubuntu 14.04 LTS x64
+**Tested with OS:** Ubuntu 14.04 LTS x64
 
 **Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
 

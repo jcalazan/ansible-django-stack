@@ -27,6 +27,6 @@
     - supervisor
   tags: packages
 
-- name: Install virtualenv
-  pip: name=virtualenv
+- name: Upgrade pip
+  pip: name=pip state=latest
   tags: packages
