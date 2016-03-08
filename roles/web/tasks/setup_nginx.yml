@@ -19,14 +19,13 @@
   notify: reload nginx
 
 - name: Ensure that the default site is disabled
-  command: rm /etc/nginx/sites-enabled/default
-           removes=/etc/nginx/sites-enabled/default
+  file: path=/etc/nginx/sites-enabled/default state=absent
   notify: reload nginx
 
 - name: Ensure that the application site is enabled
-  command: ln -s /etc/nginx/sites-available/{{ application_name }}
-           /etc/nginx/sites-enabled/{{ application_name }}
-           creates=/etc/nginx/sites-enabled/{{ application_name }}
+  file: src=/etc/nginx/sites-available/{{ application_name }}
+        dest=/etc/nginx/sites-enabled/{{ application_name }}
+        state=link
   notify: reload nginx
 
 - name: Ensure Nginx service is started
