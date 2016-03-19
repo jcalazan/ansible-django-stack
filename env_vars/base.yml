@@ -5,8 +5,6 @@ git_repo: https://github.com/jcalazan/youtube-audio-dl.git
 project_name: youtube-audio-dl
 application_name: youtubeadl
 
-ssl_dest_dir: /etc/ssl
-
 ssl_crt: |
   -----BEGIN CERTIFICATE-----
   MIIDjTCCAnWgAwIBAgIJAMazeCBLPAeCMA0GCSqGSIb3DQEBCwUAMF0xCzAJBgNV
