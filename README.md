@@ -151,7 +151,7 @@ When doing deployments, you can simply use the `--tags` option to only run those
 For example, you can add the tag `deploy` to certain tasks that you want to execute as part of your deployment process and then run this command:
 
 ```
-ansible-playbook -i stage webserbers.yml --tags="deploy"
+ansible-playbook -i stage webservers.yml --tags="deploy"
 ```
 
 This repo already has `deploy` tags specified for tasks that are likely needed to run during deployment in most Django environments.
