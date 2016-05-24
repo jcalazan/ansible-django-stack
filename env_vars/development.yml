@@ -21,11 +21,6 @@ gunicorn_num_workers: 3
 gunicorn_max_requests: 0
 
 
-# Nginx settings.
-nginx_server_name: "{{ inventory_hostname }}"
-ssl_dest_dir: /etc/ssl
-
-
 # RabbitMQ settings.
 rabbitmq_server_name: "{{ inventory_hostname }}"
 

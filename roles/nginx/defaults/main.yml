@@ -1,0 +1,4 @@
+---
+
+nginx_server_name: "{{ inventory_hostname }}"
+ssl_dest_dir: /etc/ssl

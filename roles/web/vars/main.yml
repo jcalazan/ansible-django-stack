@@ -8,21 +8,19 @@ application_log_file: "{{ application_log_dir }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"
 
 
-# Gunicorn settings
+# Gunicorn settings.
 gunicorn_user: "{{ application_name }}"
 gunicorn_group: webapps
 
 
-# Nginx settings
-nginx_http_port: 80
-nginx_https_port: 443
+# Nginx settings.
 nginx_access_log_file: "{{ application_log_dir }}/nginx_access.log"
 nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
 nginx_static_dir: "{{ virtualenv_path }}/static/"
 nginx_media_dir: "{{ virtualenv_path }}/media/"
 
 
-# Django Environment variables
+# Django environment variables.
 django_environment:
   DJANGO_SETTINGS_MODULE: "{{ django_settings_file }}"
   DJANGO_SECRET_KEY: "{{ django_secret_key }}"

@@ -2,8 +2,8 @@
 
 - name: Create a {{ application_name }} virtual machine via vagrant
   hosts: all
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
   remote_user: vagrant
   vars:
     - setup_git_repo: yes
@@ -18,3 +18,4 @@
     - rabbitmq
     - web
     - celery
+    - nginx

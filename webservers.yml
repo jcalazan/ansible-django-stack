@@ -2,8 +2,8 @@
 
 - name: Provision a {{ application_name }} web server
   hosts: webservers
-  sudo: yes
-  sudo_user: root
+  become: yes
+  become_user: root
   remote_user: root
   vars:
     - update_apt_cache: yes
@@ -14,3 +14,4 @@
   roles:
     - base
     - web
+    - nginx
