@@ -15,9 +15,10 @@ server {
 server {
     listen              443;
     server_name         {{ nginx_server_name }};
-	ssl on;
-	ssl_certificate     {{ ssl_dest_dir }}/{{ application_name }}.crt;
-	ssl_certificate_key {{ ssl_dest_dir }}/{{ application_name }}.key;
+    ssl on;
+    ssl_certificate     {{ ssl_dest_dir }}/{{ application_name }}.crt;
+    ssl_certificate_key {{ ssl_dest_dir }}/{{ application_name }}.key;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
 
     client_max_body_size 4G;
 
