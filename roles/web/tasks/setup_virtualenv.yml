@@ -28,8 +28,11 @@
         state=directory
 
 - name: Create the application log file
-  command: touch {{ application_log_file }}
-           creates={{ application_log_file }}
+  file: path={{ application_log_file }}
+        owner={{ gunicorn_user }}
+        group={{ gunicorn_group }}
+        mode=0664
+        state=touch
 
 - name: Create the virtualenv postactivate script to set environment variables
   template: src=virtualenv_postactivate.j2
@@ -39,13 +42,6 @@
             mode=0640
             backup=yes
   tags: deploy
-
-- name: Set permission to the application log file
-  file: path={{ application_log_file }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
-        mode=0664
-        state=file
 
 - name: Create the maintenance page
   template: src=maintenance_off.html
