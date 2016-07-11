@@ -22,7 +22,7 @@ gunicorn_max_requests: 0
 
 
 # Nginx settings.
-use_strong_dh_group: yes  # Strongly recomended in production. See weakdh.org
+nginx_strong_dh_group: yes  # Strongly recomended in production. See weakdh.org
 
 
 # RabbitMQ settings.

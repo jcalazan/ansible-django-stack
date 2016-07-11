@@ -16,7 +16,7 @@
   command: openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048 creates=/etc/ssl/certs/dhparams.pem
   become: yes
   become_user: root
-  when: use_strong_dh_group is defined and use_strong_dh_group
+  when: nginx_strong_dh_group is defined and nginx_strong_dh_group
 
 - name: Create the Nginx configuration file
   template: src={{ application_name }}.j2
