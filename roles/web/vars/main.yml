@@ -28,7 +28,4 @@ django_environment:
   STATIC_ROOT: "{{ nginx_static_dir }}"
   DATABASE_USER: "{{ db_user }}"
   DATABASE_PASSWORD: "{{ db_password }}"
-  EMAIL_HOST: "{{ email_host|default(omit) }}"
-  EMAIL_HOST_USER: "{{ email_host_user|default(omit) }}"
-  EMAIL_HOST_PASSWORD: "{{ email_host_password|default(omit) }}"
-  BROKER_URL: "{{ broker_url|default(omit) }}"
+  BROKER_URL: "{{ broker_url }}"
