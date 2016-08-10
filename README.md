@@ -179,6 +179,21 @@ You can also override these values in the main playbook, for example:
 
 This will create and mount a 1GB swap.  Note that block size is 1024, so the size of the swap file will be 1024 x `swap_file_size_kb`.
 
+### Automatically generating and renewing Let's Encrypt SSL certificates with the certbot client
+
+A `certbot` role has been added to automatically install the `certbot` client and generate a standalone SSL certificate.
+
+**Requirements:**
+
+- A DNS A record or CNAME must exist for the host to issue the certificate to.
+- The `--standalone` option is being used, so port 80 or 443 must not be in use (the playbook will automatically check if Nginx is installed and will stop and start the service automatically).
+
+In `roles/nginx/defaults.main.yml`, you're going to want to override the `nginx_use_letsencrypt` and set it to yes/true to reference the Let's Encrypt certificate and key in the Nginx template. 
+
+In `roles/certbot/defaults/main.yml`, you may want to override the `certbot_admin_email` variable.
+
+A cron job to automatically renew the certificate will run daily.  Note that if a certificate is due for renewal (expiring in less than 30 days), Nginx will be stopped before the certificate can be renewed and then started again once renewal is finished.  Otherwise, nothing will happen so it's safe to leave it running daily.
+
 ## Useful Links
 
 - [Ansible - Getting Started](http://docs.ansible.com/intro_getting_started.html)

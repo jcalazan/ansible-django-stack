@@ -5,12 +5,14 @@
   tags: packages
 
 - name: Copy the SSL certificate to the remote server
-  copy: content={{ ssl_crt }} dest={{ ssl_dest_dir }}/{{ application_name }}.crt
+  copy: content={{ ssl_crt }} dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.crt
   notify: restart nginx
+  when: not nginx_use_letsencrypt
 
 - name: Copy the SSL private key to the remote server
-  copy: content={{ ssl_key }} dest={{ ssl_dest_dir }}/{{ application_name }}.key
+  copy: content={{ ssl_key }} dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.key
   notify: restart nginx
+  when: not nginx_use_letsencrypt
 
 - name: Ensure that a strong Diffie-Hellman group is used
   command: openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048 creates=/etc/ssl/certs/dhparams.pem

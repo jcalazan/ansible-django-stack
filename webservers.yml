@@ -13,5 +13,7 @@
 
   roles:
     - base
+    - certbot
+    - rabbitmq
     - web
     - nginx
