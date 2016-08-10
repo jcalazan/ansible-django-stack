@@ -16,4 +16,5 @@
     - certbot
     - rabbitmq
     - web
+    - celery
     - nginx
