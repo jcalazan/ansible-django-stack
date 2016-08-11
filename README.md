@@ -14,6 +14,8 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
+A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
+
 **Tested with OS:** Ubuntu 14.04 LTS x64
 
 **Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
@@ -181,14 +183,14 @@ This will create and mount a 1GB swap.  Note that block size is 1024, so the siz
 
 ### Automatically generating and renewing Let's Encrypt SSL certificates with the certbot client
 
-A `certbot` role has been added to automatically install the `certbot` client and generate a standalone SSL certificate.
+A `certbot` role has been added to automatically install the `certbot` client and generate a Let's Encrypt SSL certificate.
 
 **Requirements:**
 
-- A DNS A record or CNAME must exist for the host to issue the certificate to.
+- A DNS "A" or "CNAME" record must exist for the host to issue the certificate to.
 - The `--standalone` option is being used, so port 80 or 443 must not be in use (the playbook will automatically check if Nginx is installed and will stop and start the service automatically).
 
-In `roles/nginx/defaults.main.yml`, you're going to want to override the `nginx_use_letsencrypt` and set it to yes/true to reference the Let's Encrypt certificate and key in the Nginx template. 
+In `roles/nginx/defaults.main.yml`, you're going to want to override the `nginx_use_letsencrypt` variable and set it to yes/true to reference the Let's Encrypt certificate and key in the Nginx template. 
 
 In `roles/certbot/defaults/main.yml`, you may want to override the `certbot_admin_email` variable.
 
