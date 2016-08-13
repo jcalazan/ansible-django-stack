@@ -1,0 +1,84 @@
+---
+- name: Update APT packages cache
+  apt: update_cache={{ update_apt_cache }} cache_valid_time=86400
+
+- name: Perform aptitude safe-upgrade
+  apt: upgrade=yes
+  when: run_aptitude_safe_upgrade is defined and run_aptitude_safe_upgrade
+
+- name: add user
+  user: name="{{ server_user_name }}" shell="{{ shell }}" password="{{ server_user_password }}"
+
+- name: Add authorized_keys for the user
+  authorized_key: user={{ server_user_name }} key="{{ lookup('file', item) }}"
+  with_items:
+    - "{{ user_public_keys }}"
+
+- name: install sudo
+  apt: name=sudo update_cache={{ update_apt_cache }} state=present cache_valid_time=86400
+
+- name: add user to sudoers
+  lineinfile: dest=/etc/sudoers
+              regexp="{{ server_user_name }} ALL"
+              line="{{ server_user_name }} ALL=(ALL) ALL"
+              state=present
+
+- name: Install required packages
+  apt: update_cache={{ update_apt_cache }} state=installed pkg={{ item }}
+  with_items: 
+  - "{{ required_packages }}"
+
+- name: set up unattended upgrades
+  copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+
+- name: automatically remove unused dependencies
+  lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades
+              regexp="Unattended-Upgrade::Remove-Unused-Dependencies"
+              line="Unattended-Upgrade::Remove-Unused-Dependencies \"true\";"
+              state=present
+              create=yes
+
+# Allow only ssh and http(s) ports
+- name: Allow ssh and http(s) connections
+  ufw: rule=allow port={{ item }}
+  with_items:
+    - "{{ ufw_allowed_ports }}"
+
+- name: Enable ufw/firewall
+  ufw: state=enabled policy=deny
+
+- name: set up fail2ban
+  command: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+           creates=/etc/fail2ban/jail.local
+  notify: restart fail2ban
+
+- name: limit su access to sudo group
+  command: dpkg-statoverride --update --add root sudo 4750 /bin/su
+  register: limit_su_res
+  failed_when: limit_su_res.rc != 0 and ("already exists" not in limit_su_res.stderr)
+  changed_when: limit_su_res.rc == 0
+
+- name: disallow password authentication
+  lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^PasswordAuthentication"
+              line="PasswordAuthentication no"
+              state=present
+  notify: restart ssh
+
+- name: allow ssh only for primary user
+  lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^AllowUsers"
+              line="AllowUsers {{ server_user_name }}"
+              state=present
+  notify: restart ssh
+
+- name: Disallow root SSH access
+  lineinfile: dest=/etc/ssh/sshd_config 
+              regexp="^PermitRootLogin" 
+              line="PermitRootLogin no" 
+              state=present
+  notify: restart ssh
+
+- name: Delete root password
+  action: shell passwd -d root
+  notify: restart ssh

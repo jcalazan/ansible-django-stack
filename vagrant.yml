@@ -6,6 +6,7 @@
   become_user: root
   remote_user: vagrant
   vars:
+    - include_security: false
     - setup_git_repo: yes
     - update_apt_cache: yes
   vars_files:
@@ -13,6 +14,7 @@
     - env_vars/vagrant.yml
 
   roles:
+    - { role: security, when: include_security == true, tags: ['security'] }
     - base
     - db
     - rabbitmq

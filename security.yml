@@ -1,10 +1,10 @@
 ---
 
-- name: Provision a {{ application_name }} web server
-  hosts: webservers
+- name: Initial configuration for a {{ application_name }} server
+  hosts: all
   become: yes
   become_user: root
-  remote_user: "{{ server_user_name }}"
+  remote_user: root
   vars:
     - update_apt_cache: yes
   vars_files:
@@ -12,6 +12,4 @@
     - env_vars/{{ env }}.yml
 
   roles:
-    - base
-    - web
-    - nginx
+    - { role: security, tags: ['security'] }

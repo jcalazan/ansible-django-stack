@@ -2,8 +2,7 @@
 env=development
 
 [webservers]
-webserver1.example.com
-webserver2.example.com
+104.236.95.169
 
 [dbservers]
-dbserver1.example.com
+104.236.95.169
