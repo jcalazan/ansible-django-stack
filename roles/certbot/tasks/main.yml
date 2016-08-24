@@ -25,3 +25,4 @@
         special_time=daily
         job="{{ certbot_script }} renew --standalone --no-self-upgrade --pre-hook \"service nginx stop\" --post-hook \"service nginx start\" --quiet"
         state=present
+  when: certbot_auto_renew

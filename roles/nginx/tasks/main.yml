@@ -16,8 +16,6 @@
 
 - name: Ensure that a strong Diffie-Hellman group is used
   command: openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048 creates=/etc/ssl/certs/dhparams.pem
-  become: yes
-  become_user: root
   when: nginx_strong_dh_group is defined and nginx_strong_dh_group
 
 - name: Create the Nginx configuration file
