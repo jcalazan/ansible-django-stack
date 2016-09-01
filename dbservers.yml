@@ -4,7 +4,7 @@
   hosts: dbservers
   become: yes
   become_user: root
-  remote_user: "{{ server_user_name }}"
+  remote_user: "{{ server_user }}"
   vars:
     - update_apt_cache: yes
   vars_files:

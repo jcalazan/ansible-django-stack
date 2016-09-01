@@ -108,7 +108,7 @@ The security module performs several basic server hardening tasks. Inspired by [
 
 * Updates apt
 * Performs `aptitude safe-upgrade`
-* Adds a user specified by the `server_user_name` variable
+* Adds a user specified by the `server_user` variable
 * Adds authorized key for the new user
 * Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable
 * Installs and configures various security packages:
@@ -119,7 +119,7 @@ The security module performs several basic server hardening tasks. Inspired by [
 * Limits su access to the sudo group
 * Disallows password authentication (be careful!)
 * Disallows root SSH access (you will only SSH to your machine as your new user and use a password for `sudo` access)
-* Restricts SSH access to the new user specified by the `server_user_name` variable
+* Restricts SSH access to the new user specified by the `server_user` variable
 * Deletes the `root` password
 
 **Security role configuration**

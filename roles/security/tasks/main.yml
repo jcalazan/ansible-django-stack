@@ -7,10 +7,10 @@
   when: run_aptitude_safe_upgrade is defined and run_aptitude_safe_upgrade
 
 - name: add user
-  user: name="{{ server_user_name }}" shell="{{ shell }}" password="{{ server_user_password }}"
+  user: name="{{ server_user }}" shell="{{ shell }}" password="{{ server_user_password }}"
 
 - name: Add authorized_keys for the user
-  authorized_key: user={{ server_user_name }} key="{{ lookup('file', item) }}"
+  authorized_key: user={{ server_user }} key="{{ lookup('file', item) }}"
   with_items:
     - "{{ user_public_keys }}"
 
@@ -19,8 +19,8 @@
 
 - name: add user to sudoers
   lineinfile: dest=/etc/sudoers
-              regexp="{{ server_user_name }} ALL"
-              line="{{ server_user_name }} ALL=(ALL) ALL"
+              regexp="{{ server_user }} ALL"
+              line="{{ server_user }} ALL=(ALL) ALL"
               state=present
 
 - name: Install required packages
@@ -68,7 +68,7 @@
 - name: allow ssh only for primary user
   lineinfile: dest=/etc/ssh/sshd_config
               regexp="^AllowUsers"
-              line="AllowUsers {{ server_user_name }}"
+              line="AllowUsers {{ server_user }}"
               state=present
   notify: restart ssh
 
