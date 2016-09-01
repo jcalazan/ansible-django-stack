@@ -108,13 +108,13 @@ The security module performs several basic server hardening tasks. Inspired by [
 
 * Updates apt
 * Performs `aptitude safe-upgrade`
-* Adds a user specified by the `server_user` variable
+* Adds a user specified by the `server_user` variable, found in `roles/base/defaults/main.yml`
 * Adds authorized key for the new user
-* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable
+* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/base/defaults/main.yml`
 * Installs and configures various security packages:
- * [Fail2ban](http://www.fail2ban.org/)
  * [Unattended upgrades](https://help.ubuntu.com/lts/serverguide/automatic-updates.html)
  * [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
+ * [Fail2ban](http://www.fail2ban.org/) (NOTE: Fail2ban is disabled by default as it is the most likely to lock you out of your server. Handle with care!)
 * Restricts connection to the server to SSH and http(s) ports
 * Limits su access to the sudo group
 * Disallows password authentication (be careful!)
@@ -124,8 +124,8 @@ The security module performs several basic server hardening tasks. Inspired by [
 
 **Security role configuration**
 
-* Change the sudo password in the appropriate `/env_vars/` location
-* Change the username from `root` to something else in the appropriate `/env_vars/` location
+* Change the sudo password in `roles/base/defaults/main.yml`
+* Change the `server_user` from `root` to something else in `roles/base/defaults/main.yml`
 * Change variables in `./roles/security/vars/` per your desired configuration
 
 **Running the Security role**
@@ -171,18 +171,18 @@ A few notes here:
 - The `dbservers.yml` playbook will only provision servers in the `[dbservers]` section of the inventory file.
 - The `webservers.yml` playbook will only provision servers in the `[webservers]` section of the inventory file.
 - An inventory var called `env` is also set which applies to `all` hosts in the inventory.  This is used in the playbook to determine which `env_var` file to use.
-- The `-K` flag is for adding the sudo password you created in the Security role, if applicable
+- The `-K` flag is for adding the sudo password you created for a new sudoer in the Security role (if applicable)
 
 You can then provision the entire site with this command:
 
 ```
-ansible-playbook -i development site.yml
+ansible-playbook -i development site.yml [-K]
 ```
 
 If you're testing with vagrant, you can use this command:
 
 ```
-ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key vagrant.yml
+ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key vagrant.yml [-K]
 ```
 
 ## Using Ansible for Django Deployments

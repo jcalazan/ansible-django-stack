@@ -8,6 +8,7 @@
 
 - name: add user
   user: name="{{ server_user }}" shell="{{ shell }}" password="{{ server_user_password }}"
+  when: server_user != "root"
 
 - name: Add authorized_keys for the user
   authorized_key: user={{ server_user }} key="{{ lookup('file', item) }}"
@@ -22,35 +23,51 @@
               regexp="{{ server_user }} ALL"
               line="{{ server_user }} ALL=(ALL) ALL"
               state=present
+  when: server_user != "root"
 
-- name: Install required packages
-  apt: update_cache={{ update_apt_cache }} state=installed pkg={{ item }}
-  with_items: 
-  - "{{ required_packages }}"
+# Unattended Upgrades settings
+- name: Install Unattended Upgrades
+  apt: update_cache={{ update_apt_cache }} state=installed pkg=unattended-upgrades
+  when: enable_unattended_upgrades is defined and enable_unattended_upgrades
 
 - name: set up unattended upgrades
   copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+  when: enable_unattended_upgrades is defined and enable_unattended_upgrades
 
 - name: automatically remove unused dependencies
+  when: enable_unattended_upgrades is defined and enable_unattended_upgrades
   lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades
               regexp="Unattended-Upgrade::Remove-Unused-Dependencies"
               line="Unattended-Upgrade::Remove-Unused-Dependencies \"true\";"
               state=present
               create=yes
 
-# Allow only ssh and http(s) ports
+# Uncomplicated Firewall settings
+- name: Install Uncomplicated Firewall
+  apt: update_cache={{ update_apt_cache }} state=installed pkg=ufw
+  when: enable_ufw is defined and enable_ufw
+
+  # Allow only ssh and http(s) ports
 - name: Allow ssh and http(s) connections
   ufw: rule=allow port={{ item }}
   with_items:
     - "{{ ufw_allowed_ports }}"
+  when: enable_ufw is defined and enable_ufw
 
 - name: Enable ufw/firewall
   ufw: state=enabled policy=deny
+  when: enable_ufw is defined and enable_ufw
+
+# Fail2ban settings
+- name: Install fail2ban
+  apt: update_cache={{ update_apt_cache }} state=installed pkg=fail2ban
+  when: enable_fail2ban is defined and enable_fail2ban
 
 - name: set up fail2ban
   command: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
            creates=/etc/fail2ban/jail.local
   notify: restart fail2ban
+  when: enable_fail2ban is defined and enable_fail2ban
 
 - name: limit su access to sudo group
   command: dpkg-statoverride --update --add root sudo 4750 /bin/su
@@ -78,7 +95,9 @@
               line="PermitRootLogin no" 
               state=present
   notify: restart ssh
+  when: server_user != "root"
 
 - name: Delete root password
   action: shell passwd -d root
   notify: restart ssh
+  when: server_user != "root"

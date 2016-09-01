@@ -2,11 +2,6 @@
 user_public_keys:
   - ~/.ssh/id_rsa.pub
 
-required_packages:
-  - ufw
-  - fail2ban
-  - unattended-upgrades
-
 ufw_allowed_ports:
   - 22
   - 80
