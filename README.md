@@ -160,6 +160,10 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ## Advanced Options
 
+### Using Python 3.5
+
+Python 3.5 is already installed and to use this version in the `virtualenv`, just override the value of the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml).
+
 ### Creating a swap file
 
 By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in [roles/base/vars/main.yml](roles/base/vars/main.yml).
@@ -184,10 +188,6 @@ This will create and mount a 1GB swap.  Note that block size is 1024, so the siz
 ### Automatically generating and renewing Let's Encrypt SSL certificates with the certbot client
 
 A `certbot` role has been added to automatically install the `certbot` client and generate a Let's Encrypt SSL certificate.
-
-### Using Python 3.5
-
-Python 3.5 is already installed and to use this version in the `virtualenv`, just override the value of the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml).
 
 **Requirements:**
 
