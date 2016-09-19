@@ -13,4 +13,4 @@
     - roles/base/defaults/main.yml
 
   roles:
-    - { role: security, tags: ['security'] }
+    - security
