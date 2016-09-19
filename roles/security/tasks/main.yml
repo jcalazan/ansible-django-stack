@@ -1,103 +1,19 @@
 ---
-- name: Update APT packages cache
-  apt: update_cache={{ update_apt_cache }} cache_valid_time=86400
 
-- name: Perform aptitude safe-upgrade
-  apt: upgrade=yes
-  when: run_aptitude_safe_upgrade is defined and run_aptitude_safe_upgrade
+- include: perform_aptitude_dist_upgrade.yml
+  when: perform_aptitude_dist_upgrade is defined and perform_aptitude_dist_upgrade
 
-- name: add user
-  user: name="{{ server_user }}" shell="{{ shell }}" password="{{ server_user_password }}"
+- include: force_ssh_authentication.yml
+  when: force_ssh_authentication is defined and force_ssh_authentication
+
+- include: create_non_root_sudo_user.yml
   when: server_user != "root"
 
-- name: Add authorized_keys for the user
-  authorized_key: user={{ server_user }} key="{{ lookup('file', item) }}"
-  with_items:
-    - "{{ user_public_keys }}"
-
-- name: install sudo
-  apt: name=sudo update_cache={{ update_apt_cache }} state=present cache_valid_time=86400
-
-- name: add user to sudoers
-  lineinfile: dest=/etc/sudoers
-              regexp="{{ server_user }} ALL"
-              line="{{ server_user }} ALL=(ALL) ALL"
-              state=present
-  when: server_user != "root"
-
-# Unattended Upgrades settings
-- name: Install Unattended Upgrades
-  apt: update_cache={{ update_apt_cache }} state=installed pkg=unattended-upgrades
+- include: setup_unattended_upgrades.yml
   when: enable_unattended_upgrades is defined and enable_unattended_upgrades
 
-- name: set up unattended upgrades
-  copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
-  when: enable_unattended_upgrades is defined and enable_unattended_upgrades
-
-- name: automatically remove unused dependencies
-  when: enable_unattended_upgrades is defined and enable_unattended_upgrades
-  lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades
-              regexp="Unattended-Upgrade::Remove-Unused-Dependencies"
-              line="Unattended-Upgrade::Remove-Unused-Dependencies \"true\";"
-              state=present
-              create=yes
-
-# Uncomplicated Firewall settings
-- name: Install Uncomplicated Firewall
-  apt: update_cache={{ update_apt_cache }} state=installed pkg=ufw
+- include: setup_uncomplicated_firewall.yml
   when: enable_ufw is defined and enable_ufw
 
-  # Allow only ssh and http(s) ports
-- name: Allow ssh and http(s) connections
-  ufw: rule=allow port={{ item }}
-  with_items:
-    - "{{ ufw_allowed_ports }}"
-  when: enable_ufw is defined and enable_ufw
-
-- name: Enable ufw/firewall
-  ufw: state=enabled policy=deny
-  when: enable_ufw is defined and enable_ufw
-
-# Fail2ban settings
-- name: Install fail2ban
-  apt: update_cache={{ update_apt_cache }} state=installed pkg=fail2ban
+- include: setup_fail2ban.yml
   when: enable_fail2ban is defined and enable_fail2ban
-
-- name: set up fail2ban
-  command: cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
-           creates=/etc/fail2ban/jail.local
-  notify: restart fail2ban
-  when: enable_fail2ban is defined and enable_fail2ban
-
-- name: limit su access to sudo group
-  command: dpkg-statoverride --update --add root sudo 4750 /bin/su
-  register: limit_su_res
-  failed_when: limit_su_res.rc != 0 and ("already exists" not in limit_su_res.stderr)
-  changed_when: limit_su_res.rc == 0
-
-- name: disallow password authentication
-  lineinfile: dest=/etc/ssh/sshd_config
-              regexp="^PasswordAuthentication"
-              line="PasswordAuthentication no"
-              state=present
-  notify: restart ssh
-
-- name: allow ssh only for primary user
-  lineinfile: dest=/etc/ssh/sshd_config
-              regexp="^AllowUsers"
-              line="AllowUsers {{ server_user }}"
-              state=present
-  notify: restart ssh
-
-- name: Disallow root SSH access
-  lineinfile: dest=/etc/ssh/sshd_config 
-              regexp="^PermitRootLogin" 
-              line="PermitRootLogin no" 
-              state=present
-  notify: restart ssh
-  when: server_user != "root"
-
-- name: Delete root password
-  action: shell passwd -d root
-  notify: restart ssh
-  when: server_user != "root"
