@@ -14,6 +14,8 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
+A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
+
 **Tested with OS:** Ubuntu 14.04 LTS x64
 
 **Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
@@ -199,9 +201,13 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ## Advanced Options
 
+### Using Python 3.5
+
+Python 3.5 is already installed and to use this version in the `virtualenv`, just override the value of the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml).
+
 ### Creating a swap file
 
-By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in `roles/base/vars/main.yml`. 
+By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in [roles/base/vars/main.yml](roles/base/vars/main.yml).
 
 You can also override these values in the main playbook, for example:
 
@@ -219,6 +225,21 @@ You can also override these values in the main playbook, for example:
 ```
 
 This will create and mount a 1GB swap.  Note that block size is 1024, so the size of the swap file will be 1024 x `swap_file_size_kb`.
+
+### Automatically generating and renewing Let's Encrypt SSL certificates with the certbot client
+
+A `certbot` role has been added to automatically install the `certbot` client and generate a Let's Encrypt SSL certificate.
+
+**Requirements:**
+
+- A DNS "A" or "CNAME" record must exist for the host to issue the certificate to.
+- The `--standalone` option is being used, so port 80 or 443 must not be in use (the playbook will automatically check if Nginx is installed and will stop and start the service automatically).
+
+In `roles/nginx/defaults.main.yml`, you're going to want to override the `nginx_use_letsencrypt` variable and set it to yes/true to reference the Let's Encrypt certificate and key in the Nginx template. 
+
+In `roles/certbot/defaults/main.yml`, you may want to override the `certbot_admin_email` variable.
+
+A cron job to automatically renew the certificate will run daily.  Note that if a certificate is due for renewal (expiring in less than 30 days), Nginx will be stopped before the certificate can be renewed and then started again once renewal is finished.  Otherwise, nothing will happen so it's safe to leave it running daily.
 
 ## Useful Links
 

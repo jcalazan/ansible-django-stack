@@ -21,10 +21,6 @@ gunicorn_num_workers: 3
 gunicorn_max_requests: 0
 
 
-# Nginx settings.
-nginx_strong_dh_group: yes  # Strongly recomended in production. See weakdh.org
-
-
 # RabbitMQ settings.
 rabbitmq_server_name: "{{ inventory_hostname }}"
 

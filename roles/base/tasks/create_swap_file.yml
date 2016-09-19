@@ -16,7 +16,7 @@
   tags: swap.file.mkswap
 
 - name: Make swap file
-  command: "sudo mkswap {{ swap_file_path }}"
+  command: "mkswap {{ swap_file_path }}"
   when: swapfile.stdout.find('swap file') == -1
   tags: swap.file.mkswap
 
