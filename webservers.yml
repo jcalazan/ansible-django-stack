@@ -4,7 +4,7 @@
   hosts: webservers
   become: yes
   become_user: root
-  remote_user: root
+  remote_user: "{{ server_user }}"
   vars:
     - update_apt_cache: yes
   vars_files:

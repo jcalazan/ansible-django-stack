@@ -100,9 +100,49 @@ vagrant reload
 vagrant halt
 ```
 
+## Security
+
+###NOTE: Do not run the Security role without understanding what it does. Improper configuration could lock you out of your machine.
+
+**Security role tasks**
+
+The security module performs several basic server hardening tasks. Inspired by [this blog post](http://www.codelitt.com/blog/my-first-10-minutes-on-a-server-primer-for-securing-ubuntu/):
+
+* Updates apt
+* Performs `aptitude safe-upgrade`
+* Adds a user specified by the `server_user` variable, found in `roles/base/defaults/main.yml`
+* Adds authorized key for the new user
+* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/base/defaults/main.yml`
+* Installs and configures various security packages:
+ * [Unattended upgrades](https://help.ubuntu.com/lts/serverguide/automatic-updates.html)
+ * [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
+ * [Fail2ban](http://www.fail2ban.org/) (NOTE: Fail2ban is disabled by default as it is the most likely to lock you out of your server. Handle with care!)
+* Restricts connection to the server to SSH and http(s) ports
+* Limits su access to the sudo group
+* Disallows password authentication (be careful!)
+* Disallows root SSH access (you will only SSH to your machine as your new user and use a password for `sudo` access)
+* Restricts SSH access to the new user specified by the `server_user` variable
+* Deletes the `root` password
+
+**Security role configuration**
+
+* Change the sudo password in `roles/base/defaults/main.yml`
+* Change the `server_user` from `root` to something else in `roles/base/defaults/main.yml`
+* Change variables in `./roles/security/vars/` per your desired configuration
+
+**Running the Security role**
+
+* The security role can be run by running `security.yml` via:
+
+```
+ansible-playbook -i development security.yml
+```
+
 ## Running the Ansible Playbook to provision servers
 
-First, create an inventory file for the environment, for example:
+**NOTE:** to enable the Security module you can use the steps above prior to following the steps below.
+
+Create an inventory file for the environment, for example:
 
 ```
 # development
@@ -123,7 +163,7 @@ Next, create a playbook for the server type. See [webservers.yml](webservers.yml
 Run the playbook:
 
 ```
-ansible-playbook -i development webservers.yml
+ansible-playbook -i development webservers.yml [-K]
 ```
 
 You can also provision an entire site by combining multiple playbooks.  For example, I created a playbook called `site.yml` that includes both the `webservers.yml` and `dbservers.yml` playbook.
@@ -133,17 +173,18 @@ A few notes here:
 - The `dbservers.yml` playbook will only provision servers in the `[dbservers]` section of the inventory file.
 - The `webservers.yml` playbook will only provision servers in the `[webservers]` section of the inventory file.
 - An inventory var called `env` is also set which applies to `all` hosts in the inventory.  This is used in the playbook to determine which `env_var` file to use.
+- The `-K` flag is for adding the sudo password you created for a new sudoer in the Security role (if applicable)
 
 You can then provision the entire site with this command:
 
 ```
-ansible-playbook -i development site.yml
+ansible-playbook -i development site.yml [-K]
 ```
 
 If you're testing with vagrant, you can use this command:
 
 ```
-ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key vagrant.yml
+ansible-playbook -i vagrant_ansible_inventory_default --private-key=~/.vagrant.d/insecure_private_key vagrant.yml [-K]
 ```
 
 ## Using Ansible for Django Deployments
