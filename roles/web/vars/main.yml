@@ -26,6 +26,7 @@ django_environment:
   DJANGO_SECRET_KEY: "{{ django_secret_key }}"
   MEDIA_ROOT: "{{ nginx_media_dir }}"
   STATIC_ROOT: "{{ nginx_static_dir }}"
+  DATABASE_NAME: "{{ db_name }}"
   DATABASE_USER: "{{ db_user }}"
   DATABASE_PASSWORD: "{{ db_password }}"
   BROKER_URL: "{{ broker_url }}"
