@@ -252,6 +252,7 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
         user root
         IdentitiesOnly yes
         ForwardAgent yes
+- Make sure you're using the SSH connection to your repo (not the HTTPS connection)
 - Ensure that your domain (e.g., `example.com`) points to your server's IP address
 - Refer to the Github tutorial in the useful links section for help debugging SSH agent forwarding 
 
