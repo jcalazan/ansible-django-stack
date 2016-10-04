@@ -247,7 +247,7 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 
 - Make sure `ssh-agent` is running on your local machine.
 - Enable `ForwardAgent` on your machine's SSH config file, for example:
-    Host example.com
+    Host example.com  # Must be your fqdn for `{{ inventory_hostname }}` variable to be set correctly
         IdentityFile ~/.ssh/id_rsa
         user root
         IdentitiesOnly yes
