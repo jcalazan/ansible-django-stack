@@ -245,7 +245,8 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 
 **Requirements:**
 
-- Make sure `ssh-agent` is running on your local machine.
+- Make sure ssh-agent is running on your local machine (run `ssh-agent` from the command line)
+- Test that your ssh key is ready for forwarding via `ssh-add -L`; if not, add your key (`ssh-add yourkey`)
 - Enable `ForwardAgent` on your machine's SSH config file, for example:
 ```
 Host example.com  # Must be your fqdn for `{{ inventory_hostname }}` variable to be set correctly
@@ -256,7 +257,7 @@ Host example.com  # Must be your fqdn for `{{ inventory_hostname }}` variable to
 ```
 - Make sure you're using the SSH connection to your repo (not the HTTPS connection)
 - Ensure that your domain (e.g., `example.com`) points to your server's IP address
-- Refer to the Github tutorial in the useful links section for help debugging SSH agent forwarding 
+- Refer to the [Github tutorial](https://developer.github.com/guides/using-ssh-agent-forwarding/) for help debugging SSH agent forwarding 
 
 
 ## Useful Links
