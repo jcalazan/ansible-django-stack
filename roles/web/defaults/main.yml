@@ -1,3 +1,8 @@
 ---
 
 virtualenv_python_version: python2.7
+
+ssh_known_hosts_command: "ssh-keyscan -H -T 10"
+ssh_known_hosts_file: "/etc/ssh/ssh_known_hosts"
+ssh_known_hosts:
+  - github.com
