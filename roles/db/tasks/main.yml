@@ -1,5 +1,8 @@
 ---
 
+- name: Ensure locale is available
+  locale_gen: name=en_US.UTF-8
+
 - name: Add the PostgreSQL public GPG key to the apt repo
   apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
            state=present
