@@ -5,7 +5,7 @@
   tags:
     - celery
 
-- name: Ensure supervisor service is started
+- name: Ensure Supervisor service is started
   service: name=supervisor state=started enabled=yes
   tags:
     - celery

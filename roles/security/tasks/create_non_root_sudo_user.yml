@@ -28,3 +28,5 @@
 - name: Delete root password
   action: shell passwd -d root
   notify: restart ssh
+  tags: skip_ansible_lint
+  changed_when: False

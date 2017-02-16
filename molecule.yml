@@ -1,0 +1,21 @@
+---
+driver:
+  name: docker
+
+docker:
+  containers:
+
+      - name: ansible-django-stack-01
+        image: ubuntu
+        image_version: trusty
+        privileged: True
+        ansible_groups:
+          - group1
+
+ansible:
+  verbose: True
+  inventory_file: ./test_suite
+  playbook: test_suite.yml
+
+verifier:
+  name: testinfra
