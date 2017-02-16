@@ -19,4 +19,3 @@
 - name: Ensure the default 'guest' user doesn't exist
   rabbitmq_user: user=guest
                  state=absent
-

@@ -27,12 +27,13 @@
         mode=0774
         state=directory
 
-- name: Create the application log file
-  file: path={{ application_log_file }}
+- name: Create (or retain) the application log file
+  copy: content=""
+        dest={{ application_log_file }}
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         mode=0664
-        state=touch
+        force=no
 
 - name: Create the virtualenv postactivate script to set environment variables
   template: src=virtualenv_postactivate.j2

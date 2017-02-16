@@ -9,4 +9,6 @@
   supervisorctl: name={{ application_name }} state=present
 
 - name: Restart Supervisor
-  supervisorctl: name={{ application_name }} state=restarted
+  supervisorctl: name={{ application_name }}
+                 state=restarted
+  changed_when: False
