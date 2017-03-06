@@ -3,6 +3,11 @@
 - name: Install packages required by the Django app inside virtualenv
   pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
 
+- name: Make manage.py executable
+  file:
+    path: "{{ project_path }}/manage.py"
+    mode: 0777
+
 - name: Run the Django syncdb command
   django_manage:
     command: syncdb
