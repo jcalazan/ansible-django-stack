@@ -5,8 +5,8 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "trusty64"
-  config.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "xenial64"
+  config.vm.box_url = "http://cloud-images.ubuntu.com/xenial/current/xenial-server-cloudimg-amd64-vagrant.box"
 
   config.vm.network :private_network, ip: "192.168.33.15"
 
@@ -17,6 +17,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Shared folder from the host machine to the guest machine. Uncomment the line
   # below to enable it.
   #config.vm.synced_folder "../../../my-cool-app", "/webapps/mycoolapp/my-cool-app"
+
+  # 16.04 first requires that you install Python
+  # before you can run ansible
+  config.vm.provision "shell" do |s|
+    s.inline = "apt-get install -y python"
+  end
 
   # Ansible provisioner.
   config.vm.provision "ansible" do |ansible|
