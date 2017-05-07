@@ -112,7 +112,7 @@ The security module performs several basic server hardening tasks. Inspired by [
 * Performs `aptitude safe-upgrade`
 * Adds a user specified by the `server_user` variable, found in `roles/base/defaults/main.yml`
 * Adds authorized key for the new user
-* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/base/defaults/main.yml`
+* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/security/defaults/main.yml`
 * Installs and configures various security packages:
  * [Unattended upgrades](https://help.ubuntu.com/lts/serverguide/automatic-updates.html)
  * [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
@@ -126,8 +126,8 @@ The security module performs several basic server hardening tasks. Inspired by [
 
 **Security role configuration**
 
-* Change the sudo password in `roles/base/defaults/main.yml`
 * Change the `server_user` from `root` to something else in `roles/base/defaults/main.yml`
+* Change the sudo password in `roles/security/defaults/main.yml`
 * Change variables in `./roles/security/vars/` per your desired configuration
 
 **Running the Security role**
