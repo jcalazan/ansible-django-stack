@@ -241,9 +241,29 @@ In `roles/certbot/defaults/main.yml`, you may want to override the `certbot_admi
 
 A cron job to automatically renew the certificate will run daily.  Note that if a certificate is due for renewal (expiring in less than 30 days), Nginx will be stopped before the certificate can be renewed and then started again once renewal is finished.  Otherwise, nothing will happen so it's safe to leave it running daily.
 
+### Pulling from a private git repository using SSH agent forwarding
+
+**Requirements:**
+
+- Make sure ssh-agent is running on your local machine (run `ssh-agent` from the command line)
+- Test that your ssh key is ready for forwarding via `ssh-add -L`; if not, add your key (`ssh-add yourkey`)
+- Enable `ForwardAgent` on your machine's SSH config file, for example:
+```
+Host example.com  # Must be your fqdn for `{{ inventory_hostname }}` variable to be set correctly
+    IdentityFile ~/.ssh/id_rsa
+    user root
+    IdentitiesOnly yes
+    ForwardAgent yes
+```
+- Make sure you're using the SSH connection to your repo (not the HTTPS connection)
+- Ensure that your domain (e.g., `example.com`) points to your server's IP address
+- Refer to the [Github tutorial](https://developer.github.com/guides/using-ssh-agent-forwarding/) for help debugging SSH agent forwarding 
+
+
 ## Useful Links
 
 - [Ansible - Getting Started](http://docs.ansible.com/intro_getting_started.html)
 - [Ansible - Best Practices](http://docs.ansible.com/playbooks_best_practices.html)
 - [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL](http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/)
 - [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL](http://www.calazan.com/how-to-deploy-encrypted-copies-of-your-ssl-keys-and-other-files-with-ansible-and-openssl/)
+- [Using SSH agent forwarding - GitHub developer guide](https://developer.github.com/guides/using-ssh-agent-forwarding/)

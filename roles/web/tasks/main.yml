@@ -3,12 +3,18 @@
 - include: install_additional_packages.yml
   tags: packages
 
+- include: setup_known_hosts.yml
+
 - include: create_users_and_groups.yml
+
+- include: set_file_permissions.yml
+  tags: deploy
 
 - include: setup_virtualenv.yml
   tags: virtualenv
 
 - include: setup_git_repo.yml
+  become: no
   tags: deploy
 
 - include: setup_django_app.yml
@@ -16,6 +22,3 @@
 
 - include: setup_supervisor.yml
   tags: supervisor
-
-- include: set_file_permissions.yml
-  tags: deploy

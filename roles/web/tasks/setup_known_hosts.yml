@@ -1,0 +1,13 @@
+- name: Make sure the known hosts file exists
+  file: "path={{ ssh_known_hosts_file }} state=touch"
+
+- name: Check host name availability
+  shell: "ssh-keygen -f {{ ssh_known_hosts_file }} -F {{ item }}"
+  with_items: "{{ ssh_known_hosts }}"
+  register: ssh_known_host_results
+  ignore_errors: yes
+
+- name: Scan the public key
+  shell: "{{ ssh_known_hosts_command}} {{ item.item }} >> {{ ssh_known_hosts_file }}"
+  with_items: "{{ ssh_known_host_results.results }}"
+  when: item.stdout == ""
