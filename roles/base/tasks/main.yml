@@ -4,13 +4,10 @@
   when: create_swap_file
   tags: swap
 
-- name: Ensure bash, OpenSSL, and libssl are the latest versions
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
-  with_items:
-    - bash
-    - openssl
-    - libssl-dev
-    - libssl-doc
+- name: Install security updates
+  apt: default_release={{ ansible_distribution_release }}-security
+       update_cache={{ update_apt_cache }}
+       upgrade=dist
   tags: packages
         skip_ansible_lint
 
