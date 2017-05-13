@@ -19,7 +19,6 @@
     - ntp
     - htop
     - git
-    - python-dev
     - python-pip
     - ipython
     - supervisor
@@ -38,17 +37,3 @@
   apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
                   update_cache={{ update_apt_cache }}
                   state=present
-
-- name: Add repository for Python 3.5 to the sources list
-  apt_repository: repo='ppa:fkrull/deadsnakes'
-                  update_cache={{ update_apt_cache }}
-                  state=present
-
-- name: Install Python 3.5 and related packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
-  with_items:
-    - python3.5
-    - python3.5-dev
-    - python3-pip
-    - ipython3
-  tags: packages
