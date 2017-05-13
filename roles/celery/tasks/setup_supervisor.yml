@@ -1,11 +1,6 @@
 ---
 
-- name: Install Supervisor
-  apt: name=supervisor update_cache={{ update_apt_cache }} state=installed
-  tags:
-    - celery
-
-- name: Ensure Supervisor service is started
+- name: Ensure the Supervisor service is running
   service: name=supervisor state=started enabled=yes
   tags:
     - celery
@@ -34,13 +29,6 @@
     - celery
 
 - name: Re-read the Supervisor config files
-  command: supervisorctl reread
+  supervisorctl: name={{ celery_application_name }} state=present
   tags:
     - celery
-  changed_when: False
-
-- name: Update Supervisor to add the app in the process group
-  command: supervisorctl update
-  tags:
-    - celery
-  changed_when: False
