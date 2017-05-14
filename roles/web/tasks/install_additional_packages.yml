@@ -4,3 +4,4 @@
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - libav-tools
+    - libpq-dev

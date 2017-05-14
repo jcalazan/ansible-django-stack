@@ -19,7 +19,6 @@
     - ntp
     - htop
     - git
-    - libpq-dev
     - python-dev
     - python-pip
     - python-pycurl
@@ -31,6 +30,15 @@
   pip: name=pip state=latest
   tags: packages
         skip_ansible_lint
+
+- name: Add the PostgreSQL repository key to the apt trusted keys
+  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
+           state=present
+
+- name: Add the PostgreSQL repository to the apt sources list
+  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
+                  update_cache={{ update_apt_cache }}
+                  state=present
 
 - name: Add repository for Python 3.5 to the sources list
   apt_repository: repo='ppa:fkrull/deadsnakes'
