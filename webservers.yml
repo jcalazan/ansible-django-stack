@@ -6,7 +6,7 @@
   become_user: root
   remote_user: "{{ server_user }}"
   vars:
-    - update_apt_cache: yes
+    update_apt_cache: yes
   vars_files:
     - env_vars/base.yml
     - env_vars/{{ env }}.yml
