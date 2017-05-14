@@ -1,5 +1,7 @@
 ---
 
 - include: copy_scripts.yml
+  tags: celery
 
 - include: setup_supervisor.yml
+  tags: celery

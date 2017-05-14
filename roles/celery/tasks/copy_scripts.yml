@@ -6,8 +6,6 @@
         group={{ celery_group }}
         mode=0774
         state=directory
-  tags:
-    - celery
 
 - name: Create the {{ celery_application_name }} script file
   template: src={{ celery_template_file }}
@@ -15,5 +13,3 @@
             owner={{ celery_user }}
             group={{ celery_group }}
             mode=0755
-  tags:
-    - celery

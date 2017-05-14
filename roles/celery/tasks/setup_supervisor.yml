@@ -2,22 +2,16 @@
 
 - name: Ensure the Supervisor service is running
   service: name=supervisor state=started enabled=yes
-  tags:
-    - celery
 
 - name: Create the Supervisor config file for {{ celery_application_name }}
   template: src=supervisor_{{ celery_application_name }}.conf.j2
             dest=/etc/supervisor/conf.d/{{ celery_application_name }}.conf
-  tags:
-    - celery
 
 - name: Create the {{ celery_application_name }} log directory
   file: path={{ celery_log_dir }}
         owner={{ celery_user }}
         group={{ celery_group }}
         state=directory
-  tags:
-    - celery
 
 - name: Create (or retain) the {{ celery_application_name }} log file
   copy: content=""
@@ -25,10 +19,6 @@
         owner={{ celery_user }}
         group={{ celery_group }}
         force=no
-  tags:
-    - celery
 
 - name: Re-read the Supervisor config files
   supervisorctl: name={{ celery_application_name }} state=present
-  tags:
-    - celery
