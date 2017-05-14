@@ -4,4 +4,6 @@
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - libav-tools
+    - libcurl4-gnutls-dev
+    - libgnutls-dev
     - libpq-dev

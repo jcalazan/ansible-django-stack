@@ -21,7 +21,6 @@
     - git
     - python-dev
     - python-pip
-    - python-pycurl
     - ipython
     - supervisor
   tags: packages
