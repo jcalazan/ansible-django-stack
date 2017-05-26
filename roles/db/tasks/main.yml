@@ -8,7 +8,7 @@
   with_items:
     - postgresql
     - postgresql-contrib
-    - python-psycopg2
+    - "{{ base_python_package }}-psycopg2"
   tags: packages
 
 - name: Ensure the PostgreSQL service is running
