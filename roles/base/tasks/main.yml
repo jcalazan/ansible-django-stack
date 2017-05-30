@@ -12,6 +12,7 @@
     - libssl-dev
     - libssl-doc
   tags: packages
+        skip_ansible_lint
 
 - name: Install base packages
   apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
@@ -32,6 +33,7 @@
 - name: Upgrade pip
   pip: name=pip state=latest
   tags: packages
+        skip_ansible_lint
 
 - name: Add repository for Python 3.5 to the sources list
   apt_repository: repo='ppa:fkrull/deadsnakes'

@@ -247,3 +247,7 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 - [Ansible - Best Practices](http://docs.ansible.com/playbooks_best_practices.html)
 - [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL](http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/)
 - [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL](http://www.calazan.com/how-to-deploy-encrypted-copies-of-your-ssl-keys-and-other-files-with-ansible-and-openssl/)
+
+## Contributing
+
+Contributions are welcome! Please make sure any PR passes the TravisCI test suite.

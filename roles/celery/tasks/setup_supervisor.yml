@@ -5,7 +5,7 @@
   tags:
     - celery
 
-- name: Ensure supervisor service is started
+- name: Ensure Supervisor service is started
   service: name=supervisor state=started enabled=yes
   tags:
     - celery
@@ -24,11 +24,12 @@
   tags:
     - celery
 
-- name: Create the {{ celery_application_name }} log file
-  file: path={{ celery_log_file }}
+- name: Create (or retain) the {{ celery_application_name }} log file
+  copy: content=""
+        dest={{ celery_log_file }}
         owner={{ celery_user }}
         group={{ celery_group }}
-        state=touch
+        force=no
   tags:
     - celery
 
@@ -36,8 +37,10 @@
   command: supervisorctl reread
   tags:
     - celery
+  changed_when: False
 
 - name: Update Supervisor to add the app in the process group
   command: supervisorctl update
   tags:
     - celery
+  changed_when: False

@@ -18,6 +18,12 @@
   rabbitmq_plugin: names=rabbitmq_management state=enabled
   notify: restart rabbitmq-server
 
+- name: Make sure rabbitmq-server is enabled and running
+  service:
+    name: rabbitmq-server
+    state: started
+    enabled: true
+
 - include: setup_vhosts.yml
 
 - include: setup_users.yml

@@ -19,12 +19,14 @@
   changed_when: limit_su_res.rc == 0
 
 - name: Disallow root SSH access
-  lineinfile: dest=/etc/ssh/sshd_config 
-              regexp="^PermitRootLogin" 
-              line="PermitRootLogin no" 
+  lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^PermitRootLogin"
+              line="PermitRootLogin no"
               state=present
   notify: restart ssh
 
 - name: Delete root password
   action: shell passwd -d root
   notify: restart ssh
+  tags: skip_ansible_lint
+  changed_when: False

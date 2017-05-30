@@ -5,11 +5,12 @@
 - include: setup_supervisor.yml
 
 - name: Check running applications managed by supervisor
-  shell: supervisorctl status
+  command: supervisorctl status
   register: supervisor_applications
   tags:
     - celery
     - deploy
+  changed_when: False
 
 - name: Restart the {{ celery_application_name }} app
   supervisorctl: name={{ celery_application_name }} state=restarted
@@ -17,3 +18,4 @@
   tags:
     - celery
     - deploy
+  changed_when: False

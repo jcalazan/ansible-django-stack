@@ -1,0 +1,19 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+  - ssh-keygen -f id_rsa -t rsa -b 4096 -C "your_email@example.com" -N ''
+
+install:
+  - pip install ansible==2.2.1.0
+  - pip install docker-py==1.10.6
+  - pip install molecule==1.20.0
+
+script:
+  - molecule test
