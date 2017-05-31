@@ -1,6 +1,16 @@
 ---
 
+- name: Add Felix Krull's New Python Versions PPA to the apt sources list
+  apt_repository: repo='ppa:fkrull/deadsnakes'
+                  update_cache={{ update_apt_cache }}
+                  state=present
+  when: enable_deadsnakes_ppa
+
 - name: Install additional packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - libav-tools
+    - libcurl4-gnutls-dev
+    - libgnutls-dev
+    - libpq-dev
+    - "{{ virtualenv_python_version + '-dev' }}"

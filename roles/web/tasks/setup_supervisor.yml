@@ -1,10 +1,6 @@
 ---
 
-
-- name: Make sure Supervisor is installed
-  apt: name=supervisor update_cache={{ update_apt_cache }} state=installed
-
-- name: Ensure Supervisor service is started
+- name: Ensure the Supervisor service is running
   service: name=supervisor state=started enabled=yes
 
 - name: Create the Supervisor config file
@@ -14,8 +10,3 @@
 
 - name: Re-read the Supervisor config files
   supervisorctl: name={{ application_name }} state=present
-
-- name: Restart Supervisor
-  supervisorctl: name={{ application_name }}
-                 state=restarted
-  changed_when: False

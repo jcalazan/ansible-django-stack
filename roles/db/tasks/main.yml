@@ -3,21 +3,12 @@
 - name: Ensure locale is available
   locale_gen: name=en_US.UTF-8
 
-- name: Add the PostgreSQL public GPG key to the apt repo
-  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
-           state=present
-
-- name: Add PostgreSQL to the sources list
-  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
-                  update_cache={{ update_apt_cache }}
-                  state=present
-
 - name: Install PostgreSQL
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - postgresql
     - postgresql-contrib
-    - python-psycopg2
+    - "{{ base_python_package }}-psycopg2"
   tags: packages
 
 - name: Ensure the PostgreSQL service is running

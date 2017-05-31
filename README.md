@@ -204,9 +204,11 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ## Advanced Options
 
-### Using Python 3.5
+### Using Python 3
 
-Python 3.5 is already installed and to use this version in the `virtualenv`, just override the value of the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml).
+To use Python 3 in the `virtualenv`, just override the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml) to `python3`. This uses the Python 3 package from the main repository.
+
+Newer versions of Python 3 are available in an [unofficial PPA from Felix Krull](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=trusty). To use this PPA, override the `enable_deadsnakes_ppa` variable to `yes`. Then override `virtualenv_python_version` to the specific Python package to be used, such as `python3.5` or `python3.6`.
 
 ### Creating a swap file
 
