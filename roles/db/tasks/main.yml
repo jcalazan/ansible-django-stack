@@ -1,26 +1,21 @@
 ---
 
-- name: Add the PostgreSQL public GPG key to the apt repo
-  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
-           state=present
-
-- name: Add PostgreSQL to the sources list
-  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
-                  update_cache={{ update_apt_cache }}
-                  state=present
+- name: Ensure locale is available
+  locale_gen: name=en_US.UTF-8
 
 - name: Install PostgreSQL
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
     - postgresql
     - postgresql-contrib
-    - python-psycopg2
+    - "{{ base_python_package }}-psycopg2"
   tags: packages
 
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started enabled=yes
 
 - name: Ensure database is created
+  become: yes
   become_user: postgres
   postgresql_db: name={{ db_name }}
                  encoding='UTF-8'
@@ -30,6 +25,7 @@
                  state=present
 
 - name: Ensure user has access to the database
+  become: yes
   become_user: postgres
   postgresql_user: db={{ db_name }}
                    name={{ db_user }}
@@ -38,6 +34,7 @@
                    state=present
 
 - name: Ensure user does not have unnecessary privileges
+  become: yes
   become_user: postgres
   postgresql_user: name={{ db_user }}
                    role_attr_flags=NOSUPERUSER,NOCREATEDB

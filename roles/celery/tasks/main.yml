@@ -1,19 +1,7 @@
 ---
 
 - include: copy_scripts.yml
+  tags: celery
 
 - include: setup_supervisor.yml
-
-- name: Check running applications managed by supervisor
-  shell: supervisorctl status
-  register: supervisor_applications
-  tags:
-    - celery
-    - deploy
-
-- name: Restart the {{ celery_application_name }} app
-  supervisorctl: name={{ celery_application_name }} state=restarted
-  when: supervisor_applications.stdout.find('{{ celery_application_name }}') != -1
-  tags:
-    - celery
-    - deploy
+  tags: celery

@@ -1,3 +1,5 @@
 ---
 
 server_user: root
+
+base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"

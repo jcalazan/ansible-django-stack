@@ -13,3 +13,4 @@
   args:
     chdir: "{{ project_path }}"
   tags: git
+  changed_when: False

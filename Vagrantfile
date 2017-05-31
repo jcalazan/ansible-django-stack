@@ -10,8 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.network :private_network, ip: "192.168.33.15"
 
-  config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--name", "MyCoolApp", "--memory", "512"]
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--name", "MyCoolApp", "--memory", "1024"]
   end
 
   # Shared folder from the host machine to the guest machine. Uncomment the line

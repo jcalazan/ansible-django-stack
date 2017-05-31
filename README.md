@@ -1,5 +1,8 @@
+
 ansible-django-stack
 ====================
+
+[![Build Status](https://travis-ci.org/jcalazan/ansible-django-stack.svg?branch=master)](https://travis-ci.org/jcalazan/ansible-django-stack)
 
 Ansible Playbook designed for environments running a Django app.  It can install and configure these applications that are commonly used in production Django deployments:
 
@@ -112,7 +115,7 @@ The security module performs several basic server hardening tasks. Inspired by [
 * Performs `aptitude safe-upgrade`
 * Adds a user specified by the `server_user` variable, found in `roles/base/defaults/main.yml`
 * Adds authorized key for the new user
-* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/base/defaults/main.yml`
+* Installs sudo and adds the new user to sudoers with the password specified by the `server_user_password` variable found in `roles/security/defaults/main.yml`
 * Installs and configures various security packages:
  * [Unattended upgrades](https://help.ubuntu.com/lts/serverguide/automatic-updates.html)
  * [Uncomplicated Firewall](https://wiki.ubuntu.com/UncomplicatedFirewall)
@@ -126,8 +129,8 @@ The security module performs several basic server hardening tasks. Inspired by [
 
 **Security role configuration**
 
-* Change the sudo password in `roles/base/defaults/main.yml`
 * Change the `server_user` from `root` to something else in `roles/base/defaults/main.yml`
+* Change the sudo password in `roles/security/defaults/main.yml`
 * Change variables in `./roles/security/vars/` per your desired configuration
 
 **Running the Security role**
@@ -201,9 +204,11 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ## Advanced Options
 
-### Using Python 3.5
+### Using Python 3
 
-Python 3.5 is already installed and to use this version in the `virtualenv`, just override the value of the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml).
+To use Python 3 in the `virtualenv`, just override the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml) to `python3`. This uses the Python 3 package from the main repository.
+
+Newer versions of Python 3 are available in an [unofficial PPA from Felix Krull](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=trusty). To use this PPA, override the `enable_deadsnakes_ppa` variable to `yes`. Then override `virtualenv_python_version` to the specific Python package to be used, such as `python3.5` or `python3.6`.
 
 ### Creating a swap file
 
@@ -247,3 +252,7 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 - [Ansible - Best Practices](http://docs.ansible.com/playbooks_best_practices.html)
 - [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL](http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/)
 - [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL](http://www.calazan.com/how-to-deploy-encrypted-copies-of-your-ssl-keys-and-other-files-with-ansible-and-openssl/)
+
+## Contributing
+
+Contributions are welcome! Please make sure any PR passes the TravisCI test suite.

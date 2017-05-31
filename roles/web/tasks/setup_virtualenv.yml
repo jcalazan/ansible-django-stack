@@ -8,8 +8,11 @@
   command: virtualenv -p {{ virtualenv_python_version }} {{ virtualenv_path }}
            creates={{ virtualenv_path }}/bin/activate
 
-- name: Ensure gunicorn is installed
-  pip: virtualenv={{ virtualenv_path }} name=gunicorn
+- name: Ensure gunicorn and pycurl are installed in the virtualenv
+  pip: virtualenv={{ virtualenv_path }} name={{ item }}
+  with_items:
+    - gunicorn
+    - pycurl
 
 - name: Create the Gunicorn script file
   template: src=gunicorn_start.j2
@@ -27,12 +30,13 @@
         mode=0774
         state=directory
 
-- name: Create the application log file
-  file: path={{ application_log_file }}
+- name: Create (or retain) the application log file
+  copy: content=""
+        dest={{ application_log_file }}
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         mode=0664
-        state=touch
+        force=no
 
 - name: Create the virtualenv postactivate script to set environment variables
   template: src=virtualenv_postactivate.j2
