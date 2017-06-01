@@ -19,7 +19,7 @@ Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment
 
 A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
 
-**Tested with OS:** Ubuntu 14.04 LTS x64
+**Tested with OS:** Ubuntu 16.04 LTS (64-bit PC), Ubuntu 14.04 LTS (64-bit PC)
 
 **Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
 
@@ -203,6 +203,10 @@ ansible-playbook -i stage webservers.yml --tags="deploy"
 This repo already has `deploy` tags specified for tasks that are likely needed to run during deployment in most Django environments.
 
 ## Advanced Options
+
+### Changing the Ubuntu release
+
+The [Vagrantfile](Vagrantfile) imports the official Ubuntu 16.04 LTS (64-bit PC) Vagrant box from Canonical, before provisioning it. To use Ubuntu 14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To use a 32-bit PC box, change the `config.vm.box` setting to `ubuntu/xenial32` or `ubuntu/trusty32`.
 
 ### Using Python 3
 
