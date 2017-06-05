@@ -15,7 +15,7 @@ Ansible Playbook designed for environments running a Django app.  It can install
 - Celery
 - RabbitMQ
 
-Default settings are stored in ```roles/role_name/vars/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
+Default settings are stored in ```roles/role_name/defaults/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
 A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
 
@@ -216,7 +216,7 @@ Newer versions of Python 3 are available in an [unofficial PPA from Felix Krull]
 
 ### Creating a swap file
 
-By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in [roles/base/vars/main.yml](roles/base/vars/main.yml).
+By default, the playbook won't create a swap file.  To create/enable swap, simply change the values in [roles/base/defaults/main.yml](roles/base/defaults/main.yml).
 
 You can also override these values in the main playbook, for example:
 
