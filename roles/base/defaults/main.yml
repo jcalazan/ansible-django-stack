@@ -1,5 +1,7 @@
 ---
 
+ansible_python_interpreter: /usr/bin/python3  # remove this var if using an Ubuntu version older than 16.04
+
 server_user: root
 
 base_python_package: "{{ ansible_python_interpreter | default('/usr/bin/python') | basename }}"

@@ -17,6 +17,8 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/defaults/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
+One important thing to note is the default Ansible Python interpreter is set to Python 3 in [roles/base/defaults/main.yml](roles/base/defaults/main.yml). This means that the remote servers must have Python 3 installed, which is the case with Ubuntu 16.04.  If using an Ubuntu version older than 16.04, simply remove this var to default back to Python 2.7.  If you have a mixed set of servers, say some are running on Ubuntu 14.04 and others on Ubuntu 16.04, you could set the var separately per host in the inventory files.
+
 A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
 
 **Tested with OS:** Ubuntu 16.04 LTS (64-bit PC), Ubuntu 14.04 LTS (64-bit PC)
