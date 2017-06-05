@@ -13,7 +13,7 @@ before_install:
 install:
   - pip install ansible==2.2.1.0
   - pip install docker-py==1.10.6
-  - pip install molecule==1.25.0
+  - pip install molecule==1.20.0
 
 script:
   - molecule test
