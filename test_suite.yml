@@ -9,6 +9,7 @@
     - setup_git_repo: yes
     - update_apt_cache: yes
     - force_ssh_authentication: no
+    - ansible_python_interpreter: /usr/bin/python2.7
   vars_files:
     - env_vars/base.yml
     - env_vars/vagrant.yml

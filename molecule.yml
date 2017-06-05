@@ -7,7 +7,7 @@ docker:
 
       - name: ansible-django-stack-01
         image: ubuntu
-        image_version: xenial
+        image_version: trusty
         privileged: True
         ansible_groups:
           - group1
