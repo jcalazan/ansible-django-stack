@@ -6,7 +6,8 @@
   become_user: root
   remote_user: vagrant
   vars:
-    setup_git_repo: yes
+    ansible_python_interpreter: /usr/bin/python3  # remove this var if using an Ubuntu version older than 16.04
+    setup_git_repo: yes  # set to no for local development and map your local git repo in the Vagrantfile instead
     update_apt_cache: yes
   vars_files:
     - env_vars/base.yml

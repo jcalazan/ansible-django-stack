@@ -17,12 +17,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # below to enable it.
   #config.vm.synced_folder "../../../my-cool-app", "/webapps/mycoolapp/my-cool-app"
 
-  # 16.04 first requires that you install Python
-  # before you can run ansible
-  config.vm.provision "shell" do |s|
-    s.inline = "apt-get install -y python"
-  end
-
   # Ansible provisioner.
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"

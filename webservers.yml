@@ -6,6 +6,7 @@
   become_user: root
   remote_user: "{{ server_user }}"
   vars:
+    ansible_python_interpreter: /usr/bin/python3  # remove this var if using an Ubuntu version older than 16.04
     update_apt_cache: yes
   vars_files:
     - env_vars/base.yml

@@ -8,8 +8,9 @@
   apt: default_release={{ ansible_distribution_release }}-security
        update_cache={{ update_apt_cache }}
        upgrade=dist
-  tags: packages
-        skip_ansible_lint
+  tags:
+    - packages
+    - skip_ansible_lint
 
 - name: Install base packages
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
@@ -22,18 +23,12 @@
     - "{{ base_python_package }}-pip"
     - "i{{ base_python_package }}"
     - supervisor
-  tags: packages
+  tags:
+    - packages
+    - packages.security
 
 - name: Upgrade pip
   pip: name=pip state=latest
-  tags: packages
-        skip_ansible_lint
-
-- name: Add the PostgreSQL repository key to the apt trusted keys
-  apt_key: url=https://www.postgresql.org/media/keys/ACCC4CF8.asc
-           state=present
-
-- name: Add the PostgreSQL repository to the apt sources list
-  apt_repository: repo='deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main'
-                  update_cache={{ update_apt_cache }}
-                  state=present
+  tags:
+    - packages
+    - skip_ansible_lint

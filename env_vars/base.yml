@@ -5,6 +5,9 @@ git_repo: https://github.com/jcalazan/youtube-audio-dl.git
 project_name: youtube-audio-dl
 application_name: youtubeadl
 
+enable_deadsnakes_ppa: yes
+virtualenv_python_version: python3.6
+
 ssl_crt: |
   -----BEGIN CERTIFICATE-----
   MIIDjTCCAnWgAwIBAgIJAMazeCBLPAeCMA0GCSqGSIb3DQEBCwUAMF0xCzAJBgNV
