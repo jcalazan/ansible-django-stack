@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "my-cool-app.local", primary: true do |app|
     app.vm.hostname = "my-cool-app"
 
-    app.vm.network "private_network", ip: "192.168.33.15"
+    app.vm.network "private_network", type: "dhcp"
   end
 
   config.vm.provider "virtualbox" do |vb|
