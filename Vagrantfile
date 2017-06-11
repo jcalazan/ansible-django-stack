@@ -7,7 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.network :private_network, ip: "192.168.33.15"
+  config.vm.define "my-cool-app.local", primary: true do |app|
+    app.vm.hostname = "my-cool-app"
+
+    app.vm.network "private_network", ip: "192.168.33.15"
+  end
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--name", "MyCoolApp", "--memory", "1024"]

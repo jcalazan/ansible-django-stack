@@ -84,7 +84,7 @@ Type this command from the project root directory:
 vagrant up
 ```
 
-Wait a few minutes for the magic to happen.  Access the app by going to this URL: http://192.168.33.15
+Wait a few minutes for the magic to happen.  Access the app by going to this URL: https://my-cool-app.local
 
 Yup, exactly, you just provisioned a completely new server and deployed an entire Django stack in 5 minutes with _two words_ :).
 
