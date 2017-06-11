@@ -1,6 +1,6 @@
 ---
 
-ansible_python_interpreter: /usr/bin/python3  # remove this var if using an Ubuntu version older than 16.04
+ansible_python_interpreter: /usr/bin/python3
 
 server_user: root
 

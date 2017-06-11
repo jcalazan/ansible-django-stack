@@ -17,8 +17,6 @@ Ansible Playbook designed for environments running a Django app.  It can install
 
 Default settings are stored in ```roles/role_name/defaults/main.yml```.  Environment-specific settings are in the ```env_vars``` directory.
 
-One important thing to note is the default Ansible Python interpreter is set to Python 3 in [roles/base/defaults/main.yml](roles/base/defaults/main.yml). This means that the remote servers must have Python 3 installed, which is the case with Ubuntu 16.04.  If using an Ubuntu version older than 16.04, simply remove this var to default back to Python 2.7.  If you have a mixed set of servers, say some are running on Ubuntu 14.04 and others on Ubuntu 16.04, you could set the var separately per host in the inventory files.
-
 A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
 
 **Tested with OS:** Ubuntu 16.04 LTS (64-bit PC), Ubuntu 14.04 LTS (64-bit PC)
@@ -27,7 +25,7 @@ A `certbot` role is also included for automatically generating and renewing trus
 
 ## Getting Started
 
-A quick way to get started is with Vagrant and VirtualBox.
+A quick way to get started is with Vagrant.
 
 ### Requirements
 
@@ -35,7 +33,16 @@ A quick way to get started is with Vagrant and VirtualBox.
 - [Vagrant](http://www.vagrantup.com/downloads.html)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
-The main settings to change here is in the **env_vars/base** file, where you can configure the location of your Git project, the project name, and application name which will be used throughout the Ansible configuration.
+Ansible has been configured to use Python 3 inside the remote machine when provisioning it. This [requires Ansible 2.2 or later](https://docs.ansible.com/ansible/python_3_support.html) to be installed on the local machine. In Ubuntu 14.04/16.04 LTS, this version is not in the main package repositories, but it can be installed from the Ansible PPA by running these commands:
+
+```
+sudo add-apt-repository ppa:ansible/ansible
+sudo apt-get update
+```
+
+### Configuring your application
+
+The main settings to change are in the [env_vars/base.yml](env_vars/base.yml) file, where you can configure the location of your Git project, the project name, and the application name which will be used throughout the Ansible configuration. I set some default values based on my open-source app, [YouTube Audio Downloader](https://github.com/jcalazan/youtube-audio-dl).
 
 Note that the default values in the playbooks assume that your project structure looks something like this:
 
@@ -69,7 +76,9 @@ The main things to note are the locations of the `manage.py` and `wsgi.py` files
 
 Also, if your app needs additional system packages installed, you can add them in `roles/web/tasks/install_additional_packages.yml`.
 
-I set some default values in the `env_vars` based on my open-source app, [YouTube Audio Downloader](https://github.com/jcalazan/youtube-audio-dl), so all you really have to do is type in this one command in the project root:
+### Creating the machine
+
+Type this command from the project root directory:
 
 ```
 vagrant up
@@ -107,7 +116,7 @@ vagrant halt
 
 ## Security
 
-###NOTE: Do not run the Security role without understanding what it does. Improper configuration could lock you out of your machine.
+*NOTE: Do not run the Security role without understanding what it does. Improper configuration could lock you out of your machine.*
 
 **Security role tasks**
 
@@ -208,13 +217,17 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ### Changing the Ubuntu release
 
-The [Vagrantfile](Vagrantfile) imports the official Ubuntu 16.04 LTS (64-bit PC) Vagrant box from Canonical, before provisioning it. To use Ubuntu 14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To use a 32-bit PC box, change the `config.vm.box` setting to `ubuntu/xenial32` or `ubuntu/trusty32`.
+The [Vagrantfile](Vagrantfile) uses the Ubuntu 16.04 LTS Vagrant box for a 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu 14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To use the Vagrant box for a 32-bit PC, change this setting to `ubuntu/xenial32` or `ubuntu/trusty32`.
 
-### Using Python 3
+### Changing the Python version used by your application
 
-To use Python 3 in the `virtualenv`, just override the `virtualenv_python_version` variable in [roles/web/defaults/main.yml](roles/web/defaults/main.yml) to `python3`. This uses the Python 3 package from the main repository.
+Python 3 is used by default in the `virtualenv`. To use Python 2 instead, just override the `virtualenv_python_version` variable and set it to `python`.
 
-Newer versions of Python 3 are available in an [unofficial PPA from Felix Krull](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=trusty). To use this PPA, override the `enable_deadsnakes_ppa` variable to `yes`. Then override `virtualenv_python_version` to the specific Python package to be used, such as `python3.5` or `python3.6`.
+It is possible to install other versions of Python from an [unofficial PPA by Felix Krull (see disclaimer)](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=xenial). To use this PPA, override the `enable_deadsnakes_ppa` variable and set it to `yes`. Then the `virtualenv_python_version` variable can be set to the name of a Python package from this PPA, such as `python3.6`.
+
+### Changing the Python version used by Ansible
+
+To use Python 2 as the interpreter for Ansible, override the `ansible_python_interpreter` variable and set it to `/usr/bin/python`. This allows a machine without Python 3 to be provisioned.
 
 ### Creating a swap file
 
