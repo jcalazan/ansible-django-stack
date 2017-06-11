@@ -15,6 +15,7 @@
 - name: Install base packages
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
   with_items:
+    - locales
     - build-essential
     - acl
     - ntp
