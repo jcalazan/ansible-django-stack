@@ -31,7 +31,7 @@ A quick way to get started is with Vagrant.
 
 - [Ansible](http://docs.ansible.com/intro_installation.html)
 - [Vagrant](http://www.vagrantup.com/downloads.html)
-- [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Docker](https://www.docker.com/get-docker)
 
 Ansible has been configured to use Python 3 inside the remote machine when provisioning it. This [requires Ansible 2.2 or later](https://docs.ansible.com/ansible/python_3_support.html) to be installed on the local machine. In Ubuntu 14.04/16.04 LTS, this version is not in the main package repositories, but it can be installed from the Ansible PPA by running these commands:
 
@@ -83,6 +83,8 @@ Type this command from the project root directory:
 ```
 vagrant up
 ```
+
+(To use Docker instead of VirtualBox, add the flag ```--provider=docker``` to the command above. Note that extra configuration may be required first on your host for Docker to run systemd in a container.)
 
 Wait a few minutes for the magic to happen.  Access the app by going to this URL: https://my-cool-app.local
 
@@ -218,6 +220,8 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 ### Changing the Ubuntu release
 
 The [Vagrantfile](Vagrantfile) uses the Ubuntu 16.04 LTS Vagrant box for a 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu 14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To use the Vagrant box for a 32-bit PC, change this setting to `ubuntu/xenial32` or `ubuntu/trusty32`.
+
+Note that the included configuration for Docker is not written to work with Ubuntu 14.04 LTS.
 
 ### Changing the Python version used by your application
 

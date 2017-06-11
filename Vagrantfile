@@ -17,6 +17,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--name", "MyCoolApp", "--memory", "1024"]
   end
 
+  config.vm.provider "docker" do |d, override|
+    override.vm.box = nil
+
+    d.name = "MyCoolApp"
+    d.build_dir = "docker"
+    d.create_args = ["--publish-all", "--security-opt=seccomp:unconfined",
+                     "--tmpfs=/run", "--tmpfs=/run/lock", "--tmpfs=/tmp",
+                     "--volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"]
+    d.has_ssh = true
+  end
+
   # Shared folder from the host machine to the guest machine. Uncomment the line
   # below to enable it.
   #config.vm.synced_folder "../../../my-cool-app", "/webapps/mycoolapp/my-cool-app"
