@@ -11,6 +11,6 @@
   with_items:
     - libav-tools
     - libcurl4-gnutls-dev
-    - libgnutls-dev
+    - gnutls-dev
     - libpq-dev
     - "{{ virtualenv_python_version + '-dev' }}"
