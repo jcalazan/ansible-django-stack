@@ -5,6 +5,11 @@ git_repo: https://github.com/jcalazan/youtube-audio-dl.git
 project_name: youtube-audio-dl
 application_name: youtubeadl
 
+# Note that this PPA doesn't guarantee timely updates in case of security issues.
+# Simply remove these two vars below if you prefer to use the official PPA and
+# default Python version that came with your Linux distro.
+#
+# More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
 enable_deadsnakes_ppa: yes
 virtualenv_python_version: python3.6
 
