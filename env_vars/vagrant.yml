@@ -36,7 +36,6 @@ rabbitmq_application_password: password
 
 # Celery settings.
 celery_num_workers: 2
-flower_admin_password: password
 
 
 # Application settings.
