@@ -34,7 +34,6 @@ rabbitmq_application_password: password
 
 # Celery settings.
 celery_num_workers: 2
-flower_admin_password: password
 
 
 # Application settings.
@@ -45,3 +44,60 @@ broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_pass
 
 run_django_db_migrations: yes
 run_django_collectstatic: yes
+
+
+# Nginx settings.
+ssl_crt: |
+  -----BEGIN CERTIFICATE-----
+  MIIDOjCCAiKgAwIBAgIBADANBgkqhkiG9w0BAQsFADAaMRgwFgYDVQQDDA9kZXYu
+  ZXhhbXBsZS5jb20wIhgPMTk3MDAxMDEwMDAwMDBaGA85OTk5MTIzMTIzNTk1OVow
+  GjEYMBYGA1UEAwwPZGV2LmV4YW1wbGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
+  AQ8AMIIBCgKCAQEAuTyvpgw5iC7vHGr9cpCa1yVW3rTc/81PWqMPL3lKmV4IzHd7
+  +50QKOFCQE6nfhYS+jVM/3dk8DQgaaTdo1BVF9kT/p1SQE2aE4AFHfPKXP1M+MFB
+  oqK6uujejns4sItZg5yj6QTyTBNOHkaXeCObYpAnp+HokqT5Nmrr/uzPZc7jNZ41
+  ehM2mL3nJ7Zgl40nQj4UqFLsXmlG4g6DKEKilRIpJClLdRm6lydgdVi2HApE4adk
+  DOcIXXY687Y/LFoPFrgpztWv/O0/oJguV7LHttjS9b6LzjF8k7rWqCT4muHy1fYc
+  JXLIOaUrWEru9FQegppwIo6tQjoZuy09lLOztQIDAQABo4GGMIGDMAkGA1UdEwQC
+  MAAwHQYDVR0OBBYEFG2JDPGRCvuRmxMNQcewxwamyehtMB8GA1UdIwQYMBaAFG2J
+  DPGRCvuRmxMNQcewxwamyehtMBoGA1UdEQQTMBGCD2Rldi5leGFtcGxlLmNvbTAa
+  BgNVHRIEEzARgg9kZXYuZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQADggEBAIe2
+  obG3657lBKtQEvRVnhJC8utlNIAo0U3Ys6+jmU87LEijVMVwhZreleLC2jI4DeLe
+  JDf2uenifKQbhMCoWBJvoPxP5QjwpOaKvxuI/+xhSG4pQfBV9kb6mHsYhykY0sX1
+  //JgCoumWwLbLQnB2tXV32Dqm+HUWWXqLS/aenNx0HWJwfFCLHPTTPYRn9ESy+oh
+  7frGtzjIFEx/OV2yQwBXmMxQjhUa82/Od99vEmiLgC4LLqXVtadNnumENMCRbw1P
+  99Z7EbZ9F206VVc8aSCLNhphPAct0wFYTQ59tFGFj637SsrI6LhP/wKXOJS5WLSG
+  sK13YvMF3uL9YD7JNGI=
+  -----END CERTIFICATE-----
+
+# This key is for demo purposes only. If you're committing your keys
+# to your git repo, you'd probably want it encrypted. You can use
+# ansible-vault to do this.
+ssl_key: |
+  -----BEGIN PRIVATE KEY-----
+  MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5PK+mDDmILu8c
+  av1ykJrXJVbetNz/zU9aow8veUqZXgjMd3v7nRAo4UJATqd+FhL6NUz/d2TwNCBp
+  pN2jUFUX2RP+nVJATZoTgAUd88pc/Uz4wUGiorq66N6Oeziwi1mDnKPpBPJME04e
+  Rpd4I5tikCen4eiSpPk2auv+7M9lzuM1njV6EzaYvecntmCXjSdCPhSoUuxeaUbi
+  DoMoQqKVEikkKUt1GbqXJ2B1WLYcCkThp2QM5whddjrztj8sWg8WuCnO1a/87T+g
+  mC5Xsse22NL1vovOMXyTutaoJPia4fLV9hwlcsg5pStYSu70VB6CmnAijq1COhm7
+  LT2Us7O1AgMBAAECggEAHjQU9+A6aUgt2NZhKRMHDFmcRof7GQKjE8ZOrZD7ZvJ8
+  QMqivq4nemLwaIfqq5Zx1bZnLaiMHtaBCnjFYuGwXkkZB4UjajS9ELzpGK8tqefr
+  awwn5ZrfE6bw0w6oebDfEaSy3UXfNCRZsnoULJSxu2qB7M/bGj4oHIVmoZR/ZLwG
+  LRItoK0wB2Bok5bmF9mAfW9EkoCOwkQP6uEynJ7z1f03teGJhSWu8xfjJv7XkLxG
+  vIFbSSeGKZdEHK5fz5nHyr8RCkF5DNPagrs5gz0o1clDeG3VcQhCUgE1y8Ly8iSR
+  LvDhk6KcfTscvdvxXNKPYPtqpFZfnJTt4qVM5rGaAQKBgQDd94EiefLVPxei/gqB
+  cfhmtsDAdeQRqdJedg/PE4KDzlAqzOY/Bd4klVASwA0yxXepqf2ZRT1vhMkjFmSM
+  kproc+gzKFQxxUSmJ//Jl2csaR3+UTAiBiv3b5BuCptG9WaHxRwx/jwHyslANrHP
+  D+33ybLTOjlMbktrwIkqR1JzwQKBgQDVo31EYOQ7fDt4DYLRVHMoKJpErbwDH9jt
+  hqfloKrV+UfrAWtn4mMcrCb6LKWTiv5T52gPbV/sSM5+7U97W3goffJShCPKobd3
+  6vhn2rowPjQd3IkZEygUuw4xTOHWUl1MB6Z9zyUd3hM1/wlO1CiHtaCpnEVgX66b
+  yEF7IVXs9QKBgBIrscmVvBhS6udv7oI8Rz55VXwr6ni7szoCZjbofPW3TP7D+VFN
+  dKsAAicWy73NRoeAH/+NGINplmGl8qNDWSUQYADYG1Rbtsv3WEwzdcG/9TGdidgv
+  Myg1XNh1S9LaQgN5Ul6RVm643hLAp3uw7SUswNPj307vdIMkptXsMsbBAoGAdfuI
+  9ZdQ0+0i5oUHptUtl5L8x0rvFwaihWKlHHJjhjHZ3tX02/UxaSdFi0nW0ymilPGq
+  DUMJA3Od3ojuKSD1td8AUUO6hHBU4zv3nVs1Eel4XLlrWVaz/ubiyqU732GzNobP
+  EpGwXNNE5sAHAuq1y2Sp6qFryvJseonYZ8icLHUCgYBHSWGgjhOA7KyZdcTdmpu+
+  fGAwN2Coj2l+PKvQEJkX96IOboHDkd7N8mwyfjb30FcD1uVkEwjp55PpHmYph8xD
+  GhN+yDgmf5OjDia0mFhv1nA/Nh16rQZd2NV7qYx0npPabOfud/8imdgOFr78HCjS
+  MoqV6aeRY/7uwLiviaIUJg==
+  -----END PRIVATE KEY-----

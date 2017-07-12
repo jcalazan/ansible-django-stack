@@ -6,10 +6,9 @@
   become_user: root
   remote_user: root
   vars:
-    - setup_git_repo: yes
-    - update_apt_cache: yes
-    - force_ssh_authentication: no
-    - ansible_python_interpreter: /usr/bin/python
+    update_apt_cache: yes
+    force_ssh_authentication: no
+    ansible_python_interpreter: /usr/bin/python
   vars_files:
     - env_vars/base.yml
     - env_vars/vagrant.yml
