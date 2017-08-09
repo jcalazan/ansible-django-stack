@@ -1,8 +1,25 @@
 ---
 
 - name: Install virtualenv
-  pip: name=virtualenv
+  pip:
+    name: virtualenv
+    version: 15.1.0
   tags: packages
+
+- name: Check if Supervisor exists
+  stat: path=/etc/init.d/supervisor
+  register: supervisor_status
+  when: recreate_virtualenv
+
+- name: Ensure all processes managed by Supervisor are stopped if exists
+  command: supervisorctl stop all
+  when: recreate_virtualenv and supervisor_status.stat.exists
+
+- name: Ensure no existing virtualenv exists
+  file:
+    state: absent
+    path: "{{ virtualenv_path }}/"
+  when: recreate_virtualenv
 
 - name: Create the virtualenv
   command: virtualenv -p {{ virtualenv_python_version }} {{ virtualenv_path }}

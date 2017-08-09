@@ -2,6 +2,7 @@
 
 # Virtualenv settings.
 enable_deadsnakes_ppa: no
+recreate_virtualenv: no
 virtualenv_python_version: "{{ base_python_package }}"
 
 
