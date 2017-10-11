@@ -39,6 +39,7 @@
   postgresql_user: db={{ db_name }}
                    name={{ db_user }}
                    password={{ db_password }}
+                   encrypted=yes
                    priv=ALL
                    state=present
 
