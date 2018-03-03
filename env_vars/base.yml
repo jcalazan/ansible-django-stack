@@ -12,3 +12,18 @@ application_name: youtubeadl
 # More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
 enable_deadsnakes_ppa: yes
 virtualenv_python_version: python3.6
+
+
+# Project layout
+# The following paths are relative to the root of your project where various
+# files can be found.
+
+# The relative path where manage.py can be found. The default is that
+# manage.py can be found in the root directory of the project.
+django_relative_path: .
+
+# The relative path to the requirements file. The default is that
+# requirements.txt can be found in the root directory of the project.
+# Override this value in env_vars/vagrant.yml and/or env_vars/development.yml
+# if you have different requirements for each environment.
+requirements_relative_file: ./requirements.txt

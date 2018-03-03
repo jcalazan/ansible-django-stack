@@ -69,7 +69,12 @@ myproject
 └── requirements.txt
 ```
 
-The main things to note are the locations of the `manage.py` and `wsgi.py` files.  If your project's structure is a little different, you may need to change the values in these 2 files:
+The main things to note are the locations of the `manage.py`, `requirements.txt` and `wsgi.py` files.  
+If your project's structure is a little different then you can edit the paths, relative to the root of
+the project, in the Project layout section of env_vars/base.yml. If you have different requirements files 
+for each environment then you can override the relative path to the file in env_vars/development.yml 
+and/or env_vars/vagrant.yml as needed. If this does not support your project layout then you can still
+edit the values in these 2 files:
 
 - `roles/web/tasks/setup_django_app.yml`
 - `roles/web/templates/gunicorn_start.j2`

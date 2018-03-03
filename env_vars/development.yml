@@ -5,6 +5,13 @@ setup_git_repo: yes
 git_branch: development
 
 
+# Project layout
+
+# Uncomment and change this if you have specific requirements when
+# running the app on the development server
+# requirements_relative_file: "./requirements.txt"
+
+
 # Database settings.
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
