@@ -26,4 +26,4 @@ django_relative_path: .
 # requirements.txt can be found in the root directory of the project.
 # Override this value in env_vars/vagrant.yml and/or env_vars/development.yml
 # if you have different requirements for each environment.
-requirements_relative_file: ./requirements.txt
+requirements_relative_file: ./requirements_local.txt
