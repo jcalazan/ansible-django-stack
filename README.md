@@ -143,14 +143,34 @@ vagrant reload
 vagrant halt
 ```
 
-## Private Repositories
+## Pulling from a private git repository using SSH agent forwarding
 
-If your code is in a private repository then you need some way of authenticating
-yourself during the deployment. If you add a public SSH key to the git server
-then you can use SSH agent forwarding so the request to unlock the key so the
-code can be checked out is forwarded to the machine where you run the playbook.
+If your code is in a private repository you must use an SSH connection along
+with a key so ansible can checkout the code. HTTPS connections and SSH 
+connections with a username and password do not work because ansible cannot 
+deal with interactive logins.
 
-The first thing you need to do is set the ssh_agent_forwarding flag in
+Using SSH agent forwarding we can get the authentication request from the 
+repository sent to the machine where the playbook is run. That keeps the 
+private key to the repository as safe as possible. To set this up you need to:
+
+- Add a public key to the server hosting your repo. 
+- Make sure ssh-agent is running on your local machine
+- Add the public key to ssh-agent
+
+[Connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/) 
+has all the information on key generation, adding keys to the server, setting up ssh-agent and
+troubleshooting any problems.
+
+Your server SSH configuration should work out-of-the-box. The "Server-Side 
+Configuration Options" section in [SSH Essentials: Working with SSH Servers, Clients, and
+Keys](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)
+has good advice on locking down who can access the server over SSH
+connections.
+
+### Getting the playbook to use agent forwarding
+
+The first thing you need to do is set the ssh_agent_forwarding flag in 
 env_vars/base.yml to `true`:
 ```
 ssh_forward_agent: true
@@ -160,8 +180,8 @@ This flag is used when configuring sudoers so that any user you become on the
 remote server will also use the same socket connection when requesting to
 unlock keys.
 
-To enable SSH agent forwarding on the Vagrant box, change the following flag and
-set it to `true`:
+To enable SSH agent forwarding on the Vagrant box, change the following flag in
+VagrantFile and set it to `true`:
 ```
 config.ssh.forward_agent = true
 ```
@@ -174,6 +194,9 @@ ansible-playbook --ssh-extra-args=-A -i production site.yml
 
 This is a little bit clunky but it does not restrict you from setting other
 SSH options if you need to.
+
+
+
 
 ## Security
 
@@ -374,6 +397,7 @@ running daily.
 - [Ansible - Best Practices][ansible-best_practices]
 - [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL][michal-ansible_guide]
 - [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL][deploy-encrypted-copies]
+- [Using SSH agent forwarding - GitHub developer guide](https://developer.github.com/guides/using-ssh-agent-forwarding/)
 
 ## Contributing
 
