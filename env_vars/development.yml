@@ -44,6 +44,7 @@ broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_pass
 
 run_django_db_migrations: yes
 run_django_collectstatic: yes
+django_collectstatic_clear: no
 
 
 # Nginx settings.

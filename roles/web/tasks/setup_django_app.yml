@@ -29,6 +29,7 @@
     app_path: "{{ project_path }}"
     virtualenv: "{{ virtualenv_path }}"
     settings: "{{ django_settings_file }}"
+    clear: {{ django_collectstatic_clear }}
   environment: "{{ django_environment }}"
   when: run_django_collectstatic is defined and run_django_collectstatic
   notify: restart application

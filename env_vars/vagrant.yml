@@ -48,6 +48,7 @@ requirements_file: "{{ project_path }}/requirements_local.txt"
 
 run_django_db_migrations: yes
 run_django_collectstatic: yes
+django_collectstatic_clear: no
 
 
 # Nginx settings.
