@@ -9,12 +9,14 @@ upstream {{ application_name }}_wsgi_server {
 server {
     listen      80;
     server_name {{ nginx_server_name }};
+    server_tokens off;
     rewrite     ^ https://$server_name$request_uri? permanent;
 }
 
 server {
     listen              443;
     server_name         {{ nginx_server_name }};
+    server_tokens       off;
     ssl on;
     {% if nginx_use_letsencrypt %}
     ssl_certificate     {{ letsencrypt_dir }}/{{ letsencrypt_cert_filename }};
