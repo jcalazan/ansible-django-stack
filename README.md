@@ -245,7 +245,7 @@ You can also override these values in the main playbook, for example:
 ...
 
   roles:
-    - { role: base, create_swap_file: yes, swap_file_size_kb: 1024 }
+    - { role: base, create_swap_file: true, swap_file_size_kb: 1024 }
     - db
     - rabbitmq
     - web

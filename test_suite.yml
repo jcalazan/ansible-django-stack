@@ -2,13 +2,13 @@
 
 - name: Use molecule to test all roles in the playbook.
   hosts: all
-  become: yes
+  become: true
   become_user: root
   remote_user: root
   vars:
-    update_apt_cache: yes
-    force_ssh_authentication: no
     ansible_python_interpreter: /usr/bin/python
+    update_apt_cache: true
+    force_ssh_authentication: false
   vars_files:
     - env_vars/base.yml
     - env_vars/vagrant.yml

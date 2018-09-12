@@ -1,7 +1,7 @@
 ---
 
 # Git settings.
-setup_git_repo: yes
+setup_git_repo: true
 git_branch: master
 
 
@@ -46,12 +46,12 @@ broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_pass
 
 requirements_file: "{{ project_path }}/requirements_local.txt"
 
-run_django_db_migrations: yes
-run_django_collectstatic: yes
+run_django_db_migrations: true
+run_django_collectstatic: true
 
 
 # Nginx settings.
-nginx_strong_dh_group: no
+nginx_strong_dh_group: false
 
 ssl_crt: |
   -----BEGIN CERTIFICATE-----
