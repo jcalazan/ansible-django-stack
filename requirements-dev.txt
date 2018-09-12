@@ -1,0 +1,2 @@
+docker==3.5.0
+molecule==2.17.0
