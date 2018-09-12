@@ -12,8 +12,8 @@ before_install:
   - ssh-keygen -f id_rsa -t rsa -b 4096 -C "your_email@example.com" -N ''
 
 install:
-  - pip install requirements.txt
-  - pip install requirements-dev.txt
+  - pip install -r requirements.txt
+  - pip install -r requirements-dev.txt
 
 script:
   - molecule test
