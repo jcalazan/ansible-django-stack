@@ -10,5 +10,5 @@ application_name: youtubeadl
 # default Python version that came with your Linux distro.
 #
 # More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
-enable_deadsnakes_ppa: yes
+enable_deadsnakes_ppa: true
 virtualenv_python_version: python3.6

@@ -13,7 +13,7 @@ docker:
           - group1
 
 ansible:
-  verbose: True
+  verbose: true
   inventory_file: ./test_suite
   playbook: test_suite.yml
 
