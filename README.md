@@ -279,3 +279,13 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 ## Contributing
 
 Contributions are welcome! Please make sure any PR passes the TravisCI test suite.
+
+### Running the test suite locally:
+
+The test suite uses a Docker container - make sure Docker is installed and configured before running the following commands:
+
+```
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+molecule test
+```

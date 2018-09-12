@@ -1,0 +1,24 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: ubuntu
+    image_version: xenial
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles/
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
