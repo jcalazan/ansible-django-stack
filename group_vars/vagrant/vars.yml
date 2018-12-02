@@ -1,8 +1,26 @@
 ---
 
+git_repo: https://github.com/YPCrumble/django-default-project
+
+project_name: django_default_project
+application_name: django_default_project
+
+# Note that this PPA doesn't guarantee timely updates in case of security issues.
+# Simply remove these two vars below if you prefer to use the official PPA and
+# default Python version that came with your Linux distro.
+#
+# More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
+enable_deadsnakes_ppa: true
+virtualenv_python_version: python3.9
+
+
 # Git settings.
 setup_git_repo: true
 git_branch: main
+
+
+# Security settings.
+sudo_user_password: $6$rounds=656000$ca2RWJgtEqDVpOp9$0S0N3GHjOIO1PwRZ0vDyr0Z5Pi8ZcEa8.r.T.Wsx.O8RZlpTV1w0BLoEWwDb.zTkJOmP1Re.zBfQsviZaP89m0
 
 
 # Database settings.
@@ -19,7 +37,6 @@ gunicorn_num_workers: 3
 # you make a request, basically reloading the code. Very handy
 # when developing. Set to 0 for unlimited requests (default).
 gunicorn_max_requests: 0
-
 gunicorn_timeout_seconds: 300
 
 
@@ -51,8 +68,6 @@ run_django_collectstatic: true
 
 
 # Nginx settings.
-nginx_strong_dh_group: false
-
 ssl_crt: |
   -----BEGIN CERTIFICATE-----
   MIIDQjCCAiqgAwIBAgIBADANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFteS1j
