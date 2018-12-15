@@ -2,11 +2,11 @@
 
 - name: Create a {{ application_name }} virtual machine via vagrant
   hosts: all
-  become: yes
+  become: true
   become_user: root
   remote_user: vagrant
   vars:
-    update_apt_cache: yes
+    update_apt_cache: true
   vars_files:
     - env_vars/base.yml
     - env_vars/vagrant.yml

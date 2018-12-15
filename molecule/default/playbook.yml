@@ -1,0 +1,33 @@
+---
+# See https://github.com/metacloud/molecule/issues/843#issuecomment-304710797
+# and https://github.com/metacloud/molecule/blob/v2/test/scenarios/driver/ec2/molecule/default/playbook.yml#L1-L13
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install Python3 for Ansible
+      raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3-minimal)
+      become: true
+      changed_when: false
+
+- name: Use molecule to test all roles in the playbook.
+  hosts: all
+  vars:
+    update_apt_cache: true
+    force_ssh_authentication: false
+  vars_files:
+    - ../../env_vars/base.yml
+    - ../../env_vars/vagrant.yml
+
+  tasks:
+    - name: Install Python3
+      raw: apt-get install python3-minimal
+      changed_when: false
+
+  roles:
+    - security
+    - base
+    - db
+    - rabbitmq
+    - web
+    - celery
+    - nginx

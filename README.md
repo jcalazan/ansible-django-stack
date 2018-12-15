@@ -245,7 +245,7 @@ You can also override these values in the main playbook, for example:
 ...
 
   roles:
-    - { role: base, create_swap_file: yes, swap_file_size_kb: 1024 }
+    - { role: base, create_swap_file: true, swap_file_size_kb: 1024 }
     - db
     - rabbitmq
     - web
@@ -279,3 +279,13 @@ A cron job to automatically renew the certificate will run daily.  Note that if 
 ## Contributing
 
 Contributions are welcome! Please make sure any PR passes the TravisCI test suite.
+
+### Running the test suite locally:
+
+The test suite uses a Docker container - make sure Docker is installed and configured before running the following commands:
+
+```
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+molecule test
+```
