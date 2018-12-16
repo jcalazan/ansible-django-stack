@@ -13,17 +13,19 @@
     - skip_ansible_lint
 
 - name: Install base packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
-  with_items:
-    - locales
-    - build-essential
-    - acl
-    - ntp
-    - htop
-    - git
-    - "{{ base_python_package }}-pip"
-    - "i{{ base_python_package }}"
-    - supervisor
+  apt:
+    update_cache: "{{ update_apt_cache }}"
+    state: present
+    name:
+      - locales
+      - build-essential
+      - acl
+      - ntp
+      - htop
+      - git
+      - "{{ base_python_package }}-pip"
+      - "i{{ base_python_package }}"
+      - supervisor
   tags:
     - packages
     - packages.security

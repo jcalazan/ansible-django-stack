@@ -13,11 +13,13 @@
   locale_gen: name=en_US.UTF-8
 
 - name: Install PostgreSQL
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
-  with_items:
-    - postgresql
-    - postgresql-contrib
-    - "{{ base_python_package }}-psycopg2"
+  apt:
+    update_cache: "{{ update_apt_cache }}"
+    state: present
+    name:
+      - postgresql
+      - postgresql-contrib
+      - "{{ base_python_package }}-psycopg2"
   tags: packages
 
 - name: Ensure the PostgreSQL service is running
