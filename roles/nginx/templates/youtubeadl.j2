@@ -13,9 +13,8 @@ server {
 }
 
 server {
-    listen              443;
+    listen              443 ssl;
     server_name         {{ nginx_server_name }};
-    ssl on;
     {% if nginx_use_letsencrypt %}
     ssl_certificate     {{ letsencrypt_dir }}/{{ letsencrypt_cert_filename }};
     ssl_certificate_key {{ letsencrypt_dir }}/{{ letsencrypt_privkey_filename }};
