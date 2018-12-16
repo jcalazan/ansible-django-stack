@@ -13,7 +13,7 @@
   locale_gen: name=en_US.UTF-8
 
 - name: Install PostgreSQL
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
   with_items:
     - postgresql
     - postgresql-contrib

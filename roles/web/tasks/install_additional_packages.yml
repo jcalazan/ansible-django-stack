@@ -7,7 +7,7 @@
   when: enable_deadsnakes_ppa
 
 - name: Install additional packages
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
+  apt: name={{ item }} update_cache={{ update_apt_cache }} state=present
   with_items:
     - libcurl4-gnutls-dev
     - gnutls-dev
