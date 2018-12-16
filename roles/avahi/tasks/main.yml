@@ -1,7 +1,7 @@
 ---
 
 - name: Install the Avahi mDNS/DNS-SD daemon
-  apt: name=avahi-daemon update_cache={{ update_apt_cache }} state=installed
+  apt: name=avahi-daemon update_cache={{ update_apt_cache }} state=present
   tags: packages
 
 - name: Ensure the Avahi mDNS/DNS-SD daemon is running
