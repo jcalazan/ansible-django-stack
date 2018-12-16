@@ -29,6 +29,53 @@ server {
     ssl_dhparam          /etc/ssl/certs/dhparams.pem;
     {% endif %}
 
+    # Prevent MIME type sniffing for security
+    add_header X-Content-Type-Options "nosniff";
+
+    # Enable XSS Protection in case user's browser has disabled it
+    add_header X-XSS-Protection "1; mode=block";
+
+
+    # ----------- Recommended headers (without default settings) ----------- #
+    #     It is recommended that all web applications set these headers.     #
+    #         However, this template does not prescribe any defaults.        #
+
+    #### Content-Security-Policy ####
+    # Recommended security-conscious defaults:
+    # ---------------------     --------------------------------------------------
+    # default-src https:        By default, all content must be loaded over HTTPS
+    # form-action 'self'        Disallow form submission to external URLs
+    # frame-ancestors 'none'    Disable loading the site in a frame (similar to `X-Frame-Options: DENY)
+    #
+    # If all content is self-hosted (no JavaScript, CSS, fonts, etc. loaded from CDNs),
+    # it's wise to use your CSP to prevent content loading from other sources:
+    #   script-src: 'self'; style-src: 'self'; font-src: 'self'; media-src: 'self'; object-src: 'self'
+    #
+    # For more information (including additional directives not defined here), see:
+    #  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+    #
+    # Alternatively, set Content-Security-Policy-Report-Only to report violations, but not block content loading
+    # add_header Content-Security-Policy "default-src https:; form-action 'self'; frame-ancestors 'none'";
+
+    #### Referrer-Policy ####
+    # Recommended reading on the security concerns behind a default referrer policy:
+    #   https://developer.mozilla.org/en-US/docs/Web/Security/Referer_header:_privacy_and_security_concerns
+    # Don't leak referring URL when following external links (protects user privacy by reducing tracking opportunities)
+    # Setting "no-referrer" is the most privacy-conscious choice.
+    # However, some frameworks (e.g. Django) rely on same-origin referrer information for CSRF protection
+    #add_header Referrer-Policy "same-origin";
+
+    #### Feature-Policy ####
+    # This experimental header enumerates exactly which browser features your application will and will not use.
+    # Feature policies apply to embedded content and can thus help protect your users from malicious third parties.
+    # Note that there is currently no way to deny all features by default.
+    # The below policy disables all known features at time of writing. Consult MDN for an up-to-date feature list:
+    #   https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy
+    #add_header Feature-Policy "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; camera 'none'; encrypted-media 'none'; fullscreen 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; payment 'none'; picture-in-picture 'none'; speaker 'none'; usb 'none'; vr 'none';";
+
+    # ---------------------- End recommended headers ---------------------- #
+
+
     client_max_body_size 4G;
 
     access_log {{ nginx_access_log_file }};
