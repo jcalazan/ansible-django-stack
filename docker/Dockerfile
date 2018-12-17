@@ -1,5 +1,5 @@
-# Use the official Ubuntu 16.04 base image from the Docker repository
-FROM ubuntu:xenial
+# Use the official Ubuntu 18.04 base image from the Docker repository
+FROM ubuntu:bionic
 
 # Allow processes to detect that they are being run in a container
 ENV container oci
