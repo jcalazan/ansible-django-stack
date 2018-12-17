@@ -19,7 +19,7 @@ Default settings are stored in ```roles/role_name/defaults/main.yml```.  Environ
 
 A `certbot` role is also included for automatically generating and renewing trusted SSL certificates with [Let's Encrypt](https://letsencrypt.org/). 
 
-**Tested with OS:** Ubuntu 16.04 LTS (64-bit PC), Ubuntu 14.04 LTS (64-bit PC)
+**Tested with OS:** Ubuntu 18.04 LTS, Ubuntu 16.04 LTS.
 
 **Tested with Cloud Providers:** [Digital Ocean](https://www.digitalocean.com/?refcode=5aa134a379d7), [Amazon](https://aws.amazon.com), [Rackspace](http://www.rackspace.com/)
 
@@ -33,7 +33,7 @@ A quick way to get started is with Vagrant.
 - [Vagrant](http://www.vagrantup.com/downloads.html)
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Docker](https://www.docker.com/get-docker)
 
-Ansible has been configured to use Python 3 inside the remote machine when provisioning it. This [requires Ansible 2.2 or later](https://docs.ansible.com/ansible/python_3_support.html) to be installed on the local machine. In Ubuntu 14.04/16.04 LTS, this version is not in the main package repositories, but it can be installed from the Ansible PPA by running these commands:
+Ansible has been configured to use Python 3 inside the remote machine when provisioning it. This [requires Ansible 2.2 or later](https://docs.ansible.com/ansible/python_3_support.html) to be installed on the local machine. In Ubuntu 16.04 LTS, this version is not in the main package repositories, but it can be installed from the Ansible PPA by running these commands:
 
 ```
 sudo add-apt-repository ppa:ansible/ansible
@@ -219,15 +219,13 @@ This repo already has `deploy` tags specified for tasks that are likely needed t
 
 ### Changing the Ubuntu release
 
-The [Vagrantfile](Vagrantfile) uses the Ubuntu 16.04 LTS Vagrant box for a 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu 14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To use the Vagrant box for a 32-bit PC, change this setting to `ubuntu/xenial32` or `ubuntu/trusty32`.
-
-Note that the included configuration for Docker is not written to work with Ubuntu 14.04 LTS.
+The [Vagrantfile](Vagrantfile) uses the Ubuntu 18.04 LTS Vagrant box for a 64-bit image that is published by Canonical in HashiCorp Atlas.
 
 ### Changing the Python version used by your application
 
-Python 3 is used by default in the `virtualenv`. To use Python 2 instead, just override the `virtualenv_python_version` variable and set it to `python`.
+Python 3 is used by default in the `virtualenv`. To use Python 2 instead, just override the `virtualenv_python_version` variable with a Python 2.7 executable.
 
-It is possible to install other versions of Python from an [unofficial PPA by Felix Krull (see disclaimer)](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=xenial). To use this PPA, override the `enable_deadsnakes_ppa` variable and set it to `yes`. Then the `virtualenv_python_version` variable can be set to the name of a Python package from this PPA, such as `python3.6`.
+It is possible to install other versions of Python from an [unofficial PPA by Felix Krull (see disclaimer)](https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=bionic). To use this PPA, override the `enable_deadsnakes_ppa` variable and set it to `yes`. Then the `virtualenv_python_version` variable can be set to the name of a Python package from this PPA, such as `python3.6`.
 
 ### Changing the Python version used by Ansible
 

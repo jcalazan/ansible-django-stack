@@ -8,7 +8,7 @@ lint:
 platforms:
   - name: instance
     image: ubuntu
-    image_version: xenial
+    image_version: bionic
     privileged: true
 provisioner:
   name: ansible
