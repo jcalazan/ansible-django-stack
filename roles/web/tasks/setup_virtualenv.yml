@@ -26,10 +26,11 @@
            creates={{ virtualenv_path }}/bin/activate
 
 - name: Ensure gunicorn and pycurl are installed in the virtualenv
-  pip: virtualenv={{ virtualenv_path }} name={{ item }}
-  with_items:
-    - gunicorn
-    - pycurl
+  pip:
+    virtualenv: "{{ virtualenv_path }}"
+    name:
+      - gunicorn
+      - pycurl
 
 - name: Create the Gunicorn script file
   template: src=gunicorn_start.j2
