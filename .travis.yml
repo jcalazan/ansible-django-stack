@@ -14,5 +14,7 @@ before_install:
 install:
   - pip install -r requirements-dev.txt
 
+cache: pip
+
 script:
   - molecule test
