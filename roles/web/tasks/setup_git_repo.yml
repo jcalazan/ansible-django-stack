@@ -1,6 +1,34 @@
 ---
 
+# Make sure the sudoers file preserves the ability to use ssh forwarding.
+# That way we don't need to store a private key on the server to get
+# access to the git repository. Don't forget to add the key used by the
+# git repository to your ssh-agent using ssh-add on the machine where you
+# run the playbooks.
+#
+# https://stackoverflow.com/questions/24124140/ssh-agent-forwarding-with-ansible
+
+- name: Add ssh agent line to sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: SSH_AUTH_SOCK
+    line: Defaults env_keep += "SSH_AUTH_SOCK"
+  when: ssh_forward_agent is defined and ssh_forward_agent
+  tags: git
+
+# The git module calls python's tempfile.mkstemp() which uses the TMPDIR
+# environment variable. However this is set to /tmp which is mounted as
+# noexec. As a result the git command will fail. The solution is to set
+# TMPDIR to point to some other suitable location. Here we use /var/tmp
+# but any suitable location will do.
+#
+# https://github.com/ansible/ansible/issues/30064
+# https://docs.python.org/dev/library/tempfile.html?highlight=mkstemp#tempfile.tempdir
+
 - name: Setup the Git repo
+  environment:
+    TMPDIR: "/var/tmp"
   git: repo={{ git_repo }}
        version={{ git_branch }}
        dest={{ project_path }}
