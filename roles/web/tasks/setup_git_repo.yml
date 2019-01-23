@@ -28,7 +28,7 @@
 
 - name: Setup the Git repo
   environment:
-      TMPDIR: "/var/tmp"
+    TMPDIR: "/var/tmp"
   git: repo={{ git_repo }}
        version={{ git_branch }}
        dest={{ project_path }}
