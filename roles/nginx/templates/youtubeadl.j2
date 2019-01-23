@@ -7,6 +7,13 @@ upstream {{ application_name }}_wsgi_server {
 }
 
 server {
+    listen        80 default_server;
+    server_name   _;
+    server_tokens off;
+    return        444;
+}
+
+server {
     listen      80;
     server_name {{ nginx_server_name }};
     rewrite     ^ https://$server_name$request_uri? permanent;
