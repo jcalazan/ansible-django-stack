@@ -23,7 +23,7 @@ Environment-specific settings are in the `env_vars` directory.
 A `certbot` role is also included for automatically generating and renewing
 trusted SSL certificates with [Let's Encrypt][lets-encrypt].
 
-**Tested with OS:** Ubuntu 16.04 LTS (64-bit PC), Ubuntu 14.04 LTS (64-bit PC)
+**Tested with OS:** Ubuntu 18.04 LTS (64-bit), Ubuntu 16.04 LTS (64-bit).
 
 **Tested with Cloud Providers:** [Digital Ocean][digital-ocean], [AWS][aws], [Rackspace][rackspace]
 
@@ -46,7 +46,7 @@ When choosing an Ansible version, consider:
   (currently, Molecule requires Ansible 2.4 or later)
 
 Ansible has been configured to use Python 3 inside the remote machine when
-provisioning it. In Ubuntu 14.04/16.04 LTS, compatible Ansible versions are not
+provisioning it. In Ubuntu 16.04 LTS, compatible Ansible versions are not
 in the main package repositories, but can be installed from the Ansible PPA by
 running these commands:
 
@@ -317,14 +317,9 @@ to run during deployment in most Django environments.
 
 ### Changing the Ubuntu release
 
-The [Vagrantfile](Vagrantfile) uses the Ubuntu 16.04 LTS Vagrant box for a
+The [Vagrantfile](Vagrantfile) uses the Ubuntu 18.04 LTS Vagrant box for a
 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu
-14.04 LTS instead, change the `config.vm.box` setting to `ubuntu/trusty64`. To
-use the Vagrant box for a 32-bit PC, change this setting to `ubuntu/xenial32`
-or `ubuntu/trusty32`.
-
-Note that the included configuration for Docker is not written to work with
-Ubuntu 14.04 LTS.
+16.04 LTS instead, change the `config.vm.box` setting to `ubuntu/xenial64`.
 
 ### Changing the Python version used by your application
 
