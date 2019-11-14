@@ -421,7 +421,7 @@ molecule test
 [vagrant-downloads]: https://www.vagrantup.com/downloads.html
 [virtual-box_downloads]: https://www.virtualbox.org/wiki/Downloads
 
-[securing-ubuntu]: https://www.codelitt.com/blog/my-first-10-minutes-on-a-server-primer-for-securing-ubuntu/
+[securing-ubuntu]: https://web.archive.org/web/20190629150318/https://www.codelitt.com/blog/my-first-10-minutes-on-a-server-primer-for-securing-ubuntu/
 [deadsnakes]: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes/?field.series_filter=xenial
 [michal-ansible_guide]: http://michal.karzynski.pl/blog/2013/06/09/django-nginx-gunicorn-virtualenv-supervisor/
 [deploy-encrypted-copies]: https://www.calazan.com/how-to-deploy-encrypted-copies-of-your-ssl-keys-and-other-files-with-ansible-and-openssl/
