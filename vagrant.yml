@@ -18,4 +18,5 @@
     - rabbitmq
     - web
     - celery
+    - memcached
     - nginx
