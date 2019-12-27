@@ -5,12 +5,12 @@
 # python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 server_user_password: $6$rounds=656000$ca2RWJgtEqDVpOp9$0S0N3GHjOIO1PwRZ0vDyr0Z5Pi8ZcEa8.r.T.Wsx.O8RZlpTV1w0BLoEWwDb.zTkJOmP1Re.zBfQsviZaP89m0
 
-perform_aptitude_dist_upgrade: yes
+perform_aptitude_dist_upgrade: true
 
-force_ssh_authentication: yes
+force_ssh_authentication: true
 
-enable_unattended_upgrades: yes
+enable_unattended_upgrades: true
 
-enable_ufw: yes
+enable_ufw: true
 
-enable_fail2ban: no
+enable_fail2ban: false

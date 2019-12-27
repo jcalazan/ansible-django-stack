@@ -2,6 +2,10 @@
 
 git_repo: https://github.com/jcalazan/youtube-audio-dl.git
 
+# Set this flag to true so you can checkout code from a private git repository
+# which is setup with an SSH key.
+ssh_forward_agent: false
+
 project_name: youtube-audio-dl
 application_name: youtubeadl
 
@@ -10,5 +14,5 @@ application_name: youtubeadl
 # default Python version that came with your Linux distro.
 #
 # More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
-enable_deadsnakes_ppa: yes
+enable_deadsnakes_ppa: true
 virtualenv_python_version: python3.6

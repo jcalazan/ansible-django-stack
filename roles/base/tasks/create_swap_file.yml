@@ -1,3 +1,4 @@
+---
 - name: Create swap file
   command: dd if=/dev/zero of={{ swap_file_path }} bs=1024 count={{ swap_file_size_kb }}k
            creates="{{ swap_file_path }}"
@@ -14,7 +15,7 @@
   command: file {{ swap_file_path }}
   register: swapfile
   tags: swap.file.mkswap
-  changed_when: False
+  changed_when: false
 
 - name: Make swap file
   command: "mkswap {{ swap_file_path }}"
