@@ -10,6 +10,9 @@
   vars_files:
     - env_vars/base.yml
     - env_vars/{{ env }}.yml
+  module_defaults:
+    apt:
+      force_apt_get: true
 
   roles:
     - base

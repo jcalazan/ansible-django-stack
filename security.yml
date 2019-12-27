@@ -11,6 +11,9 @@
     - env_vars/base.yml
     - env_vars/{{ env }}.yml
     - roles/base/defaults/main.yml
+  module_defaults:
+    apt:
+      force_apt_get: true
 
   roles:
     - security
