@@ -9,12 +9,14 @@ upstream {{ application_name }}_wsgi_server {
 server {
     listen      80;
     server_name {{ nginx_server_name }};
+    server_tokens off;
     return 301  https://$server_name$request_uri;
 }
 
 server {
     listen              443 ssl;
     server_name         {{ nginx_server_name }};
+    server_tokens       off;
     {% if nginx_use_letsencrypt %}
     ssl_certificate     {{ letsencrypt_dir }}/{{ letsencrypt_cert_filename }};
     ssl_certificate_key {{ letsencrypt_dir }}/{{ letsencrypt_privkey_filename }};
