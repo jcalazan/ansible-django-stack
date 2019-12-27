@@ -1,4 +1,4 @@
 -r requirements.txt
 
 docker==3.6.0
-molecule==2.19.0
+molecule==2.22.0
