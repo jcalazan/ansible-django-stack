@@ -415,7 +415,7 @@ molecule test
 [youtube-audio-dl]: https://github.com/jcalazan/youtube-audio-dl
 [ansible-installation_guide]: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 [ansible-best_practices]: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
-[ansible-release_cycle]: https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html?highlight=release
+[ansible-release_cycle]: https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html
 [docker-get_started]: https://www.docker.com/get-started
 [lets-encrypt]: https://letsencrypt.org/
 [vagrant-downloads]: https://www.vagrantup.com/downloads.html
