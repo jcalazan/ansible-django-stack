@@ -38,12 +38,13 @@ A quick way to get started is with Vagrant.
 - [VirtualBox][virtual-box_downloads] or [Docker][docker-get_started]
 
 It's recommended to use the version of Ansible specified in `requirements.txt`,
-although any version greater than Ansible 2.4 will work with this repository.
+although any version greater than Ansible 2.7 will work with this repository.
 When choosing an Ansible version, consider:
 
 - Ansible only issues security fixes for the [last three major releases][ansible-release_cycle].
 - The included version of `molecule` has requirements on the Ansible version
-  (currently, Molecule requires Ansible 2.4 or later)
+  (currently, Molecule requires Ansible 2.5 or later and the 2.23 release
+  will require Ansible 2.7 or greater)
 
 Ansible has been configured to use Python 3 inside the remote machine when
 provisioning it. In Ubuntu 16.04 LTS, compatible Ansible versions are not

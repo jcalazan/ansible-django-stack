@@ -13,13 +13,7 @@ Requirements
 Install
 =======
 
-Ansible < 2.6
-
-.. code-block:: bash
-
-    $ sudo pip install docker-py
-
-Ansible >= 2.6
+(Running `pip install -r requirements-dev.txt` will cover this)
 
 .. code-block:: bash
 
