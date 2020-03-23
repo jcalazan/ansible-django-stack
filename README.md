@@ -394,6 +394,9 @@ running daily.
 - [Setting up Django with Nginx, Gunicorn, virtualenv, supervisor and PostgreSQL][michal-ansible_guide]
 - [How to deploy encrypted copies of your SSL keys and other files with Ansible and OpenSSL][deploy-encrypted-copies]
 - [Using SSH agent forwarding - GitHub developer guide](https://developer.github.com/guides/using-ssh-agent-forwarding/)
+- Jeff Geerling has some incredible resources for learning Ansible and his scripts and blog post have been instrumental in building this repo:
+     - His [YouTube Channel](https://www.youtube.com/channel/UCR-DXc1voovS8nhAvccRZhg) has a video series on learning Ansible.
+     - The book [Ansible for DevOps](https://www.ansiblefordevops.com) is an excellent resource for learning Ansible best practices.
 
 ## Contributing
 
