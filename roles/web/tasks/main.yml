@@ -5,6 +5,9 @@
 
 - include: create_users_and_groups.yml
 
+- include: set_file_permissions.yml
+  tags: deploy
+
 - include: setup_virtualenv.yml
   tags: virtualenv
 
@@ -16,6 +19,3 @@
 
 - include: setup_supervisor.yml
   tags: supervisor
-
-- include: set_file_permissions.yml
-  tags: deploy
