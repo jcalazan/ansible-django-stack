@@ -1,5 +1,5 @@
-# Use the official Ubuntu 16.04 base image from the Docker repository
-FROM ubuntu:xenial
+# Use the official Ubuntu 18.04 base image from the Docker repository
+FROM ubuntu:bionic
 
 # Allow processes to detect that they are being run in a container
 ENV container oci
@@ -11,7 +11,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y sudo ope
 RUN adduser --disabled-password --gecos "" vagrant
 
 # Allow the "vagrant" user to login via SSH using the insecure keypair
-RUN su -c "URL=https://github.com/mitchellh/vagrant/raw/master/keys/%s.pub ssh-import-id vagrant" vagrant
+RUN su -c "URL=https://github.com/hashicorp/vagrant/raw/master/keys/%s.pub ssh-import-id vagrant" vagrant
 
 # Grant password-less sudo privileges to the "vagrant" user
 RUN echo "vagrant ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vagrant

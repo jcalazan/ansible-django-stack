@@ -1,7 +1,7 @@
 ---
 
 - name: Install Unattended Upgrades
-  apt: update_cache={{ update_apt_cache }} state=installed pkg=unattended-upgrades
+  apt: update_cache={{ update_apt_cache }} state=present pkg=unattended-upgrades
 
 - name: Set up unattended upgrades
   copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic

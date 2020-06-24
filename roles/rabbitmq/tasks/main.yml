@@ -10,9 +10,13 @@
                   state=present
 
 - name: Install RabbitMQ server
-  apt: name={{ item }} update_cache={{ update_apt_cache }} state=installed
-  with_items:
-    - rabbitmq-server
+  apt:
+    update_cache: "{{ update_apt_cache }}"
+    state: present
+    name:
+      - rabbitmq-server
+  tags:
+    - packages
 
 - name: Enable the RabbitMQ Management Console
   rabbitmq_plugin: names=rabbitmq_management state=enabled

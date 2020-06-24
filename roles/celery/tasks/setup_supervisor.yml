@@ -13,12 +13,23 @@
         group={{ celery_group }}
         state=directory
 
+- name: Check for an existing celery logfile
+  stat:
+    path: "{{ celery_log_file }}"
+  register: p
+
 - name: Create (or retain) the {{ celery_application_name }} log file
-  copy: content=""
-        dest={{ celery_log_file }}
-        owner={{ celery_user }}
-        group={{ celery_group }}
-        force=no
+  # Removing until https://github.com/ansible/ansible/issues/45530 gets resolved.
+  # copy: content=""
+  #       dest={{ celery_log_file }}
+  #       owner={{ celery_user }}
+  #       group={{ celery_group }}
+  #       force=no
+  file:
+    path: "{{ celery_log_file }}"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    state: '{{ "file" if  p.stat.exists else "touch" }}'
 
 - name: Re-read the Supervisor config files
   supervisorctl: name={{ celery_application_name }} state=present

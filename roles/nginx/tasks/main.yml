@@ -1,7 +1,7 @@
 ---
 
 - name: Install Nginx
-  apt: name=nginx update_cache={{ update_apt_cache }} state=installed
+  apt: name=nginx update_cache={{ update_apt_cache }} state=present
   tags: packages
 
 - name: Copy the SSL certificate to the remote server
