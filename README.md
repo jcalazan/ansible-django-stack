@@ -61,9 +61,29 @@ sudo apt-get update
 The main settings to change are in the [`env_vars/base.yml`](env_vars/base.yml)
 file, where you can configure the location of your Git project, the project
 name, and the application name which will be used throughout the Ansible
-configuration. I set some default values based on my open-source app, [YouTube
+configuration. 
+
+#### Required changes from default project
+I set some default values based on my open-source app, [YouTube
 Audio Downloader][youtube-audio-dl].
 
+In `base.uml` update the following configuration variables:
+ - `git_repo`
+ - `project_name`
+ - `application_name`
+  
+Rename the nginx template file:
+In roles/nginx/templates/, rename:
+`youtubeadl.j2` to the `project_name` you set in `base.yml` above.
+
+See *Pulling from a private git repository using SSH agent forwarding* below 
+for info on using a git repository via ssh.
+
+The project uses `master` branch of the `git_repo` repositoy by default. 
+Specify a different branch using `git_branch` in `vagrant.yml`. 
+
+
+#### Project Structure
 Note that the default values in the playbooks assume that your project
 structure looks something like this:
 
