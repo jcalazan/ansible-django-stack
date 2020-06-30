@@ -1,8 +1,8 @@
 ---
 
 # Virtualenv settings.
-enable_deadsnakes_ppa: no
-recreate_virtualenv: no
+enable_deadsnakes_ppa: false
+recreate_virtualenv: false
 virtualenv_python_version: "{{ base_python_package }}"
 
 
@@ -21,8 +21,6 @@ gunicorn_group: webapps
 
 
 # Nginx settings.
-nginx_access_log_file: "{{ application_log_dir }}/nginx_access.log"
-nginx_error_log_file: "{{ application_log_dir }}/nginx_error.log"
 nginx_static_dir: "{{ virtualenv_path }}/static/"
 nginx_media_dir: "{{ virtualenv_path }}/media/"
 

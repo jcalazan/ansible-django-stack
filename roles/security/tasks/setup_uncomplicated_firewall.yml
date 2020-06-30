@@ -1,7 +1,7 @@
 ---
 
 - name: Install Uncomplicated Firewall
-  apt: update_cache={{ update_apt_cache }} state=installed pkg=ufw
+  apt: update_cache={{ update_apt_cache }} state=present pkg=ufw
 
   # Allow only ssh and http(s) ports
 - name: Allow ssh and http(s) connections

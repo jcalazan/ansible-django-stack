@@ -1,7 +1,7 @@
 ---
 
 - name: Install Memcached
-  apt: name=memcached update_cache={{ update_apt_cache }} state=installed
+  apt: name=memcached update_cache={{ update_apt_cache }} state=present
   tags: packages
 
 - name: Create the Memcached configuration file

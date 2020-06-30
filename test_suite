@@ -1,4 +1,0 @@
-ansible-django-stack-01 connection=docker
-
-[group1]
-ansible-django-stack-01
