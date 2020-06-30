@@ -389,11 +389,9 @@ running daily.
 
 ### Maintenance mode
 
-While most operations performed within this Ansible playbook would not require downtime,
-some may do. For example, database migrations may break without newer application code.
-For such operations, the playbook contains a maintenance page option.
+The playbook contains a maintenance page option.
 [`roles/web/templates/maintenance_off.html`](roles/web/templates/maintenance_off.html)
-is a maintenance template provided. To activate the maintenance mode, you can rename
+is the provided maintenance template. To activate the maintenance mode, you can rename
 the template to
 `maintenance_on.html`, in order for `nginx` to serve it. This can be done manually. Alternately,
 you can include in the playbook a step activating the maintenance page (using the renaming
