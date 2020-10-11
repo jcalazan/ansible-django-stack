@@ -9,4 +9,4 @@ cd $DJANGODIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
-exec celery -A {{ application_name }} worker -E -l info --concurrency={{ celery_num_workers }}
+exec celery -A {{ application_name }} worker -E -l INFO --concurrency={{ celery_num_workers }}
