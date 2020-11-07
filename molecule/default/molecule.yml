@@ -6,13 +6,13 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: instance-bionic
-    image: ubuntu
-    image_version: bionic
-    privileged: true
   - name: instance-xenial
     image: ubuntu
     image_version: xenial
+    privileged: true
+  - name: instance-focal
+    image: ubuntu
+    image_version: focal
     privileged: true
 provisioner:
   name: ansible

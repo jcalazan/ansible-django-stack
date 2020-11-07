@@ -317,9 +317,9 @@ to run during deployment in most Django environments.
 
 ### Changing the Ubuntu release
 
-The [Vagrantfile](Vagrantfile) uses the Ubuntu 18.04 LTS Vagrant box for a
+The [Vagrantfile](Vagrantfile) uses the Ubuntu 20.04 LTS Vagrant box for a
 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu
-16.04 LTS instead, change the `config.vm.box` setting to `ubuntu/xenial64`.
+18.04 LTS instead, change the `config.vm.box` setting to `ubuntu/bionic64`.
 
 ### Changing the Python version used by your application
 
