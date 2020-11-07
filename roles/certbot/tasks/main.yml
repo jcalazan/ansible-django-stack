@@ -1,7 +1,13 @@
 ---
 
-- name: Download certbot
-  get_url: url=https://dl.eff.org/certbot-auto dest={{ certbot_script }} mode=0755
+- name: Install Certbot
+  apt:
+    update_cache: "{{ update_apt_cache }}"
+    state: present
+    name:
+      - certbot
+      - python3-certbot-nginx
+  tags: packages
 
 - name: Check if Nginx exists
   stat: path=/etc/init.d/nginx
