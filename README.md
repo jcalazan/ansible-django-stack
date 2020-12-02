@@ -61,8 +61,7 @@ sudo apt-get update
 The main settings to change are in the [`env_vars/base.yml`](env_vars/base.yml)
 file, where you can configure the location of your Git project, the project
 name, and the application name which will be used throughout the Ansible
-configuration. I set some default values based on my open-source app, [YouTube
-Audio Downloader][youtube-audio-dl].
+configuration.
 
 Note that the default values in the playbooks assume that your project
 structure looks something like this:
@@ -416,7 +415,6 @@ molecule test
 [digital-ocean]: https://www.digitalocean.com/?refcode=5aa134a379d7
 [rackspace]: http://www.rackspace.com/
 
-[youtube-audio-dl]: https://github.com/jcalazan/youtube-audio-dl
 [ansible-installation_guide]: https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 [ansible-best_practices]: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html
 [ansible-release_cycle]: https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html
