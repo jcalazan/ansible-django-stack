@@ -1,13 +1,13 @@
 ---
 
-git_repo: https://github.com/jcalazan/youtube-audio-dl.git
+git_repo: https://github.com/myusername/mycoolapp.git
 
 # Set this flag to true so you can checkout code from a private git repository
 # which is setup with an SSH key.
 ssh_forward_agent: false
 
-project_name: youtube-audio-dl
-application_name: youtubeadl
+project_name: mycoolapp
+application_name: mycoolapp
 
 # Note that this PPA doesn't guarantee timely updates in case of security issues.
 # Simply remove these two vars below if you prefer to use the official PPA and
