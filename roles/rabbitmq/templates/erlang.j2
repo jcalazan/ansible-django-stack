@@ -1,0 +1,3 @@
+Package: erlang*
+Pin: {{ erlang_series_deb_version | ternary('version ' + (erlang_series_deb_version | string),'release o=Bintray') }}
+Pin-Priority: 1000

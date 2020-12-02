@@ -1,22 +1,18 @@
 ---
 
-- name: Add the RabbitMQ release signing key to the apt trusted keys
-  apt_key: url=https://www.rabbitmq.com/rabbitmq-release-signing-key.asc
-           state=present
+# RabbitMQ installation inspired by
+# https://github.com/geerlingguy/ansible-role-rabbitmq
+- include: install_erlang.yml
 
-- name: Add the RabbitMQ repository to the apt sources list
-  apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main'
-                  update_cache={{ update_apt_cache }}
-                  state=present
+- name: Download RabbitMQ package.
+  get_url:
+    url: "{{ rabbitmq_deb_url }}"
+    dest: "/tmp/{{ rabbitmq_deb }}"
 
-- name: Install RabbitMQ server
+- name: Ensure RabbitMQ is installed.
   apt:
-    update_cache: "{{ update_apt_cache }}"
+    deb: "/tmp/{{ rabbitmq_deb }}"
     state: present
-    name:
-      - rabbitmq-server
-  tags:
-    - packages
 
 - name: Enable the RabbitMQ Management Console
   rabbitmq_plugin: names=rabbitmq_management state=enabled
@@ -33,4 +29,7 @@
 - include: setup_users.yml
 
 - name: Ensure that the RabbitMQ service is running
-  service: name=rabbitmq-server state=started enabled=yes
+  service:
+    name: rabbitmq-server
+    state: started
+    enabled: yes

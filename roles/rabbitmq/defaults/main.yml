@@ -1,0 +1,15 @@
+---
+
+# See https://www.rabbitmq.com/install-debian.html#erlang-repositories for details on Erlang repositories
+erlang_series: "23"
+
+erlang_deb_repo_url: "https://dl.bintray.com/rabbitmq-erlang/debian"
+erlang_deb_gpg_url: "https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc"
+erlang_deb_repo_tpl: "rabbitmq_erlang.list.j2"
+erlang_deb_pinning_tpl: "erlang.j2"
+erlang_series_deb_version:
+
+rabbitmq_version: "3.8.9"
+
+rabbitmq_deb: "rabbitmq-server_{{ rabbitmq_version }}-1_all.deb"
+rabbitmq_deb_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}/{{ rabbitmq_deb }}/download"
