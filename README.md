@@ -386,6 +386,17 @@ stopped before the certificate can be renewed and then started again once
 renewal is finished. Otherwise, nothing will happen so it's safe to leave it
 running daily.
 
+### Maintenance mode
+
+The playbook contains a maintenance page option.
+[`roles/web/templates/maintenance_off.html`](roles/web/templates/maintenance_off.html)
+is the provided maintenance template. To activate the maintenance mode, you can rename
+the template to
+`maintenance_on.html`, in order for `nginx` to serve it. This can be done manually. Alternately,
+you can include in the playbook a step activating the maintenance page (using the renaming
+process) while the site requires downtime. Then switch back to running mode in
+the playbook when operations requiring downtime are completed.
+
 ## Useful Links
 
 - [Ansible - Getting Started][ansible-installation_guide]
