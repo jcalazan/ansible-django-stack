@@ -2,7 +2,7 @@
 ansible-django-stack
 ====================
 
-[![Build Status](https://travis-ci.org/jcalazan/ansible-django-stack.svg?branch=master)](https://travis-ci.org/jcalazan/ansible-django-stack)
+![Build Status](https://github.com/jcalazan/ansible-django-stack/actions/workflows/molecule.yml/badge.svg?branch=master)
 
 Ansible Playbook designed for environments running a Django app.
 It can install and configure these applications that are commonly used in
@@ -410,7 +410,7 @@ the playbook when operations requiring downtime are completed.
 
 ## Contributing
 
-Contributions are welcome! Please make sure any PR passes the TravisCI test suite.
+Contributions are welcome! Please make sure any PR passes the test suite.
 
 ### Running the test suite locally:
 
