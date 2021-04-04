@@ -10,6 +10,14 @@ server {
     listen      80;
     server_name {{ nginx_server_name }};
     server_tokens off;
+
+    # Terminate the request immediately if a request uses the IP address.
+    # This stops Invalid HTTP_HOST header exceptions being raised by Django.
+
+    if ($host !~* ^({{ nginx_server_name }})$ ) {
+        return 444;
+    }
+
     return 301  https://$server_name$request_uri;
 }
 
@@ -30,6 +38,13 @@ server {
     {% if nginx_strong_dh_group %}
     ssl_dhparam          /etc/ssl/certs/dhparams.pem;
     {% endif %}
+
+    # Terminate the request immediately if a request uses the IP address.
+    # This stops Invalid HTTP_HOST header exceptions being raised by Django.
+
+    if ($host !~* ^({{ nginx_server_name }})$ ) {
+        return 444;
+    }
 
     # Prevent MIME type sniffing for security
     add_header X-Content-Type-Options "nosniff";
@@ -95,7 +110,7 @@ server {
 
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto https;
-        proxy_set_header Host $http_host;
+        proxy_set_header Host $host;
         proxy_redirect off;
 
         # Try to serve static files from nginx, no point in making an
