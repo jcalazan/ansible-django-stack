@@ -40,6 +40,7 @@ celery_num_workers: 2
 
 # Application settings.
 django_settings_file: "{{ application_name }}.settings.local"
+django_wsgi_file: "{{ application_name }}.wsgi"
 django_secret_key: "akr2icmg1n8%z^3fe3c+)5d0(t^cy-2_25rrl35a7@!scna^1#"
 
 broker_url: "amqp://{{ rabbitmq_application_user }}:{{ rabbitmq_application_password }}@localhost/{{ rabbitmq_application_vhost }}"

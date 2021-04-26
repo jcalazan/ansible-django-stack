@@ -35,4 +35,4 @@ exec gunicorn \
     --user $USER --group $GROUP \
     --log-level debug \
     --bind unix:$SOCKFILE \
-    {{ application_name }}.wsgi
+    {{ django_wsgi_file }}
