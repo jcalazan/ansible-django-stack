@@ -1,16 +1,20 @@
 ---
 
 - name: Add the RabbitMQ release signing key to the apt trusted keys
-  apt_key: url=https://bintray.com/user/downloadSubjectPublicKey?username=rabbitmq
+  apt_key: url=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/gpg.9F4587F226208342.key
            state=present
 
 - name: Add the RabbitMQ repository to the apt sources list
-  apt_repository: repo='deb https://dl.bintray.com/rabbitmq/debian/ {{ ansible_distribution_release }} main'
+  apt_repository: repo='deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu {{ ansible_distribution_release }} main'
                   update_cache={{ update_apt_cache }}
                   state=present
 
+- name: Add the RabbitMQ Erlang signing key to the apt trusted keys
+  apt_key: url=https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/gpg.E495BB49CC4BBE5B.key
+           state=present
+
 - name: Add the RabbitMQ Erlang repository to the apt sources list
-  apt_repository: repo='deb https://dl.bintray.com/rabbitmq-erlang/debian/ {{ ansible_distribution_release }} erlang'
+  apt_repository: repo='deb https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-erlang/deb/ubuntu {{ ansible_distribution_release }} main'
                   update_cache={{ update_apt_cache }}
                   state=present
 
