@@ -35,12 +35,13 @@
 - name: Ensure database is created
   become: true
   become_user: postgres
-  postgresql_db: name={{ db_name }}
-                 encoding='UTF-8'
-                 lc_collate='en_US.UTF-8'
-                 lc_ctype='en_US.UTF-8'
-                 template='template0'
-                 state=present
+  postgresql_db:
+    name: "{{ db_name }}"
+    encoding: UTF-8
+    lc_collate: en_US.UTF-8
+    lc_ctype: en_US.UTF-8
+    template: template0
+    state: present
 
 - name: Ensure user has access to the database
   become: true
