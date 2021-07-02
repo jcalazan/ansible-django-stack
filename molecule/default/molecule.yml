@@ -3,8 +3,8 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+  yamllint .
 platforms:
   - name: instance-xenial
     image: ubuntu
@@ -20,8 +20,6 @@ provisioner:
     name: ansible-lint
   env:
     ANSIBLE_ROLES_PATH: ../../roles/
-scenario:
-  name: default
 verifier:
   name: testinfra
   lint:

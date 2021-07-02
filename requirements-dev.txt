@@ -1,4 +1,6 @@
 -r requirements.txt
 
-docker==3.6.0
-molecule==2.22.0
+molecule==3.3.4
+molecule-docker==0.2.4
+testinfra==3.2.1
+yamllint==1.19.0
