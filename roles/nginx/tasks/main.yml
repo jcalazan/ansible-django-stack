@@ -35,4 +35,11 @@
   notify: reload nginx
 
 - name: Ensure Nginx service is started
-  service: name=nginx state=started enabled=yes
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+    # TODO: This is likely due to a bug in Ansible.
+    # Remove this line in the future.
+    # See https://github.com/ansible/ansible/issues/75005
+    use: sysvinit
