@@ -9,6 +9,7 @@ git_branch: development
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
 db_password: password
+db_version: 12
 
 
 # Gunicorn settings. For the number of workers, a good rule to follow is
