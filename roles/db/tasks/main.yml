@@ -23,7 +23,14 @@
   tags: packages
 
 - name: Ensure the PostgreSQL service is running
-  service: name=postgresql state=started enabled=yes
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+    # TODO: This is likely due to a bug in Ansible.
+    # Remove this line in the future.
+    # See https://github.com/ansible/ansible/issues/75005
+    use: sysvinit
 
 - name: Ensure database is created
   become: true
