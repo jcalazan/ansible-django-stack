@@ -34,7 +34,9 @@
        dest={{ project_path }}
        accept_hostkey=yes
   when: setup_git_repo is defined and setup_git_repo
-  notify: restart application
+  notify:
+    - restart application
+    - restart celery
   tags: git
 
 - name: Delete all .pyc files

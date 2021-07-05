@@ -31,5 +31,7 @@
     settings: "{{ django_settings_file }}"
   environment: "{{ django_environment }}"
   when: run_django_collectstatic is defined and run_django_collectstatic
-  notify: restart application
+  notify:
+    - restart application
+    - restart celery
   tags: django.collectstatic
