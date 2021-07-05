@@ -1,15 +1,12 @@
 ---
 
-- name: Provision a {{ application_name }} web server
+- name: Provision application web server
   hosts: webservers
   become: true
   become_user: root
   remote_user: "{{ server_user }}"
   vars:
     update_apt_cache: true
-  vars_files:
-    - env_vars/base.yml
-    - env_vars/{{ env }}.yml
   module_defaults:
     apt:
       force_apt_get: true

@@ -14,9 +14,6 @@
   vars:
     update_apt_cache: true
     force_ssh_authentication: false
-  vars_files:
-    - ../../env_vars/base.yml
-    - ../../env_vars/vagrant.yml
 
   tasks:
     - name: Install Python3

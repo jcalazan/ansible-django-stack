@@ -1,6 +1,3 @@
-[all:vars]
-env=development
-
 [webservers]
 dev.example.com nginx_use_letsencrypt=true
 

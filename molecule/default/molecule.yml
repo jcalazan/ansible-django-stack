@@ -7,10 +7,14 @@ lint: |
   yamllint .
 platforms:
   - name: instance-xenial
+    groups:
+      - vagrant
     image: ubuntu
     image_version: xenial
     privileged: true
   - name: instance-focal
+    groups:
+      - vagrant
     image: ubuntu
     image_version: focal
     privileged: true
@@ -20,6 +24,9 @@ provisioner:
     name: ansible-lint
   env:
     ANSIBLE_ROLES_PATH: ../../roles/
+  inventory:
+    links:
+      group_vars: ../../group_vars/
 verifier:
   name: testinfra
   lint:
