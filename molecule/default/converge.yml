@@ -19,6 +19,12 @@
     - name: Install Python3
       raw: apt-get install python3-minimal
       changed_when: false
+      # Update IPV6tables due to ufw bug. See issue #128 and PR #129.
+      # https://github.com/husarnet/docker-example/issues/1#issuecomment-767833378
+      # TODO: Remove this for a future Ubuntu release that solves the bug.
+    - name: Update IPV6tables
+      raw: update-alternatives --set ip6tables /usr/sbin/ip6tables-nft
+      changed_when: false
 
   module_defaults:
     apt:
