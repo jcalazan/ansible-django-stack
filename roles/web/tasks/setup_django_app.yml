@@ -1,7 +1,10 @@
 ---
 
 - name: Install packages required by the Django app inside virtualenv
-  pip: virtualenv={{ virtualenv_path }} requirements={{ requirements_file }}
+  pip:
+    virtualenv: "{{ virtualenv_path }}"
+    requirements: "{{ requirements_file }}"
+    extra_args: "{{ pip_use_upgrade_flag | ternary('--upgrade', omit) }}"
 
 - name: Run the Django syncdb command
   django_manage:
