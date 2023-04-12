@@ -1,39 +1,41 @@
 ---
 
 - name: Install virtualenv
-  pip:
+  ansible.builtin.pip:
     name: virtualenv
     version: 15.1.0
   tags: packages
 
 - name: Check if Supervisor exists
-  stat: path=/etc/init.d/supervisor
+  ansible.builtin.stat: path=/etc/init.d/supervisor
   register: supervisor_status
   when: recreate_virtualenv
 
 - name: Ensure all processes managed by Supervisor are stopped if exists
-  command: supervisorctl stop all
+  community.general.supervisorctl:
+    name: all
+    state: stopped
   when: recreate_virtualenv and supervisor_status.stat.exists
 
 - name: Ensure no existing virtualenv exists
-  file:
+  ansible.builtin.file:
     state: absent
     path: "{{ virtualenv_path }}/"
   when: recreate_virtualenv
 
 - name: Create the virtualenv
-  command: virtualenv -p {{ virtualenv_python_version }} {{ virtualenv_path }}
+  ansible.builtin.command: virtualenv -p {{ virtualenv_python_version }} {{ virtualenv_path }}
            creates={{ virtualenv_path }}/bin/activate
 
 - name: Ensure gunicorn and pycurl are installed in the virtualenv
-  pip:
+  ansible.builtin.pip:
     virtualenv: "{{ virtualenv_path }}"
     name:
       - gunicorn
       - pycurl
 
 - name: Create the Gunicorn script file
-  template: src=gunicorn_start.j2
+  ansible.builtin.template: src=gunicorn_start.j2
             dest={{ virtualenv_path }}/bin/gunicorn_start
             owner={{ gunicorn_user }}
             group={{ gunicorn_group }}
@@ -42,34 +44,34 @@
   tags: deploy
 
 - name: Create the application log folder
-  file: path={{ application_log_dir }}
+  ansible.builtin.file: path={{ application_log_dir }}
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         mode=0774
         state=directory
 
 - name: Check for an existing application logfile
-  stat:
+  ansible.builtin.stat:
     path: "{{ application_log_file }}"
   register: p
 
 - name: Create (or retain) the application log file
   # Removing until https://github.com/ansible/ansible/issues/45530 gets resolved.
-  # copy: content=""
+  # ansible.builtin.copy: content=""
   #       dest={{ application_log_file }}
   #       owner={{ gunicorn_user }}
   #       group={{ gunicorn_group }}
   #       mode=0664
   #       force=no
-  file:
+  ansible.builtin.file:
     path: "{{ application_log_file }}"
     owner: "{{ gunicorn_user }}"
     group: "{{ gunicorn_group }}"
     mode: 0664
-    state: '{{ "file" if  p.stat.exists else "touch" }}'
+    state: '{{ "file" if p.stat.exists else "touch" }}'
 
 - name: Create the virtualenv postactivate script to set environment variables
-  template: src=virtualenv_postactivate.j2
+  ansible.builtin.template: src=virtualenv_postactivate.j2
             dest={{ virtualenv_path }}/bin/postactivate
             owner={{ gunicorn_user }}
             group={{ gunicorn_group }}
@@ -79,6 +81,6 @@
   tags: deploy
 
 - name: Create the maintenance page
-  template: src=maintenance_off.html
+  ansible.builtin.template: src=maintenance_off.html
             dest={{ virtualenv_path }}/maintenance_off.html
             mode=0664

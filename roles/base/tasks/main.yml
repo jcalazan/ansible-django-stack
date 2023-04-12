@@ -1,11 +1,11 @@
 ---
 
-- include: create_swap_file.yml
+- ansible.builtin.import_tasks: create_swap_file.yml
   when: create_swap_file
   tags: swap
 
 - name: Install security updates
-  apt: default_release={{ ansible_distribution_release }}-security
+  ansible.builtin.apt: default_release={{ ansible_distribution_release }}-security
        update_cache={{ update_apt_cache }}
        upgrade=dist
   tags:
@@ -13,7 +13,7 @@
     - skip_ansible_lint
 
 - name: Install base packages
-  apt:
+  ansible.builtin.apt:
     update_cache: "{{ update_apt_cache }}"
     state: present
     name:
@@ -31,7 +31,7 @@
     - packages.security
 
 - name: Upgrade pip
-  pip: name=pip state=latest
+  ansible.builtin.pip: name=pip state=latest
   tags:
     - packages
     - skip_ansible_lint

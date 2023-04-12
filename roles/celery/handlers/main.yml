@@ -1,4 +1,4 @@
 ---
 
 - name: restart {{ celery_application_name }}
-  supervisorctl: name={{ celery_application_name }} state=restarted
+  community.general.supervisorctl: name={{ celery_application_name }} state=restarted

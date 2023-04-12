@@ -9,7 +9,7 @@
 # https://stackoverflow.com/questions/24124140/ssh-agent-forwarding-with-ansible
 
 - name: Add ssh agent line to sudoers
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: SSH_AUTH_SOCK
@@ -29,7 +29,7 @@
 - name: Setup the Git repo
   environment:
     TMPDIR: "/var/tmp"
-  git: repo={{ git_repo }}
+  ansible.builtin.git: repo={{ git_repo }}
        version={{ git_branch }}
        dest={{ project_path }}
        accept_hostkey=yes
@@ -38,7 +38,7 @@
   tags: git
 
 - name: Delete all .pyc files
-  command: find . -name '*.pyc' -delete
+  ansible.builtin.command: find . -name '*.pyc' -delete
   args:
     chdir: "{{ project_path }}"
   tags: git

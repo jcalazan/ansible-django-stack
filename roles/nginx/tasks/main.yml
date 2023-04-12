@@ -1,44 +1,51 @@
 ---
 
 - name: Install Nginx
-  apt: name=nginx update_cache={{ update_apt_cache }} state=present
+  ansible.builtin.apt: name=nginx update_cache={{ update_apt_cache }} state=present
   tags: packages
 
 - name: Copy the SSL certificate to the remote server
-  copy: content={{ ssl_crt }} dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.crt
+  ansible.builtin.copy:
+    content={{ ssl_crt }}
+    dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.crt
+    mode="0644"
   notify: restart nginx
   when: not nginx_use_letsencrypt
 
 - name: Copy the SSL private key to the remote server
-  copy: content={{ ssl_key }} dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.key
+  ansible.builtin.copy:
+    content={{ ssl_key }}
+    dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.key
+    mode="0644"
   notify: restart nginx
   when: not nginx_use_letsencrypt
 
 - name: Ensure that a strong Diffie-Hellman group is used
-  command: openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048 creates=/etc/ssl/certs/dhparams.pem
+  ansible.builtin.command: openssl dhparam -out /etc/ssl/certs/dhparams.pem 2048 creates=/etc/ssl/certs/dhparams.pem
   when: nginx_strong_dh_group is defined and nginx_strong_dh_group
 
 - name: Create the Nginx configuration file
-  template: src={{ application_name }}.j2
+  ansible.builtin.template: src={{ application_name }}.j2
             dest=/etc/nginx/sites-available/{{ application_name }}
             backup=yes
+            mode=0644
   notify: reload nginx
 
 - name: Ensure that the default site is disabled
-  file: path=/etc/nginx/sites-enabled/default state=absent
+  ansible.builtin.file: path=/etc/nginx/sites-enabled/default state=absent
   notify: reload nginx
 
 - name: Ensure that the application site is enabled
-  file: src=/etc/nginx/sites-available/{{ application_name }}
+  ansible.builtin.file: src=/etc/nginx/sites-available/{{ application_name }}
         dest=/etc/nginx/sites-enabled/{{ application_name }}
         state=link
   notify: reload nginx
 
 - name: Ensure Nginx service is started
-  service:
+  ansible.builtin.service:
     name: nginx
     state: started
-    enabled: yes
+    enabled: true
     # TODO: This is likely due to a bug in Ansible.
     # Remove this line in the future.
     # See https://github.com/ansible/ansible/issues/75005

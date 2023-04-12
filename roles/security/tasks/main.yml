@@ -1,21 +1,27 @@
 ---
 
-- include: perform_aptitude_dist_upgrade.yml
+- name: Perform aptitude dist-upgrade
+  ansible.builtin.import_tasks: perform_aptitude_dist_upgrade.yml
   when: perform_aptitude_dist_upgrade is defined and perform_aptitude_dist_upgrade
 
-- include: create_non_root_sudo_user.yml
+- name: Create non-root sudo user
+  ansible.builtin.import_tasks: create_non_root_sudo_user.yml
   when: server_user != "root"
 
-- include: force_ssh_authentication.yml
+- name: Force SSH Authentication
+  ansible.builtin.import_tasks: force_ssh_authentication.yml
   when: force_ssh_authentication is defined and force_ssh_authentication
 
-- include: setup_unattended_upgrades.yml
+- name: Setup Unattended Upgrades
+  ansible.builtin.import_tasks: setup_unattended_upgrades.yml
   when: enable_unattended_upgrades is defined and enable_unattended_upgrades
 
-- include: setup_uncomplicated_firewall.yml
+- name: Setup uncomplicated firewall
+  ansible.builtin.import_tasks: setup_uncomplicated_firewall.yml
   when: enable_ufw is defined and enable_ufw
   # TODO: Re-enable this test when we figure out how to integrate ipv6 support with GitHub Actions.
   tags: molecule-notest
 
-- include: setup_fail2ban.yml
+- name: Setup Fail2Ban
+  ansible.builtin.import_tasks: setup_fail2ban.yml
   when: enable_fail2ban is defined and enable_fail2ban

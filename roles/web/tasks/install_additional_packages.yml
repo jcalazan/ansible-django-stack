@@ -1,13 +1,13 @@
 ---
 
 - name: Add deadsnakes team New Python Versions PPA to the apt sources list
-  apt_repository: repo='ppa:deadsnakes/ppa'
+  ansible.builtin.apt_repository: repo='ppa:deadsnakes/ppa'
                   update_cache={{ update_apt_cache }}
                   state=present
   when: enable_deadsnakes_ppa
 
 - name: Install additional packages
-  apt:
+  ansible.builtin.apt:
     update_cache: "{{ update_apt_cache }}"
     state: present
     name:
