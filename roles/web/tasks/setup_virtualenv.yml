@@ -77,7 +77,7 @@
             group={{ gunicorn_group }}
             mode=0640
             backup=yes
-  notify: restart application
+  notify: Restart application
   tags: deploy
 
 - name: Create the maintenance page
