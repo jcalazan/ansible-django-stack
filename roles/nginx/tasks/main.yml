@@ -29,17 +29,17 @@
             dest=/etc/nginx/sites-available/{{ application_name }}
             backup=yes
             mode=0644
-  notify: reload nginx
+  notify: Reload nginx
 
 - name: Ensure that the default site is disabled
   ansible.builtin.file: path=/etc/nginx/sites-enabled/default state=absent
-  notify: reload nginx
+  notify: Reload nginx
 
 - name: Ensure that the application site is enabled
   ansible.builtin.file: src=/etc/nginx/sites-available/{{ application_name }}
         dest=/etc/nginx/sites-enabled/{{ application_name }}
         state=link
-  notify: reload nginx
+  notify: Reload nginx
 
 - name: Ensure Nginx service is started
   ansible.builtin.service:
