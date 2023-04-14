@@ -50,7 +50,6 @@
                    name={{ db_user }}
                    password={{ db_password }}
                    encrypted=yes
-                   priv=ALL
                    state=present
 
 # If objs is omitted for type "database", it defaults to the database
