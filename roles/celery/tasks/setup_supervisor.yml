@@ -22,10 +22,7 @@
     group: "{{ celery_group }}"
     state: directory
     mode: "0644"
-    # Set to `preserve` to make sure the task is idempotent.
-    # See https://github.com/ansible/ansible/issues/30226#issuecomment-433643224
-    access_time: preserve
-    modification_time: preserve
+  changed_when: false
 
 - name: Check for an existing celery logfile
   ansible.builtin.stat:
