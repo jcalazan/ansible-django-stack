@@ -53,6 +53,17 @@
                    priv=ALL
                    state=present
 
+# If objs is omitted for type "database", it defaults to the database
+# to which the connection is established
+- name: Grant database privileges to the user.
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_privs:
+    db: "{{ db_name }}"
+    privs: ALL
+    type: database
+    role: "{{ db_user }}"
+
 - name: Ensure user does not have unnecessary privileges
   become: true
   become_user: postgres
