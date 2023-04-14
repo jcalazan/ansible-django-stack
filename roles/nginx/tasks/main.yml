@@ -9,7 +9,7 @@
     content={{ ssl_crt }}
     dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.crt
     mode="0644"
-  notify: restart nginx
+  notify: Restart nginx
   when: not nginx_use_letsencrypt
 
 - name: Copy the SSL private key to the remote server
@@ -17,7 +17,7 @@
     content={{ ssl_key }}
     dest={{ nginx_ssl_dest_dir }}/{{ application_name }}.key
     mode="0644"
-  notify: restart nginx
+  notify: Restart nginx
   when: not nginx_use_letsencrypt
 
 - name: Ensure that a strong Diffie-Hellman group is used
