@@ -44,11 +44,17 @@
   tags: deploy
 
 - name: Create the application log folder
-  ansible.builtin.file: path={{ application_log_dir }}
-        owner={{ gunicorn_user }}
-        group={{ gunicorn_group }}
-        mode=0774
-        state=directory
+  ansible.builtin.file:
+    path: "{{ application_log_dir }}"
+    owner: "{{ gunicorn_user }}"
+    group: "{{ gunicorn_group }}"
+    mode: "0774"
+    state: directory
+    # Set to `preserve` to make sure the task is idempotent.
+    # See https://github.com/ansible/ansible/issues/30226#issuecomment-433643224
+    access_time: preserve
+    modification_time: preserve
+
 
 - name: Check for an existing application logfile
   ansible.builtin.stat:

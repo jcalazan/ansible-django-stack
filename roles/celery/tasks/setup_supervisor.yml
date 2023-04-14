@@ -16,11 +16,16 @@
             mode=0644
 
 - name: Create the log directory for {{ celery_application_name }}
-  ansible.builtin.file: path={{ celery_log_dir }}
-        owner={{ celery_user }}
-        group={{ celery_group }}
-        state=directory
-        mode=0644
+  ansible.builtin.file:
+    path: "{{ celery_log_dir }}"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    state: directory
+    mode: "0644"
+    # Set to `preserve` to make sure the task is idempotent.
+    # See https://github.com/ansible/ansible/issues/30226#issuecomment-433643224
+    access_time: preserve
+    modification_time: preserve
 
 - name: Check for an existing celery logfile
   ansible.builtin.stat:
