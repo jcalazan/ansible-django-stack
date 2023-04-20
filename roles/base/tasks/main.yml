@@ -20,7 +20,6 @@
       - locales
       - build-essential
       - acl
-      - ntp
       - htop
       - git
       - "{{ base_python_package }}-pip"
