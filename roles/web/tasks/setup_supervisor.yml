@@ -1,19 +1,20 @@
 ---
 
 - name: Ensure the Supervisor service is running
-  service:
+  ansible.builtin.service:
     name: supervisor
     state: started
-    enabled: yes
+    enabled: true
     # TODO: This is likely due to a bug in Ansible.
     # Remove this line in the future.
     # See https://github.com/ansible/ansible/issues/75005
     use: sysvinit
 
 - name: Create the Supervisor config file
-  template: src=supervisor_config.j2
+  ansible.builtin.template: src=supervisor_config.j2
             dest=/etc/supervisor/conf.d/{{ application_name }}.conf
             backup=yes
+            mode="0644"
 
 - name: Re-read the Supervisor config files
-  supervisorctl: name={{ application_name }} state=present
+  community.general.supervisorctl: name={{ application_name }} state=present

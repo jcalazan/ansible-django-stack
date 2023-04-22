@@ -1,4 +1,4 @@
 ---
 
 - name: restart memcached
-  service: name=memcached state=restarted enabled=yes
+  ansible.builtin.service: name=memcached state=restarted enabled=yes

@@ -4,13 +4,16 @@ dependency:
 driver:
   name: docker
 lint: |
+  set -e
   yamllint .
+  ansible-lint
+  flake8
 platforms:
-  - name: instance-xenial
+  - name: instance-jammy
     groups:
       - vagrant
     image: ubuntu
-    image_version: xenial
+    image_version: jammy
     privileged: true
   - name: instance-focal
     groups:
@@ -20,14 +23,10 @@ platforms:
     privileged: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   env:
     ANSIBLE_ROLES_PATH: ../../roles/
   inventory:
     links:
       group_vars: ../../group_vars/
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible

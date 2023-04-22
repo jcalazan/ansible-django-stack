@@ -1,22 +1,26 @@
 ---
 
 - name: Install Memcached
-  apt: name=memcached update_cache={{ update_apt_cache }} state=present
+  ansible.builtin.apt:
+    name: memcached
+    update_cache: "{{ update_apt_cache }}"
+    state: present
   tags: packages
 
 - name: Create the Memcached configuration file
-  template: src=memcached.conf.j2
-            dest=/etc/memcached.conf
-            mode=0644
-            backup=yes
+  ansible.builtin.template:
+    src: memcached.conf.j2
+    dest: /etc/memcached.conf
+    mode: "0644"
+    backup: true
   notify:
     - restart memcached
 
 - name: Ensure the Memcached service is running
-  service:
+  ansible.builtin.service:
     name: memcached
     state: started
-    enabled: yes
+    enabled: true
     # TODO: This is likely due to a bug in Ansible.
     # Remove this line in the future.
     # See https://github.com/ansible/ansible/issues/75005

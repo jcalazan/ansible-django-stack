@@ -1,13 +1,13 @@
 ---
 
 - name: Install packages required by the Django app inside virtualenv
-  pip:
+  ansible.builtin.pip:
     virtualenv: "{{ virtualenv_path }}"
     requirements: "{{ requirements_file }}"
     extra_args: "{{ pip_use_upgrade_flag | ternary('--upgrade', omit) }}"
 
 - name: Run the Django syncdb command
-  django_manage:
+  community.general.django_manage:
     command: syncdb
     app_path: "{{ project_path }}"
     virtualenv: "{{ virtualenv_path }}"
@@ -17,7 +17,7 @@
   tags: django.syncdb
 
 - name: Run Django database migrations
-  django_manage:
+  community.general.django_manage:
     command: migrate
     app_path: "{{ project_path }}"
     virtualenv: "{{ virtualenv_path }}"
@@ -27,12 +27,12 @@
   tags: django.migrate
 
 - name: Run Django collectstatic
-  django_manage:
+  community.general.django_manage:
     command: collectstatic
     app_path: "{{ project_path }}"
     virtualenv: "{{ virtualenv_path }}"
     settings: "{{ django_settings_file }}"
   environment: "{{ django_environment }}"
   when: run_django_collectstatic is defined and run_django_collectstatic
-  notify: restart application
+  notify: Restart application
   tags: django.collectstatic

@@ -1,3 +1,12 @@
+---
+
 skip_list:
  - ANSIBLE0006
  - ANSIBLE0012
+ # TODO: Remove free-form from the repo.
+ - no-free-form
+ - name[missing]
+ # TODO: Fix this.
+ - name[casing]
+ # TODO: Test removing this from each task and see if there is a workaround.
+ - no-changed-when

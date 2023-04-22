@@ -11,7 +11,7 @@ application_name: django_default_project
 #
 # More info here: https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes
 enable_deadsnakes_ppa: true
-virtualenv_python_version: python3.9
+virtualenv_python_version: python3.11
 
 
 # Git settings.
