@@ -5,6 +5,7 @@
     virtualenv: "{{ virtualenv_path }}"
     requirements: "{{ requirements_file }}"
     extra_args: "{{ pip_use_upgrade_flag | ternary('--upgrade', omit) }}"
+  notify: Restart application
 
 - name: Run the Django syncdb command
   community.general.django_manage:
