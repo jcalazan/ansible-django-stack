@@ -23,7 +23,7 @@ Environment-specific settings are in the `group_vars` directory.
 A `certbot` role is also included for automatically generating and renewing
 trusted SSL certificates with [Let's Encrypt][lets-encrypt].
 
-**Tested with OS:** Ubuntu 18.04 LTS (64-bit), Ubuntu 16.04 LTS (64-bit).
+**Tested with OS:** Ubuntu 22.04 LTS (64-bit), Ubuntu 20.04 LTS (64-bit).
 
 **Tested with Cloud Providers:** [Digital Ocean][digital-ocean], [AWS][aws], [Rackspace][rackspace]
 
@@ -313,9 +313,9 @@ to run during deployment in most Django environments.
 
 ### Changing the Ubuntu release
 
-The [Vagrantfile](Vagrantfile) uses the Ubuntu 20.04 LTS Vagrant box for a
+The [Vagrantfile](Vagrantfile) uses the Ubuntu 22.04 LTS Vagrant box for a
 64-bit PC that is published by Canonical in HashiCorp Atlas. To use Ubuntu
-18.04 LTS instead, change the `config.vm.box` setting to `ubuntu/bionic64`.
+20.04 LTS instead, change the `config.vm.box` setting to `ubuntu/focal64`.
 
 ### Changing the Python version used by your application
 

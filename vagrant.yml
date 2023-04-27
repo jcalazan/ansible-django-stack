@@ -8,7 +8,7 @@
   vars:
     update_apt_cache: true
   module_defaults:
-    apt:
+    ansible.builtin.apt:
       force_apt_get: true
 
   roles:

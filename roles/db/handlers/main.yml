@@ -1,4 +1,4 @@
 ---
 
-- name: restart postgresql
-  service: name=postgresql state=restarted enabled=yes
+- name: Restart postgresql
+  ansible.builtin.service: name=postgresql state=restarted enabled=yes

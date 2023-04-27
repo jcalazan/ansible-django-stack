@@ -6,11 +6,11 @@
   become_user: root
   remote_user: root
   vars:
-    - update_apt_cache: true
+    update_apt_cache: true
   vars_files:
     - roles/base/defaults/main.yml
   module_defaults:
-    apt:
+    ansible.builtin.apt:
       force_apt_get: true
 
   roles:

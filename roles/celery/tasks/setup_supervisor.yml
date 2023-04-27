@@ -1,42 +1,47 @@
 ---
 
 - name: Ensure the Supervisor service is running
-  service:
+  ansible.builtin.service:
     name: supervisor
     state: started
-    enabled: yes
+    enabled: true
     # TODO: This is likely due to a bug in Ansible.
     # Remove this line in the future.
     # See https://github.com/ansible/ansible/issues/75005
     use: sysvinit
 
 - name: Create the Supervisor config file for {{ celery_application_name }}
-  template: src=supervisor_{{ celery_application_name }}.conf.j2
+  ansible.builtin.template: src=supervisor_{{ celery_application_name }}.conf.j2
             dest=/etc/supervisor/conf.d/{{ celery_application_name }}.conf
+            mode=0644
 
-- name: Create the {{ celery_application_name }} log directory
-  file: path={{ celery_log_dir }}
-        owner={{ celery_user }}
-        group={{ celery_group }}
-        state=directory
+- name: Create the log directory for {{ celery_application_name }}
+  ansible.builtin.file:
+    path: "{{ celery_log_dir }}"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    state: directory
+    mode: "0644"
+  changed_when: false
 
 - name: Check for an existing celery logfile
-  stat:
+  ansible.builtin.stat:
     path: "{{ celery_log_file }}"
   register: p
 
-- name: Create (or retain) the {{ celery_application_name }} log file
+- name: Create (or retain) the log file for {{ celery_application_name }}
   # Removing until https://github.com/ansible/ansible/issues/45530 gets resolved.
-  # copy: content=""
+  # ansible.builtin.copy: content=""
   #       dest={{ celery_log_file }}
   #       owner={{ celery_user }}
   #       group={{ celery_group }}
   #       force=no
-  file:
+  ansible.builtin.file:
     path: "{{ celery_log_file }}"
     owner: "{{ celery_user }}"
     group: "{{ celery_group }}"
-    state: '{{ "file" if  p.stat.exists else "touch" }}'
+    state: '{{ "file" if p.stat.exists else "touch" }}'
+    mode: "0644"
 
 - name: Re-read the Supervisor config files
-  supervisorctl: name={{ celery_application_name }} state=present
+  community.general.supervisorctl: name={{ celery_application_name }} state=present

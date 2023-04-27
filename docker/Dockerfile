@@ -1,5 +1,5 @@
 # Use the official Ubuntu 20.04 base image from the Docker repository
-FROM ubuntu:focal
+FROM ubuntu:jammy
 
 # Allow processes to detect that they are being run in a container
 ENV container oci

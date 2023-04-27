@@ -9,7 +9,7 @@
 # https://stackoverflow.com/questions/24124140/ssh-agent-forwarding-with-ansible
 
 - name: Add ssh agent line to sudoers
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/sudoers
     state: present
     regexp: SSH_AUTH_SOCK
@@ -17,28 +17,23 @@
   when: ssh_forward_agent is defined and ssh_forward_agent
   tags: git
 
-# The git module calls python's tempfile.mkstemp() which uses the TMPDIR
-# environment variable. However this is set to /tmp which is mounted as
-# noexec. As a result the git command will fail. The solution is to set
-# TMPDIR to point to some other suitable location. Here we use /var/tmp
-# but any suitable location will do.
-#
-# https://github.com/ansible/ansible/issues/30064
-# https://docs.python.org/dev/library/tempfile.html?highlight=mkstemp#tempfile.tempdir
-
 - name: Setup the Git repo
-  environment:
-    TMPDIR: "/var/tmp"
-  git: repo={{ git_repo }}
-       version={{ git_branch }}
-       dest={{ project_path }}
-       accept_hostkey=yes
+  # Specifying user to prevent Git directory ownership warnings, via this SO question:
+  # https://stackoverflow.com/a/73356197/2532070
+  # The question says this does not work but it does seem to work.
+  become_user: "{{ gunicorn_user }}"
+  become: true
+  ansible.builtin.git:
+    repo: "{{ git_repo }}"
+    version: "{{ git_branch }}"
+    dest: "{{ project_path }}"
+    accept_hostkey: true
   when: setup_git_repo is defined and setup_git_repo
-  notify: restart application
+  notify: Restart application
   tags: git
 
 - name: Delete all .pyc files
-  command: find . -name '*.pyc' -delete
+  ansible.builtin.command: find . -name '*.pyc' -delete
   args:
     chdir: "{{ project_path }}"
   tags: git
