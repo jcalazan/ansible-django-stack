@@ -1,6 +1,10 @@
 ---
 name: Molecule Test
-on: [push, pull_request]  # yamllint disable-line rule:truthy
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '30 5 * * 0'
 jobs:
   build:
     runs-on: ubuntu-latest
