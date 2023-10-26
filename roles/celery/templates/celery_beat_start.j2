@@ -1,0 +1,11 @@
+#!/bin/sh
+
+DJANGODIR={{ project_path }}
+
+# Activate the virtual environment.
+cd $DJANGODIR
+. {{ virtualenv_path }}/bin/activate
+. {{ virtualenv_path }}/bin/postactivate
+
+# require to install djang_celery_beat package: https://github.com/celery/django-celery-beat
+exec celery -A {{ application_name }} beat -l info -S django

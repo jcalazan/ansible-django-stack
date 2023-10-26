@@ -53,6 +53,7 @@ rabbitmq_application_password: password
 
 # Celery settings.
 celery_num_workers: 2
+use_celery_beat: false
 
 
 # Application settings.

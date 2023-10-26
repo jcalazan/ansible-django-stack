@@ -45,3 +45,30 @@
 
 - name: Re-read the Supervisor config files
   community.general.supervisorctl: name={{ celery_application_name }} state=present
+
+- name: Create the Supervisor config file for {{ celery_beat_application_name }}
+  ansible.builtin.template: src=supervisor_{{ celery_beat_application_name }}.conf.j2
+            dest=/etc/supervisor/conf.d/{{ celery_beat_application_name }}.conf
+            mode=0644
+
+- name: Check for an existing celery_beat logfile
+  ansible.builtin.stat:
+    path: "{{ celery_beat_log_file }}"
+  register: b
+
+- name: Create (or retain) the log file for {{ celery_beat_application_name }}
+  # Removing until https://github.com/ansible/ansible/issues/45530 gets resolved.
+  # ansible.builtin.copy: content=""
+  #       dest={{ celery_beat_log_file }}
+  #       owner={{ celery_user }}
+  #       group={{ celery_group }}
+  #       force=no
+  ansible.builtin.file:
+    path: "{{ celery_beat_log_file }}"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    state: '{{ "file" if b.stat.exists else "touch" }}'
+    mode: "0644"
+
+- name: Re-read the Supervisor celery_beat config files
+  community.general.supervisorctl: name={{ celery_beat_application_name }} state=present
