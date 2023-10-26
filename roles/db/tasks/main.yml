@@ -63,6 +63,16 @@
     type: database
     role: "{{ db_user }}"
 
+- name: Grant schema public to the user.
+  become: true
+  become_user: postgres
+  community.postgresql.postgresql_privs:
+    db: "{{ db_name }}"
+    privs: ALL
+    type: schema
+    objs: public
+    role: "{{ db_user }}"
+
 - name: Ensure user does not have unnecessary privileges
   become: true
   become_user: postgres

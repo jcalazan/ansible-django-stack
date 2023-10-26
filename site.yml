@@ -1,5 +1,5 @@
 ---
 
-- ansible.builtin.import_tasks: dbservers.yml
+- ansible.builtin.import_playbook: dbservers.yml
 
-- ansible.builtin.import_tasks: webservers.yml
+- ansible.builtin.import_playbook: webservers.yml
