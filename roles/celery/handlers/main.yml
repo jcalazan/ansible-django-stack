@@ -2,3 +2,7 @@
 
 - name: restart {{ celery_application_name }}
   community.general.supervisorctl: name={{ celery_application_name }} state=restarted
+
+- name: Restart {{ celery_beat_application_name }}
+  community.general.supervisorctl: name={{ celery_beat_application_name }} state=restarted
+  when: use_celery_beat is defined

@@ -12,5 +12,9 @@ celery_application_name: celery
 celery_scripts_dir: "{{ virtualenv_path }}/scripts/celery"
 celery_template_file: "{{ celery_application_name }}_start.j2"
 
+celery_beat_application_name: celery_beat
+celery_beat_template_file: "{{ celery_beat_application_name }}_start.j2"
+
 celery_log_dir: "{{ virtualenv_path }}/logs"
 celery_log_file: "{{ celery_log_dir }}/{{ celery_application_name }}.log"
+celery_beat_log_file: "{{ celery_log_dir }}/{{ celery_beat_application_name }}.log"
