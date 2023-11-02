@@ -21,7 +21,7 @@
     owner: "{{ celery_user }}"
     group: "{{ celery_group }}"
     state: directory
-    mode: "0774"
+    mode: "0664"
   changed_when: false
 
 - name: Check for an existing celery logfile
