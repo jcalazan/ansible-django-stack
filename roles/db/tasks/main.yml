@@ -68,7 +68,7 @@
   become_user: postgres
   community.postgresql.postgresql_privs:
     db: "{{ db_name }}"
-    privs: ALL
+    privs: USAGE
     type: schema
     objs: public
     role: "{{ db_user }}"
