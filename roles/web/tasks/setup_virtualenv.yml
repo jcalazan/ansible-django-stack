@@ -3,7 +3,7 @@
 - name: Install virtualenv
   ansible.builtin.pip:
     name: virtualenv
-    version: 15.1.0
+    version: 20.24.6
   tags: packages
 
 - name: Check if Supervisor exists
