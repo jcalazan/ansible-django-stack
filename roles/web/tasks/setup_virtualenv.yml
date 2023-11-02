@@ -48,7 +48,7 @@
     path: "{{ application_log_dir }}"
     owner: "{{ gunicorn_user }}"
     group: "{{ gunicorn_group }}"
-    mode: "0774"
+    mode: "0664"
     state: directory
   changed_when: false
 
