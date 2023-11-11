@@ -19,8 +19,6 @@
 - name: Setup uncomplicated firewall
   ansible.builtin.import_tasks: setup_uncomplicated_firewall.yml
   when: enable_ufw is defined and enable_ufw
-  # TODO: Re-enable this test when we figure out how to integrate ipv6 support with GitHub Actions.
-  tags: molecule-notest
 
 - name: Setup Fail2Ban
   ansible.builtin.import_tasks: setup_fail2ban.yml
