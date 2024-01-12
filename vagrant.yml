@@ -7,6 +7,8 @@
   remote_user: vagrant
   vars:
     update_apt_cache: true
+  vars_files:
+    - group_vars/vagrant/vars.yml
   module_defaults:
     ansible.builtin.apt:
       force_apt_get: true
